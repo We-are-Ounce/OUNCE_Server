@@ -25,6 +25,7 @@ const search = {
         
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, result));
     }
+
 }
 
 module.exports = search;
