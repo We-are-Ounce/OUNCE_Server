@@ -63,7 +63,7 @@ const review = {
         }
     },
     myReviewFilter : async (foodManu, foodDry, foodMeat, profileIdx) => {
-        //query에서 foodMeat 가져오는 부분에서 오류
+        //query에서 foodMeat 가져오는 부분 합집합과 교집합 성공한거같아,,,
         const query = `SELECT review.reviewIdx, food.foodImg, food.foodManu, food.foodName, review.reviewInfo, review.reviewRating, review.reviewPrefer, review.createdAt FROM review join food on review.foodIdx = food.foodIdx where review.profileIdx="${profileIdx}" and ((food.foodManu IN (${foodManu})) and (food.foodDry IN (${foodDry})) and ((food.foodMeat1 IN (${foodMeat}) or (food.foodMeat2 IN (${foodMeat})))));` 
         console.log(query);
         try {
