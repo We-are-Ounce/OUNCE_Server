@@ -61,6 +61,17 @@ const review = {
             console.log(' myReviewManu error: ', err);
             throw err;
         }
+    },
+    myReviewFilter : async (foodManu, foodDry, foodMeat, profileIdx) => {
+        const query = `SELECT review.reviewIdx, food.foodManu FROM review join food on review.foodIdx = food.foodIdx where review.profileIdx="${profileIdx}" and (food.foodManu in ("${foodManu}") or food.foodDry IN ("${foodDry}") or food.foodMeat IN ("${foodMeat}"));` 
+        console.log(query);
+        try {
+            const result = await pool.queryParamArr(query);
+            return result;
+        } catch (err) {
+            console.log(' myReviewFilter error: ', err);
+            throw err;
+        }
     }
 }
 

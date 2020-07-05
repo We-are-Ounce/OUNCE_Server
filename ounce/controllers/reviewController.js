@@ -46,7 +46,23 @@ module.exports ={
         //내 계정 중 선택된 고양이 별 내가 쓴 리뷰 제조사만 필터링
         myReviewManu: async(req, res)=>{
             const profileIdx = req.params.profileIdx;
-            const idx = await Review.myReviewOne(profileIdx);
+            const idx = await Review.myReviewManu(profileIdx);
+            return res.status(statusCode.OK)
+            .send(util.success(statusCode.OK, resMessage.READ_POST_SUCCESS, idx));
+        } ,
+
+        //내가 쓴 리뷰 필터링 조건 받아왔을 때 처리부분
+        myReviewFilter: async(req, res)=>{
+            var {foodManu, foodDry, foodMeat} = req.body;
+            console.log(foodManu, foodDry, foodMeat);
+            if (foodManu.length!=0){
+            foodManu = foodManu.join('","');
+            }
+            if (foodMeat.length!=0){
+            foodMeat = foodMeat.join('","');
+            }
+            const profileIdx = req.params.profileIdx;
+            const idx = await Review.myReviewFilter(foodManu, foodDry, foodMeat,profileIdx);
             return res.status(statusCode.OK)
             .send(util.success(statusCode.OK, resMessage.READ_POST_SUCCESS, idx));
         }
