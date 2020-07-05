@@ -65,6 +65,11 @@ module.exports ={
             }else{
                 foodMeat = `SELECT foodMeat FROM food`
             }
+            if (foodDry.length==0){
+                foodDry = `SELECT foodDry FROM food`
+            } else{
+                foodDry = '"'+foodDry.join('","')+'"';
+            }
             const profileIdx = req.params.profileIdx;
             const idx = await Review.myReviewFilter(foodManu, foodDry, foodMeat,profileIdx);
             return res.status(statusCode.OK)

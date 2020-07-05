@@ -63,7 +63,8 @@ const review = {
         }
     },
     myReviewFilter : async (foodManu, foodDry, foodMeat, profileIdx) => {
-        const query = `SELECT review.reviewIdx, food.foodManu FROM review join food on review.foodIdx = food.foodIdx where review.profileIdx="${profileIdx}" and (food.foodManu in (${foodManu}) or food.foodDry IN ("${foodDry}") or food.foodMeat IN ("${foodMeat}"));` 
+        //query에서 foodMeat 가져오는 부분에서 오류
+        const query = `SELECT review.reviewIdx, food.foodImg, food.foodManu, food.foodName, review.reviewInfo, review.reviewRating, review.reviewPrefer, review.createdAt FROM review join food on review.foodIdx = food.foodIdx where review.profileIdx="${profileIdx}" and ((food.foodManu IN (${foodManu})) and (food.foodDry IN (${foodDry})) an (food.foodMeat IN (${foodMeat})));` 
         console.log(query);
         try {
             const result = await pool.queryParamArr(query);
