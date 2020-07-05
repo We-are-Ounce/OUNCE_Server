@@ -56,10 +56,14 @@ module.exports ={
             var {foodManu, foodDry, foodMeat} = req.body;
             console.log(foodManu, foodDry, foodMeat);
             if (foodManu.length!=0){
-            foodManu = foodManu.join('","');
+            foodManu = '"'+foodManu.join('","')+'"';
+            } else{
+                foodManu = `SELECT foodManu FROM food`
             }
             if (foodMeat.length!=0){
-            foodMeat = foodMeat.join('","');
+            foodMeat = '"'+foodMeat.join('","')+'"';
+            }else{
+                foodMeat = `SELECT foodMeat FROM food`
             }
             const profileIdx = req.params.profileIdx;
             const idx = await Review.myReviewFilter(foodManu, foodDry, foodMeat,profileIdx);
