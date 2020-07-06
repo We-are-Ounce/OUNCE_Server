@@ -20,12 +20,6 @@ const search = {
             // 한글을 제대로 쳤다면
             if (Hangul.isComplete(keyword)) {
                 let result = await searchKey.foodSearch(keyword);
-
-                // 검색한 결과가 존재하지 않을 때
-                if (result.length === 0) {
-                    res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.NO_SEARCH, result));
-                    return;
-                }
                 
                 // 검색한 결과가 존재할 때 
                 res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, result));
@@ -46,13 +40,6 @@ const search = {
                         }
                     }
 
-                    // 검색결과가 존재하지 않을 때
-                    if (foodData.length === 0) {
-                        res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.NO_SEARCH, foodData));
-                        return;
-                    }
-
-                    // 
                     res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, foodData));
                     return;
                 }
@@ -60,7 +47,7 @@ const search = {
                 else if (!Hangul.isConsonant(keyword)) {
                     // 모음일 때
                     res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.NO_SEARCH, {
-                        
+
                     }));
 
                     return;
@@ -69,15 +56,7 @@ const search = {
                 else {
                     // 오타일 때 처리해주기
                     const errorKeyword = Hangul.a(Hangul.d(keyword));
-                    console.log(errorKeyword);
                     const resultKeyword = await searchKey.foodSearch(keyword);
-
-                    // 검색한 결과가 존재하지 않을 때
-                    if (result.length === 0) {
-                        res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.NO_SEARCH, result));
-                        return;
-                    }
-
 
                     res.status(status.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, resultKeyword));
                     return;
@@ -87,23 +66,36 @@ const search = {
 
         // 검색키워드가 영어일 떄
         else {
+            // 영어단어로 검색해서 존재하는지 테스트 먼저 해보기
+            const engKeyword = await searchKey.foodSearch(keyword);
+            // 영어를 한글로 변환함 
+            const result = inko.en2ko(keyword);
+
+            // 영어단어가 존재하지 않을 때 
+            if (engKeyword.length === 0) {
             
+                // 한글을 제대로 쳤다면
+                if (Hangul.isComplete(result)) {
+                    console.log(result);
+                    const EngKeyword = await searchKey.foodSearch(result);
+            
+                    // 검색한 결과가 존재할 때 
+                    res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, EngKeyword));
+                    return;
+                }
+
+                // 한글이 미완성 상태라면
+                else {
+                          
+                }
+                // 영어 단어가 이름 or 제조사로 존재할 때 (한글을 영어로 오타친게 아닐 경우)
+            } else {
+                res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, engKeyword));
+                return;
+            }
         }
+
  
-        const beforeResult = await searchKey.foodSearch(keyword);
-        if (beforeResult.length > 0) {
-            res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, beforeResult));
-            return;
-        }
-
-        // 만약 영어로 검색했는데 그게 오타인 이름 체크 => 영어를 한글로 변환해주는 라이브러리
-        keyword = inko.en2ko(keyword);
-    
-        
-        const result = await searchKey.foodSearch(keyword);
-
-
-        res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, result));
     },
 
     reviewAdd : async(req, res) => {
