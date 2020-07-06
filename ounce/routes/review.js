@@ -8,7 +8,7 @@ router.get('/:profileIdx/category', reviewControllers.myReviewManu);
 router.get('/:profileIdx/filter', reviewControllers.myReviewFilter);
 
 //내 계정 중 선택된 고양이 별 내가 쓴 리뷰 하나 클릭 시 상세 조회
-router.get('/myreview/:reviewIdx', reviewControllers.myReviewOne);
+router.get('/detail/:reviewIdx', reviewControllers.myReviewOne);
 
 //내 계정 중 선택된 고양이 별 내가 쓴 리뷰 전체 조회
 router.get('/:profileIdx', reviewControllers.myReviewAll);
