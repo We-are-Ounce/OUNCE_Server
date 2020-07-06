@@ -7,6 +7,6 @@ const searchController = require('../controllers/searchController');
 
 // 캣 푸드 이름으로 검색
 router.post('/food', searchController.searchFood);
-
+router.post('/user', searchController.searchUser);
 
 module.exports = router;
