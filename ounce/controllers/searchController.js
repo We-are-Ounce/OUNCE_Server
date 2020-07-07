@@ -100,6 +100,12 @@ const search = {
     // 유저검색
     searchUser : async(req, res) => {
         const {userId} = req.body;
+
+        // id를 넘겨주지 않을 때
+        if (!userId) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+            return;
+        } 
         
         const result = await searchKey.userSearch(userId);
 
@@ -109,7 +115,23 @@ const search = {
         }
         
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_USER, result))   
-    }
+    },
+
+    // 리뷰 등록
+    reviewAll : async(req, res) => {
+        const foodIdx = req.params.foodIdx;
+        console.log(foodIdx);
+
+        // foodIdx가 넘어오지 않았을 때
+        if (!foodIdx) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+            return;
+        }
+
+        const result = await searchKey.reviewALL(foodIdx);
+
+        res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_REVIEW_DETAIL, result));
+    },
 }
 
 module.exports = search;

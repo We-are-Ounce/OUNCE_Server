@@ -5,7 +5,7 @@ const util = require('../modules/util');
 const statusCode = require('../modules/statusCode');
 const reviewController = require('../controllers/reviewController');
 
-router.get('/detail/:foodIdx', reviewController.reviewDetail);
+// search reviewALl 
 router.post('/add', reviewController.reviewAdd);
 
 module.exports = router;
