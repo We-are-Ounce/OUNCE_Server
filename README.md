@@ -78,7 +78,7 @@
 <table>
     <tr align="center">
         <td><B>팀원<B></td>
-        <td width="100"><B>역할<B></td>
+        <td width="200"><B>역할<B></td>
         <td><B>개인 목표<B></td>
     </tr>
     <tr align="center">
@@ -87,7 +87,7 @@
             <br>
             <a href="https://github.com/Jeong-Hyowon"><I>정효원</I></a>
         </td>
-        <td width="100">필터,정렬,추천</a></td>
+        <td width="200">필터,정렬,추천</a></td>
         <td>대상</td>
     </tr>
     <tr align="center">
@@ -96,7 +96,7 @@
             <br>
             <a href="https://github.com/yezgoget"><I>손예지</I></a>
         </td>
-        <td width="100">유저,프로필</a></td>
+        <td width="200">유저,프로필</a></td>
         <td>인기상</td>
     </tr>
     <tr align="center">
@@ -105,7 +105,7 @@
             <br>
             <a href="https://github.com/wjdrbs96"><I>최정균</I></a>
         </td>
-        <td width="100">검색</a></td>
+        <td width="200">검색</a></td>
         <td>MVP</td>
     </tr>
 </table>
