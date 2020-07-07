@@ -10,4 +10,7 @@ router.post('/food', searchController.searchFood);
 // 유저 검색
 router.post('/user', searchController.searchUser);
 
+// search/review;
+
+
 module.exports = router;

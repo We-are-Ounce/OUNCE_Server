@@ -4,7 +4,7 @@ const pool = require('../modules/pool');
 const search = {
     // 캣푸드 제조사 or 이름으로 검색 
     foodSearch : async(foodName, foodManu) => {    
-        const query = `SELECT f.foodIdx, f.foodMeat, f.foodMeat1, f.foodDry, f.foodImg, f.foodManu, f.foodName, count(r.reviewIdx) as reviewCount, r.reviewIdx, r.reviewInfo, round(avg(r.reviewRating), 1) as avgRating, round(avg(r.reviewPrefer), 1) as avgPrefer FROM food f LEFT JOIN review r ON f.foodIdx = r.foodIdx WHERE f.foodName Like "%${foodName}%" or f.foodManu Like "%${foodManu}%" GROUP BY f.foodIdx`;
+        const query = `SELECT f.foodIdx, f.foodMeat, f.foodDry, f.foodImg, f.foodManu, f.foodName, f.foodLink,  count(r.reviewIdx) as reviewCount, r.reviewIdx, r.reviewInfo, round(avg(r.reviewRating), 1) as avgRating, round(avg(r.reviewPrefer), 1) as avgPrefer FROM food f LEFT JOIN review r ON f.foodIdx = r.foodIdx WHERE f.foodName Like "%${foodName}%" or f.foodManu Like "%${foodManu}%" GROUP BY f.foodIdx`;
         try {
             const result = await pool.queryParam(query);
             return result;
@@ -15,7 +15,7 @@ const search = {
     },
 
     userSearch : async(userId) => {
-        const query = `SELECT u.userIdx, u.id, p.profileImg, p.profileName, p.profileInfo FROM user u JOIN profile p ON u.userIdx = p.userIdx WHERE u.id Like "%${userId}%"`;
+        const query = `SELECT u.userIdx, u.id, p.profileIdx, p.profileImg, p.profileName, p.profileInfo FROM user u JOIN profile p ON u.userIdx = p.userIdx WHERE u.id Like "%${userId}%"`;
         try {
             const result = await pool.queryParam(query);
             return result;
@@ -36,18 +36,6 @@ const search = {
         }
     },
 
-    // 캣푸드 제조사 or 이름으로 검색 (자음이 들어왔을 떄 ) 
-    foodConsonantSearch : async(foodName, foodManu) => {    
-        const query = `SELECT f.foodIdx, f.foodImg, f.foodManu, f.foodName, count(f.foodIdx) as reviewCount, r.reviewIdx, r.reviewRating, r.reviewPrefer FROM food f JOIN review r WHERE f.foodName Like "%${foodName}%" or f.foodManu Like "%${foodManu}%" GROUP BY f.foodIdx`;
-        try {
-            const result = await pool.queryParam(query);
-            return result;
-        } catch (err) {
-            console.log('foodSearch Error');
-            throw err;
-        }
-    },
-    
 
 }
 
