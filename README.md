@@ -75,7 +75,7 @@
     </tr>
     <tr align="center">
         <td>
-            <img src![깃헙프로필](https://user-images.githubusercontent.com/55784772/86785830-2b2da980-c09e-11ea-9b7d-c42919e1cd62.jpg)
+            <img src"![깃헙프로필](https://user-images.githubusercontent.com/55784772/86785830-2b2da980-c09e-11ea-9b7d-c42919e1cd62.jpg")
 >
             <br>
             <a href="https://github.com/yezgoget"><I>손예지</I></a>
