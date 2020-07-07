@@ -40,18 +40,20 @@
 
 ### 핵심기능 설명
 
-```
-핵심 기능
 
+#### :pencil2:  캣푸드 리뷰 기록 :heavy_exclamation_mark:
 
-1. 캣푸드 리뷰 기록
 : 고양이에게 먹여본 제품을 다양한 기준으로 빠르게 기록합니다.
-2. 서로의 리뷰 공유
+ 
+#### :page_facing_up:  서로의 리뷰 공유 :heavy_exclamation_mark:
+
 : 제품마다 남겨진 리뷰들을 모아볼 수 있고, 고양이 계정을 서로 팔로우합니다.
-3. 입맛이 비슷한 고양이 추천
+
+#### :cat:  입맛이 비슷한 고양이 추천 :heavy_exclamation_mark:
+
 : 내 고양이가 남긴 리뷰들의 평점을 기반으로
 입맛이 비슷한 고양이를 찾아 유사도와 함께 보여줍니다.
-```
+
 
 <br>
 
@@ -66,7 +68,7 @@
     </tr>
     <tr align="center">
         <td>
-            <img src="https://github.com/Jeong-Hyowon.png?size=100">
+            ![KakaoTalk_20200707_220844790](https://user-images.githubusercontent.com/58697091/86786223-b60ea400-c09e-11ea-83b3-64e1d0796556.jpg)
             <br>
             <a href="https://github.com/Jeong-Hyowon"><I>정효원</I></a>
         </td>
@@ -75,7 +77,7 @@
     </tr>
     <tr align="center">
         <td>
-            <img src"![깃헙프로필](https://user-images.githubusercontent.com/55784772/86785830-2b2da980-c09e-11ea-9b7d-c42919e1cd62.jpg")
+            <img src![깃헙프로필](https://user-images.githubusercontent.com/55784772/86785830-2b2da980-c09e-11ea-9b7d-c42919e1cd62.jpg)
 >
             <br>
             <a href="https://github.com/yezgoget"><I>손예지</I></a>
