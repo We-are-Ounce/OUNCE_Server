@@ -1,4 +1,5 @@
-# 😸Ounce
+# Ounce
+
 
 ## :rainbow: :unicorn: Peaceful Server Team :unicorn: :rainbow:
 ![단체사진](./ounce/img/단체사진.jpg)
@@ -6,7 +7,7 @@
 <br>
 
 
-### 기능 명세서 및 역할 분담
+### :open_file_folder: 기능 명세서 및 역할 분담
 
 ![기능1](./ounce/img/기능1.jpg)
 
@@ -17,7 +18,7 @@
 
 <br>
 
-### package.json
+### :computer: package.json
 
 ```
 "dependencies": {
@@ -47,26 +48,24 @@
 
 <br>
 
-### ERD 
+### :crystal_ball: ERD 
 
 ![ERD](./ounce/img/ERD.png)
 
 <br>
 
-### 핵심기능 설명
+### :paperclip: 핵심기능 설명
 
 
-#### :pencil2:  캣푸드 리뷰 기록 :heavy_exclamation_mark:
-
-
+#### :pencil2:  캣푸드 리뷰 기록
 : 고양이에게 먹여본 제품을 다양한 기준으로 빠르게 기록합니다.
  
-#### :page_facing_up:  서로의 리뷰 공유 :heavy_exclamation_mark:
-
+ 
+#### :page_facing_up:  서로의 리뷰 공유 
 : 제품마다 남겨진 리뷰들을 모아볼 수 있고, 고양이 계정을 서로 팔로우합니다.
 
-#### :cat:  입맛이 비슷한 고양이 추천 :heavy_exclamation_mark:
 
+#### :cat:  입맛이 비슷한 고양이 추천 
 : 내 고양이가 남긴 리뷰들의 평점을 기반으로
 입맛이 비슷한 고양이를 찾아 유사도와 함께 보여줍니다.
 
@@ -74,7 +73,7 @@
 <br>
 
 
-### 팀별 역할분담
+### :eyes: 팀별 역할분담
 
 <table>
     <tr align="center">
