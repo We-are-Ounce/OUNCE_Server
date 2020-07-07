@@ -1,32 +1,63 @@
 # 😸Ounce
 
 
-
-## 목차
-
-- API 명세서
-- 같이 적기
+### 기능 명세서 및 역할 분담
 
 
+<br>
+
+### package.json
+
+```
+"dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "~1.9.1",
+    "multer": "^1.4.2",
+    "nodemon": "^2.0.4",
+    "pbkdf2": "^3.0.17",
+    "promise-mysql": "^4.1.3",
+    "rand-token": "^1.0.1",
+    "pbkdf2": "^3.0.17",
+    "promise-mysql": "^4.1.3"",
+    "hangul-chosung-search-js": "^1.1.3",
+    "hangul-js": "^0.2.6",
+    "http-errors": "~1.6.3",
+    "inko": "^1.1.1",
+    "aws-sdk""multer-s3"
+
+  }
+```
+
+## ERD 
 
 
-### 간단한 설명
+<br>
 
-- API 명세서
-- 
+### 핵심기능 설명
 
-
-
-### 기능 소개
-
-- 같이 적기 
-
-### Projcet
-
-- 같이 적기
+```
+핵심 기능
 
 
-### 팀원
+1. 캣푸드 리뷰 기록
+: 고양이에게 먹여본 제품을 다양한 기준으로 빠르게 기록합니다.
+2. 서로의 리뷰 공유
+: 제품마다 남겨진 리뷰들을 모아볼 수 있고, 고양이 계정을 서로 팔로우합니다.
+3. 입맛이 비슷한 고양이 추천
+: 내 고양이가 남긴 리뷰들의 평점을 기반으로
+입맛이 비슷한 고양이를 찾아 유사도와 함께 보여줍니다.
+```
+
+<br>
+
+
+### 팀별 역할분담
+
 <table>
     <tr align="center">
         <td><B>팀원<B></td>
@@ -39,8 +70,8 @@
             <br>
             <a href="https://github.com/Jeong-Hyowon"><I>정효원</I></a>
         </td>
-        <td width="100">역할을 적어주세요!!</a></td>
-        <td>목표를 적어주세요!!</td>
+        <td width="100">필터,정렬,추천</a></td>
+        <td>26기 대상예정</td>
     </tr>
     <tr align="center">
         <td>
@@ -48,8 +79,8 @@
             <br>
             <a href="https://github.com/yezgoget"><I>손예지</I></a>
         </td>
-        <td width="100">역할을 적어주세요!!</a></td>
-        <td>목표를 적어주세요!!</td>
+        <td width="100">유저,프로필</a></td>
+        <td>26기 대상은 온스꺼</td>
     </tr>
     <tr align="center">
         <td>
@@ -58,6 +89,6 @@
             <a href="https://github.com/wjdrbs96"><I>최정균</I></a>
         </td>
         <td width="100">검색</a></td>
-        <td>앱잼하면서 협업능력과 서버 실력 향상시키기</td>
+        <td>26기 온스 서버파트 최고</td>
     </tr>
 </table>
