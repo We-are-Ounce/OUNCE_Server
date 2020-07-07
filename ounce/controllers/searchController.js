@@ -19,7 +19,7 @@ const search = {
         if (korean.test(keyword)) {
             // 한글을 제대로 쳤다면
             if (Hangul.isComplete(keyword)) {
-                let result = await searchKey.foodSearch(keyword);
+                let result = await searchKey.foodSearch(keyword, keyword);
                 
                 // 검색한 결과가 존재할 때 
                 res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, result));
@@ -34,8 +34,8 @@ const search = {
                     for (i = 0; i < food.length; ++i) {
                         if (ChosungSearch.isSearch(keyword, food[i].foodManu) || ChosungSearch.isSearch(keyword, food[i].foodName)) {
                             const foodM = food[i].foodManu;
-                            const foodN = food[i].foodName;                
-                            const consonantKeyword = await searchKey.foodConsonantSearch(foodN, foodM); 
+                            const foodN = food[i].foodName;             
+                            const consonantKeyword = await searchKey.foodSearch(foodN, foodM); 
                             if (consonantKeyword.length != 0) foodData.push(consonantKeyword);
                         }
                     }
@@ -56,7 +56,7 @@ const search = {
                 else {
                     // 오타일 때 처리해주기
                     const errorKeyword = Hangul.a(Hangul.d(keyword));
-                    const resultKeyword = await searchKey.foodSearch(keyword);
+                    const resultKeyword = await searchKey.foodSearch(keyword. keyword);
 
                     res.status(status.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, resultKeyword));
                     return;
@@ -67,7 +67,7 @@ const search = {
         // 검색키워드가 영어일 떄
         else {
             // 영어단어로 검색해서 존재하는지 테스트 먼저 해보기
-            const engKeyword = await searchKey.foodSearch(keyword);
+            const engKeyword = await searchKey.foodSearch(keyword, keyword);
             // 영어를 한글로 변환함 
             const result = inko.en2ko(keyword);
 
@@ -76,10 +76,15 @@ const search = {
             
                 // 한글을 제대로 쳤다면
                 if (Hangul.isComplete(result)) {
-                    const EngKeyword = await searchKey.foodSearch(result);
+                    const EngKeyword = await searchKey.foodSearch(result, result);
             
                     // 검색한 결과가 존재할 때 
                     res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, EngKeyword));
+                    return;
+                }
+                // 한글을 제대로 치지 않았다면
+                else {
+                    res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, {}));
                     return;
                 }
 
@@ -92,16 +97,10 @@ const search = {
 
     },
 
-
-
     // 유저검색
     searchUser : async(req, res) => {
         const {userId} = req.body;
         
-        const test = await searchKey.test(userId);
-        console.log(test);
-        
-
         const result = await searchKey.userSearch(userId);
 
         if (result.length === 0) {
