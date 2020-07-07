@@ -21,4 +21,11 @@ router.get('/:profileIdx/prefer', reviewControllers.sortByPrefer);
 
 //시간순으로 정렬
 router.get('/:profileIdx/date', reviewControllers.sortByDate);
+
+//내가 쓴 리뷰 수정
+router.put('/update/:reviewIdx', reviewControllers.updateReview);
+
+//내가 쓴 리뷰 삭제
+router.delete('/delete/:profileIdx/:reviewIdx', reviewControllers.deleteReview);
+
 module.exports = router;

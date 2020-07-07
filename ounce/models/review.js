@@ -73,7 +73,60 @@ const review = {
             console.log(' myReviewFilter error: ', err);
             throw err;
         }
-    }
+    },
+    checkReview : async (reviewIdx) => {
+        const query = `SELECT * FROM ${table} where reviewIdx="${reviewIdx}"`;
+        try {
+            const result = await pool.queryParamArr(query);
+
+            if (result.length>0){
+                return true;
+            } else{
+                return false;
+            }
+
+        } catch (err) {
+            console.log('checkReview error: ', err);
+            throw err;
+        }
+    },
+    updateReview : async (reviewIdx,reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit) => {
+        const fields = 'reviewRating=?, reviewPrefer=?, reviewInfo=?, reviewMemo=?, reviewStatus=?, reviewSmell=?, reviewEye=?, reviewEar=?, reviewHair=?, reviewVomit=?';
+        const query = `UPDATE ${table} SET ${fields} WHERE reviewIdx="${reviewIdx}"`;
+        const values = [reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit];
+        try {
+            const result = await pool.queryParamArr(query,values);
+            return true;
+
+        } catch (err) {
+            console.log('updateReview error: ', err);
+            throw err;
+        }
+    },
+    deleteReview : async (reviewIdx) => {
+        const query = `DELETE FROM ${table} where reviewIdx="${reviewIdx}"`;
+    
+        try {
+            const result = await pool.queryParamArr(query);
+            return true;
+
+        } catch (err) {
+            console.log('deleteReview error: ', err);
+            throw err;
+        }
+    },
+    checkMyReview : async (profileIdx, reviewIdx) =>{
+        const query = `SELECT * FROM ${table} WHERE profileIdx ="${profileIdx}" and reviewIdx = "${reviewIdx}"`;
+        try{
+            const result = await pool.queryParam(query);
+            if(result.length === 0){
+                return false;
+            }else return true;
+        } catch(err) {
+            console.log('checkMyReview ERROR :'+ err);
+            throw err;
+        }
+    },
 }
 
 module.exports = review;

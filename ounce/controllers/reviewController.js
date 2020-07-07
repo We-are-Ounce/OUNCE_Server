@@ -74,5 +74,34 @@ module.exports ={
             const idx = await Review.myReviewFilter(foodManu, foodDry, foodMeat, profileIdx);
             return res.status(statusCode.OK)
             .send(util.success(statusCode.OK, resMessage.READ_POST_SUCCESS, idx));
+        },
+
+        updateReview: async(req, res)=>{
+            const reviewIdx=req.params.reviewIdx;
+            const {profileIdx,reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit} = req.body;
+            const checkMyReview = await Review.checkMyReview(profileIdx,reviewIdx);
+            if(!checkMyReview){
+                return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.PERMISSION_DENIED_UPDATE_POST));
+            }
+            const result = await Review.updateReview(reviewIdx,reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit);
+            //성공하면
+            return res.status(statusCode.OK)
+            .send(util.success(statusCode.OK, resMessage.POSTING_UPDATE_SUCCESS, {updateReview: result}));
+        },
+        deleteReview : async (req,res)=>{
+            //profileIdx 어떻게 받을지 한번 더 고민해보기 req.profileIdx or req.params.profileIdx
+            const profileIdx = req.params.profileIdx;
+            const reviewIdx = req.params.reviewIdx;
+            if(!reviewIdx){
+                return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+            }
+    
+            // 내가쓴 글이 아니라면 삭제 불가
+            const checkMyReview = await Review.checkMyReview(profileIdx,reviewIdx);
+            if(!checkMyReview){
+                return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.PERMISSION_DENIED_DELETE_POST));
+            }
+            const result = await Review.deleteReview(reviewIdx);
+            return await res.status(statusCode.OK).send(util.success(statusCode.OK,resMessage.DELETE_POST,{deleteReview:result}));
         }
 }
