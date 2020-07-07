@@ -57,7 +57,7 @@
             <br>
             <a href="https://github.com/wjdrbs96"><I>최정균</I></a>
         </td>
-        <td width="100">역할을 적어주세요!!</a></td>
-        <td>목표를 적어주세요!!</td>
+        <td width="100">검색</a></td>
+        <td>앱잼하면서 협업능력과 서버 실력 향상시키기</td>
     </tr>
 </table>
