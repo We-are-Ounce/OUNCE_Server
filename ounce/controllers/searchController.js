@@ -76,7 +76,6 @@ const search = {
             
                 // 한글을 제대로 쳤다면
                 if (Hangul.isComplete(result)) {
-                    console.log(result);
                     const EngKeyword = await searchKey.foodSearch(result);
             
                     // 검색한 결과가 존재할 때 
@@ -84,10 +83,6 @@ const search = {
                     return;
                 }
 
-                // 한글이 미완성 상태라면
-                else {
-                          
-                }
                 // 영어 단어가 이름 or 제조사로 존재할 때 (한글을 영어로 오타친게 아닐 경우)
             } else {
                 res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, engKeyword));
@@ -95,16 +90,17 @@ const search = {
             }
         }
 
- 
     },
 
-    reviewAdd : async(req, res) => {
-        
-    },
+
 
     // 유저검색
     searchUser : async(req, res) => {
         const {userId} = req.body;
+        
+        const test = await searchKey.test(userId);
+        console.log(test);
+        
 
         const result = await searchKey.userSearch(userId);
 
@@ -113,10 +109,8 @@ const search = {
             return;
         }
         
-        res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_USER, result))
-        
+        res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_USER, result))   
     }
-
 }
 
 module.exports = search;
