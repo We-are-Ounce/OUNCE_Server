@@ -1,6 +1,3 @@
-<img src="https://user-images.githubusercontent.com/45676906/86876305-602e1080-c11f-11ea-96b3-5732ecea5017.jpg" width="300" height="300">
-
-
 # :heart_eyes_cat: Welcome to Ounce Server :heart_eyes_cat:
 
 <img src="https://user-images.githubusercontent.com/45676906/86876305-602e1080-c11f-11ea-96b3-5732ecea5017.jpg" width="300" height="300">
@@ -126,7 +123,7 @@
         </td>
         <td width="400">
             <ul>
-                <b>[git_branch : feature_hw](https://github.com/We-are-Ounce/OUNCE_Server/tree/feature_hw)</b>
+                <a href="https://github.com/We-are-Ounce/OUNCE_Server/tree/feature_hw">[git_branch : feature_hw]</a>
                 <li>DB 설계 및 구축</li>
                 <li>리뷰 조회 시 필터링 및 정렬</li>
                 <li>추천  고양이 리스트 및 유사도 제공</li>
@@ -144,7 +141,7 @@
         </td>
         <td width="400">
             <ul>
-                <b>[git_branch : feature_yz](https://github.com/We-are-Ounce/OUNCE_Server/tree/feature_yz)</b>
+                <a href="https://github.com/We-are-Ounce/OUNCE_Server/tree/feature_yz">[git_branch : feature_yz]</a>
                 <li>DB 설계 및 구축</li>
                 <li>회원가입 및 로그인</li>
                 <li>유저 세션 관리, 고양이 프로필 등록</li>
@@ -162,7 +159,7 @@
         </td>
         <td width="400">
             <ul>
-                <b>[git_branch : feature_jg](https://github.com/We-are-Ounce/OUNCE_Server/tree/feature_jg)</b>
+                <a href="https://github.com/We-are-Ounce/OUNCE_Server/tree/feature_jg">[git_branch : feature_jg]</a>
                 <li>DB 설계 및 구축</li>
                 <li>리뷰 작성</li>
                 <li>제조사, 제품명 검색</li>
