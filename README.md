@@ -92,7 +92,7 @@
     </tr>
     <tr align="center">
         <td>
-            <img src="./ounce/img/예지.jpg" width="200" height="230">
+            <img src="./ounce/img/예지.jpg" width="200">
             <br>
             <a href="https://github.com/yezgoget"><I>손예지</I></a>
         </td>
@@ -101,7 +101,7 @@
     </tr>
     <tr align="center">
         <td>
-            <img src="./ounce/img/정균.jpg" width="200" height="230">
+            <img src="./ounce/img/정균.jpg" width="200">
             <br>
             <a href="https://github.com/wjdrbs96"><I>최정균</I></a>
         </td>
