@@ -9,7 +9,7 @@ const ChosungSearch = require('hangul-chosung-search-js');
 const search = {
     searchFood : async(req, res) => {
         // 캣푸드 이름 검색 키워드
-        var {keyword} = req.body;
+        let {keyword} = req.body;
   
         // 검색키워드가 영어인지 한글인지 구분하기 위해 정규식 사용
         const korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
@@ -120,7 +120,6 @@ const search = {
     // 리뷰 등록
     reviewAll : async(req, res) => {
         const foodIdx = req.params.foodIdx;
-        console.log(foodIdx);
 
         // foodIdx가 넘어오지 않았을 때
         if (!foodIdx) {

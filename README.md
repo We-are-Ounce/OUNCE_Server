@@ -54,12 +54,6 @@
 
 <br>
 
-### :star2: server architecture :star2:
-
-![image](https://user-images.githubusercontent.com/55784772/86858028-cb192080-c0fa-11ea-870c-e68701419ed0.png)
-
-<br>
-
 ###  :paperclip: 핵심기능 설명
 
 
