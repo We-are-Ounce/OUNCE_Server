@@ -1,15 +1,17 @@
-# Ounce
+<img src="https://user-images.githubusercontent.com/45676906/86876305-602e1080-c11f-11ea-96b3-5732ecea5017.jpg" width="300" height="300">
+
+
+# :heart_eyes_cat: Welcome to Ounce Server :heart_eyes_cat:
 
 <img src="https://user-images.githubusercontent.com/45676906/86876305-602e1080-c11f-11ea-96b3-5732ecea5017.jpg" width="300" height="300">
 
 
-* <b>SOPT 26th APPJAM</b>
+:smiley_cat: <b>SOPT 26th APPJAM</b>
 
-* <b>프로젝트기간 : 2020.06.27 ~ 2020.07.18</b>
+:smiley_cat: <b>Project Period : 2020.06.27 ~ 2020.07.18</b>
 
-* <b>[API 문서](https://github.com/We-are-Ounce/OUNCE_Server/wiki)</b>
+:smiley_cat: <b>[API Specification](https://github.com/We-are-Ounce/OUNCE_Server/wiki)</b>
 
-<br>
 
 ## :rainbow: :unicorn: Peaceful Server Team :unicorn: :rainbow:
 ![단체사진](./ounce/img/단체사진.jpg)
@@ -31,6 +33,26 @@
 
 ### :computer: package.json
 
+:smiley_cat: jsonwebtoken
+
+:smiley_cat: multer
+
+:smiley_cat: multer-s3
+
+:smiley_cat: pbkdf2
+
+:smiley_cat: promise-mysql
+
+:smiley_cat: rand-token
+
+:smiley_cat: hangul-chosung-search-js
+
+:smiley_cat: hangul-js
+
+:smiley_cat: inko
+
+:smiley_cat: aws-sdk
+
 ```
 "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -45,8 +67,6 @@
     "pbkdf2": "^3.0.17",
     "promise-mysql": "^4.1.3",
     "rand-token": "^1.0.1",
-    "pbkdf2": "^3.0.17",
-    "promise-mysql": "^4.1.3"",
     "hangul-chosung-search-js": "^1.1.3",
     "hangul-js": "^0.2.6",
     "http-errors": "~1.6.3",
@@ -104,7 +124,16 @@
             <br>
             <a href="https://github.com/Jeong-Hyowon"><I>정효원</I></a>
         </td>
-        <td width="200">필터,정렬,추천</a></td>
+        <td width="400">
+            <ul>
+                <b>[git_branch : feature_hw](https://github.com/We-are-Ounce/OUNCE_Server/tree/feature_hw)</b>
+                <li>DB 설계 및 구축</li>
+                <li>리뷰 조회 시 필터링 및 정렬</li>
+                <li>추천  고양이 리스트 및 유사도 제공</li>
+                <li>리뷰 데이터 관리 담당</li>
+                <li>다른 고양이 프로필 및 리뷰 제공</li>
+            </ul>
+        </td>
         <td>대상</td>
     </tr>
     <tr align="center">
@@ -113,7 +142,16 @@
             <br>
             <a href="https://github.com/yezgoget"><I>손예지</I></a>
         </td>
-        <td width="200">유저,프로필</a></td>
+        <td width="400">
+            <ul>
+                <b>[git_branch : feature_yz](https://github.com/We-are-Ounce/OUNCE_Server/tree/feature_yz)</b>
+                <li>DB 설계 및 구축</li>
+                <li>회원가입 및 로그인</li>
+                <li>유저 세션 관리, 고양이 프로필 등록</li>
+                <li>유저 내 여러 고양이 계정 관리</li>
+                <li>팔로우 기능 담당</li>
+            </ul>
+        </td>
         <td>인기상</td>
     </tr>
     <tr align="center">
@@ -122,7 +160,16 @@
             <br>
             <a href="https://github.com/wjdrbs96"><I>최정균</I></a>
         </td>
-        <td width="200">검색</a></td>
+        <td width="400">
+            <ul>
+                <b>[git_branch : feature_jg](https://github.com/We-are-Ounce/OUNCE_Server/tree/feature_jg)</b>
+                <li>DB 설계 및 구축</li>
+                <li>리뷰 작성</li>
+                <li>제조사, 제품명 검색</li>
+                <li>유저 검색</li>
+                <li>검색 후 상세정보 제공</li>
+            </ul>
+        </td>
         <td>MVP</td>
     </tr>
 </table>
