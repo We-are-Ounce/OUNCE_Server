@@ -117,7 +117,7 @@
     </tr>
     <tr align="center">
         <td>
-            <img src="./ounce/img/효원.jpg" width="200" height="230">
+            <img src="./ounce/img/효원.jpg" width="200">
             <br>
             <a href="https://github.com/Jeong-Hyowon"><I>정효원</I></a>
         </td>
