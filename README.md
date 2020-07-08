@@ -3,11 +3,11 @@
 <img src="https://user-images.githubusercontent.com/45676906/86876305-602e1080-c11f-11ea-96b3-5732ecea5017.jpg" width="300" height="300">
 
 
-* <u>SOPT 26th APPJAM</u>
+* <b>SOPT 26th APPJAM</b>
 
-* <u>프로젝트기간 : 2020.06.27 ~ 2020.07.18</u>
+* <b>프로젝트기간 : 2020.06.27 ~ 2020.07.18</b>
 
-* <u>[API 문서](https://github.com/We-are-Ounce/OUNCE_Server/wiki)</u>
+* <b>[API 문서](https://github.com/We-are-Ounce/OUNCE_Server/wiki)</b>
 
 <br>
 
