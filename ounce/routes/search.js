@@ -10,7 +10,7 @@ router.post('/food', searchController.searchFood);
 // 유저 검색
 router.post('/user', searchController.searchUser);
 
-router.get('/reviewAll/:foodIdx', searchController.reviewAll);
+router.post('/reviewAll', searchController.reviewAll);
 
 // search/review;
 

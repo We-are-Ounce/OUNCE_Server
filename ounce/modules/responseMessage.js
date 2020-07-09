@@ -6,5 +6,7 @@ module.exports = {
     NO_SEARCH : "검색한 결과가 존재하지 않습니다",
     NO_USER : "유저가 존재하지 않습니다",
     SUCCESS_REVIEW_DETAIL : "리뷰상세 조회성공입니다",
+    SUCCESS_REVIEW_ADD : "리뷰등록",
+    
     
 };
