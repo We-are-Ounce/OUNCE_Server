@@ -7,6 +7,5 @@ module.exports = {
     NO_USER : "유저가 존재하지 않습니다",
     SUCCESS_REVIEW_DETAIL : "리뷰상세 조회성공입니다",
     SUCCESS_REVIEW_ADD : "리뷰등록",
-    
-    
+    PERMISSION_DENIED_DELETE_POST:'삭제 권한이 없습니다'
 };
