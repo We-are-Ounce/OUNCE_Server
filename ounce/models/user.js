@@ -32,6 +32,16 @@ const user = {
             throw err;
         }
     },
+    findByUserId: async (id) => {
+        const query = `SELECT * FROM ${table} WHERE id="${id}"`;
+        try {
+            const result = await pool.queryParam(query);
+            return result;
+        } catch (err) {
+            console.log('checkUser ERROR : ', err);
+            throw err;
+        }
+    },
     getUserById: async (id) => {
         // query문 작성
         const query = `SELECT * FROM ${table} WHERE userIdx="${id}"`;

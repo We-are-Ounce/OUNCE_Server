@@ -110,7 +110,6 @@ const review = {
         try {
             const result = await pool.queryParamArr(query,values);
             return true;
-
         } catch (err) {
             console.log('updateReview error: ', err);
             throw err;
