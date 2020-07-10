@@ -2,6 +2,19 @@ const pool = require('../modules/pool');
 const table = 'review';
 
 const review = {
+   reviewAdd : async(reviewRating, reviewPrefer, reviewInfo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, reviewMemo, createdAt, foodIdx, profileIdx) => {
+        const fields = 'reviewRating, reviewPrefer, reviewInfo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, reviewMemo, createdAt, foodIdx, profileIdx';
+        const questions = `?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?`;
+        const values = [reviewRating, reviewPrefer, reviewInfo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, reviewMemo, createdAt, foodIdx, profileIdx];
+        const query = `INSERT INTO review (${fields}) VALUES (${questions})`;
+        try {
+            const result = await pool.queryParamArr(query, values);
+            const insertId = result.insertId;
+            return insertId;
+        } catch(err) {
+            throw err;
+        }
+    },
     sortByRating : async (profileIdx) => {
         const query = `SELECT  review.reviewIdx, food.foodImg, food.foodManu, food.foodName, review.reviewInfo, review.reviewRating, review.reviewPrefer, review.createdAt FROM ${table} join food on review.foodIdx = food.foodIdx where review.profileIdx="${profileIdx}" order by review.reviewRating desc;`;
         try {
@@ -130,3 +143,4 @@ const review = {
 }
 
 module.exports = review;
+

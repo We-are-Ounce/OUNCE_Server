@@ -1,6 +1,12 @@
-var express = require('express');
-var router = express.Router();
-const reviewControllers = require('../controllers/reviewController')
+const express = require('express');
+const router = express.Router();
+const resMessage = require('../modules/responseMessage');
+const util = require('../modules/util');
+const statusCode = require('../modules/statusCode');
+const reviewControllers = require('../controllers/reviewController');
+// search reviewALl 
+router.post('/add', reviewControllers.reviewAdd);
+
 //내가 쓴 리뷰 제조사만 필터링
 router.get('/:profileIdx/category', reviewControllers.myReviewManu);
 
