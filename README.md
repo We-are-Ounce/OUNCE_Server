@@ -2,6 +2,11 @@
 
 <img src="https://user-images.githubusercontent.com/45676906/86876305-602e1080-c11f-11ea-96b3-5732ecea5017.jpg" width="300" height="300">
 
+고양이들은 입맛이 까다로워, 집사들은 성공확률이 높은 시도를 위해 먹여본 캣푸드를 따로 기록하고 있습니다. 
+
+저희는 이러한 집사들의 고민을 해결하기 위해 직관적인 기록, 서로의 목록 공유, 입맛이 비슷한 고양이 추천 기능을 제공하고 있습니다.
+
+### 기록부터 선택까지, 온스가 함께합니다.
 
 :smiley_cat: <b>SOPT 26th APPJAM</b>
 
@@ -81,10 +86,6 @@
 ![ERD](./ounce/img/ERD.png)
 
 <br>
-
-### :star2: server architecture :star2:
-
-![image](https://user-images.githubusercontent.com/55784772/86858028-cb192080-c0fa-11ea-870c-e68701419ed0.png)
 
 <br>
 
