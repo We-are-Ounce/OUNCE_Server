@@ -32,10 +32,25 @@ module.exports = {
             return res.status(CODE.DB_ERROR)
                 .send(util.fail(CODE.DB_ERROR, MSG.DB_ERROR));
         }
+
+        const user = await UserModel.getUserById(idx);
+
+        if (user[0] === undefined) {
+            return res.status(CODE.BAD_REQUEST)
+                .send(util.fail(CODE.BAD_REQUEST, MSG.NO_USER));
+        }
+
+        const {
+            token,
+            refreshToken
+        } = await jwt.sign(user[0]);
+
         res.status(CODE.OK)
             .send(util.success(CODE.OK, MSG.CREATED_USER, {
-                userId: idx
+                accessToken: token
+                //, refreshToken: refreshToken
             }));
+            
     },
     signin: async (req, res) => {
         const {

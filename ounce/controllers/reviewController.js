@@ -7,6 +7,7 @@ const moment = require('moment');
 // 리뷰등록
 module.exports = {
     reviewAdd : async(req, res) => {
+    
         // 리뷰 (평점, 선호도, 한줄소개, 변상태, 변냄새, 트리블(눈, 귀, 털, 구토), 메모)
         const {reviewRating, reviewPrefer, reviewInfo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, reviewMemo, createdAt, foodIdx, profileIdx} = req.body;
         
@@ -20,29 +21,29 @@ module.exports = {
         
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_REVIEW_ADD, result));    
     },
-      //총점 순으로 정렬
-      sortByRating: async(req, res)=>{
-          const profileIdx = req.params.profileIdx;
-          const idx = await Review.sortByRating(profileIdx);
-          return res.status(statusCode.OK)
-          .send(util.success(statusCode.OK, resMessage.READ_POST_SUCCESS, idx));
-      },
+    //총점 순으로 정렬
+    sortByRating: async(req, res)=>{
+        const profileIdx = req.params.profileIdx;
+        const idx = await Review.sortByRating(profileIdx);
+        return res.status(statusCode.OK)
+        .send(util.success(statusCode.OK, resMessage.READ_POST_SUCCESS, idx));
+    },
 
-      //기호도 순으로 정렬
-      sortByPrefer: async(req, res)=>{
-          const profileIdx = req.params.profileIdx;
-          const idx = await Review.sortByPrefer(profileIdx);
-          return res.status(statusCode.OK)
-          .send(util.success(statusCode.OK, resMessage.READ_POST_SUCCESS, idx));
-      },
+    //기호도 순으로 정렬
+    sortByPrefer: async(req, res)=>{
+        const profileIdx = req.params.profileIdx;
+        const idx = await Review.sortByPrefer(profileIdx);
+        return res.status(statusCode.OK)
+        .send(util.success(statusCode.OK, resMessage.READ_POST_SUCCESS, idx));
+    },
 
-      //시간 순으로 정렬
-      sortByDate: async(req, res)=>{
-          const profileIdx = req.params.profileIdx;
-          const idx = await Review.sortByDate(profileIdx);
-          return res.status(statusCode.OK)
-          .send(util.success(statusCode.OK, resMessage.READ_POST_SUCCESS, idx));
-      },
+    //시간 순으로 정렬
+    sortByDate: async(req, res)=>{
+        const profileIdx = req.params.profileIdx;
+        const idx = await Review.sortByDate(profileIdx);
+        return res.status(statusCode.OK)
+        .send(util.success(statusCode.OK, resMessage.READ_POST_SUCCESS, idx));
+    },
 
     //내 계정 중 선택된 고양이 별 내가 쓴 리뷰 전체 조회
     myReviewAll: async(req, res)=>{
