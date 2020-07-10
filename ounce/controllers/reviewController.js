@@ -23,7 +23,7 @@ module.exports = {
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_REVIEW_ADD, result));    
     },
 
-    //총점 순으로 정렬
+      //총점 순으로 정렬
     sortByRating: async(req, res)=>{
         const profileIdx = req.params.profileIdx;
         const idx = await Review.sortByRating(profileIdx);
@@ -98,8 +98,9 @@ module.exports = {
 
         updateReview: async(req, res)=>{
             const reviewIdx=req.params.reviewIdx;
+            const userIdx=req.userIdx;
             const {profileIdx,reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit} = req.body;
-            const checkMyReview = await Review.checkMyReview(profileIdx,reviewIdx);
+            const checkMyReview = await Review.checkMyReview(userIdx,reviewIdx);
             if(!checkMyReview){
                 return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.PERMISSION_DENIED_UPDATE_POST));
             }
@@ -110,14 +111,15 @@ module.exports = {
         },
         deleteReview : async (req,res)=>{
             //profileIdx 어떻게 받을지 한번 더 고민해보기 req.profileIdx or req.params.profileIdx
-            const profileIdx = req.params.profileIdx;
+            // const profileIdx = req.params.profileIdx;
+            const userIdx = req.userIdx;
             const reviewIdx = req.params.reviewIdx;
             if(!reviewIdx){
                 return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
             }
     
             // 내가쓴 글이 아니라면 삭제 불가
-            const checkMyReview = await Review.checkMyReview(profileIdx,reviewIdx);
+            const checkMyReview = await Review.checkMyReview(userIdx,reviewIdx);
             if(!checkMyReview){
                 return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.PERMISSION_DENIED_DELETE_POST));
             }

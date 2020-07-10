@@ -127,8 +127,8 @@ const review = {
             throw err;
         }
     },
-    checkMyReview : async (profileIdx, reviewIdx) =>{
-        const query = `SELECT * FROM ${table} WHERE profileIdx ="${profileIdx}" and reviewIdx = "${reviewIdx}"`;
+    checkMyReview : async (userIdx, reviewIdx) =>{
+        const query = `SELECT * FROM ${table} WHERE userIdx ="${userIdx}" and reviewIdx = "${reviewIdx}"`;
         try{
             const result = await pool.queryParam(query);
             if(result.length === 0){

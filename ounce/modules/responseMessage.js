@@ -11,4 +11,7 @@ module.exports = {
     EMPTY_TOKEN : "토큰이 존재하지 않습니다",
     PERMISSION_DENIED_UPDATE_PROFILE : "프로필 수정 권한이 없습니다",
     SUCCESS_UPDATE_PROFILE : "프로필 수정 성공입니다",
+    PERMISSION_DENIED_UPDATE_POST:'수정 권한이 없습니다',
+    READ_POST_SUCCESS: "게시글 조회 성공",
+    READ_POST_FAIL: "게시글 조회 실패",
 };

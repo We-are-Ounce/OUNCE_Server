@@ -2,11 +2,11 @@ const express = require('express');
 const router = express.Router();
 const profileControllers = require('../controllers/profileController')
 const authUtil  = require('../middlewares/auth');
-const profileController = require('../controllers/profileController');
 
 router.post('/register', authUtil.checkToken, profileControllers.register);
 
-router.put('/edit/:profileIdx', authUtil.checkToken, profileController.update);
+router.put('/edit/:profileIdx', authUtil.checkToken, profileControllers.update);
+
 //router.get('/home', ProfileController.home);
 //다른 고양이의 프로필
 //(입맛이 비슷하다며 추천 받은 고양이든, 집사를 검색하여 찾아낸 고양이든) 한 고양이 프로필 선택 시 해당 고양이가 그동안 먹여본 캣푸드의 평점 목록(홈화면) 조회
