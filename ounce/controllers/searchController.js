@@ -9,14 +9,13 @@ const ChosungSearch = require('hangul-chosung-search-js');
 const search = {
     searchFood : async(req, res) => {
         let {keyword} = req.body;
-  
+        
         // 검색키워드가 영어인지 한글인지 구분하기 위해 정규식 사용
         const korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
         const inko = new Inko();
 
         // 검색키워드가 한글일 때 
         if (korean.test(keyword)) {
-
             // 한글을 제대로 쳤다면
             if (Hangul.isComplete(keyword)) {
                 // 오타검증

@@ -4,7 +4,7 @@ const table = 'profile';
 const profile = {
     diffProfile : async (profileIdx) => {
         const query = `SELECT profile.profileImg, profile.profileName, profile.profileGender, profile.profileNeutral, profile.profileAge, profile.profileWeight, profile.profileInfo, (SELECT count(follow.followingIdx) FROM follow WHERE follow.followingIdx="${profileIdx}") as follower, count(follow.myprofileIdx) as following FROM profile join follow
-        on profile.profileIdx = follow.myprofileIdx WHERE follow.myprofileIdx="${profileIdx}"`;
+        on profile.profileIdx = follow.myProfileIdx WHERE follow.myProfileIdx="${profileIdx}"`;
         try {
             const result = await pool.queryParamArr(query);
             return result;
@@ -24,14 +24,14 @@ const profile = {
         }
     },
     //프로필 정보 등록(고양이 사진, 고양이 이름)
-    register: async(profileImg, profileName,userIdx)=>{
-        const fields = 'profileImg, profileName,userIdx';
-        const questions = `?,?`;
-        const values = [profileImg, profileName,userIdx];
+    register: async(profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx) => {
+        const fields = 'profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx';
+        const questions = `?, ?, ?, ?, ?, ?, ?, ?`;
+        const values = [profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx];
         const query = `INSERT INTO ${table}(${fields}) VALUES(${questions})`;
-        try{
+        try {
             const result = await pool.queryParamArr(query, values);
-            const insertId = result.insetId;
+            const insertId = result.insertId;
             return insertId;
         } catch(err){
             if(err.errno == 1062){
@@ -42,22 +42,7 @@ const profile = {
             throw err;
         }
     },
-/* getProfileIdx : async(profileIdx)=>{
-        const query = `SELECT * FROM ${table} WHERE profileIdx = ?`;
-        try{
-            return await pool.queryParamArr(query, [id]);
-        } catch (err){
-            if(err.errno==1062){
-                console.log('get profile error', err.errno, err.code);
-                return -1;
-            }
-            console.log('get profile err', err);
-            throw err;
-        }
-    },
-    getUserIdx :  async(userIdx) =>{
-       const query = `SELECT * FROM ${table} `
-    }*/
+
     /* register2: async(profileWeight, profileGender)=>{
     getProfileByIdx: async (profileIdx) => {
         const query = `SELECT * FROM ${table} WHERE userIdx="${idx}"`;

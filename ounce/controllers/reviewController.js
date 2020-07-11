@@ -7,6 +7,7 @@ const moment = require('moment');
 // 리뷰등록
 module.exports = {
     reviewAdd : async(req, res) => {
+    
         // 리뷰 (평점, 선호도, 한줄소개, 변상태, 변냄새, 트리블(눈, 귀, 털, 구토), 메모)
         const {reviewRating, reviewPrefer, reviewInfo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, reviewMemo, createdAt, foodIdx, profileIdx} = req.body;
         
@@ -20,6 +21,7 @@ module.exports = {
         
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_REVIEW_ADD, result));    
     },
+
       //총점 순으로 정렬
     sortByRating: async(req, res)=>{
         const profileIdx = req.params.profileIdx;
