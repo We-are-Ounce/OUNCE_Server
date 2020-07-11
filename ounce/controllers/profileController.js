@@ -1,7 +1,7 @@
-let util = require('../modules/util');
-let statusCode = require('../modules/statusCode');
-let resMessage = require('../modules/responseMessage');
-let Profile = require('../models/profile');
+const util = require('../modules/util');
+const statusCode = require('../modules/statusCode');
+const resMessage = require('../modules/responseMessage');
+const Profile = require('../models/profile');
 
 module.exports = {
     //다른 고양이 계정 프로필 조회
@@ -19,24 +19,11 @@ module.exports = {
         return res.status(statusCode.OK)
         .send(util.success(statusCode.OK, resMessage.READ_POST_SUCCESS, {count:idx.length,result:idx}));
     },
-    register: async(req, res) => {
-        const token = req.headers.token;
-        if (!token) {
-            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.EMPTY_TOKEN))
-            return;
-        }
-        const user = await jwt.verify(token);
-        if (user == TOKEN_EXPIRED) {
-            return res.json(util.fail(statusCode.UNAUTHORIZED, resMessage.EXPIRED_TOKEN));
-        }
-        if (user == TOKEN_INVALID) {
-            return res.json(util.fail(statusCode.UNAUTHORIZED, resMessage.EXPIRED_TOKEN));
-        }
-        if (user.idx == undefined) {
-            return res.json(util.fail(statusCodes.UNAUTHORIZED, resMessage.INVALID_TOKEN));
-        }
+
+    profileRegister: async(req, res) => {
+        const userIdx = req.userIdx;
+        const profileImg = req.file.location;
         const {
-            profileImg,
             profileName,
             profileWeight,
             profileGender,
@@ -44,43 +31,92 @@ module.exports = {
             profileAge,
             profileInfo,   
         } = req.body;
-        
-        if (!profileImg|| !profileName || !profileWeight || !profileGender || !profileNeutral || !profileAge || !profileInfo){
+
+        console.log(profileImg,profileName,
+            profileWeight,
+            profileGender,
+            profileNeutral,
+            profileAge,
+            profileInfo,   )
+        if (profileImg===undefined|| !profileName || !profileWeight || !profileGender || !profileNeutral || !profileAge || !profileInfo){
             res.status(statusCode.BAD_REQUEST)
-                .send(util.fail(CODE.BAD_REQUEST, resMessage.NULL_VALUE));
+                .send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
             return;
         }
-        const profileIdx = await profile.register(profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, user.idx);
+        
+        const pIdx = await Profile.profileRegister(profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx);
+
         res.status(statusCode.OK)
             .send(util.success(statusCode.OK, resMessage.REGISTER_PROFILE,{
-            profileIdx: profileIdx
-            }));
+                profileIdx: pIdx
+        }));
     },
-    mainProfile: async(req, res)=>{
+
+    updateProfile : async(req, res) => {
+        const userIdx = req.userIdx;
+        const {profileIdx} = req.params;
+        const profileImg = req.file.location;
+        const {
+            profileName,
+            profileWeight,
+            profileGender,
+            profileNeutral,
+            profileAge,
+            profileInfo   
+        } = req.body;
+
+        
+        const isMyProfileIdx = await Profile.isMyProfileIdx(profileIdx, userIdx);
+
+        if (!isMyProfileIdx) {
+            return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.PERMISSION_DENIED_UPDATE_PROFILE));
+        }
+
+        const result = await Profile.ProfileUpdate(profileIdx, profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx);
+
+        res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_UPDATE_PROFILE, {
+            profileIdx : isMyProfileIdx
+        }))
+
+    },
+
+    mainProfile: async(req, res) => {
         const profileIdx = req.params.profileIdx;
+        // 어디에 쓸지 userIdx
+        const userIdx = req.userIdx;
+
         const idx = await Profile.mainProfile(profileIdx);
-        return res.status(CODE.OK)
-            .send(util.success(CODE.OK, MSG.READ_PROFILE_SUCCESS, idx));
-    }, 
-    mainReviewAll: async(req, res)=>{
+
+        return res.status(statusCode.OK)
+            .send(util.success(statusCode.OK, resMessage.READ_PROFILE_SUCCESS, idx));
+    },
+
+    mainReviewAll: async(req, res) => {
         const profileIdx = req.params.profileIdx;
         const idx = await Profile.mainReviewAll(profileIdx);
         return res.status(CODE.OK)
             .send(util.success(CODE.OK, MSG.READ_PROFILE_SUCCESS, {count:idx.length, result: idx}));
     },
-    followList: async(req, res) =>{
+
+    followList: async(req, res) => {
         const profileIdx = req.params.profileIdx;
         const idx = await Profile.followList(profileIdx);
         return res.status(CODE.OK)
             .send(util.success(CODE.OK, MSG.READ_FOLLOW_LIST_SUCCESS,{count:idx.length, result : idx}));
     },
-    editProfile: async(req, res)=>{
+
+    conversionProfile : async(req, res) => {
         const profileIdx = req.params.profileIdx;
-        const {profileImg, profileName, profileGender, profileWeight, profileAge, profileInfo, userIdx} = req.body;
-       // const getUserIdx = await Profile.getUserIdx(profileIdx);
-        const result = await Profile. editProfile(profileIdx, profileImg, profileName, profileGender, profileWeight, profileAge, profileInfo, userIdx);
-        return res.status(CODE.OK)
-            .send(util.success(CODE.OK, MSG.UPDATE_PROFILE_SUCCESS,  {updateReview: result}));
+        
+        const result = await Profile.conversionProfile(profileIdx);
+
+        if (result.length === 0) {
+            res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.NO_PROFILE, result));
+            return;
+        }
+
+        res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_PROFILE_READ, result));
+        
     }
 
 }
