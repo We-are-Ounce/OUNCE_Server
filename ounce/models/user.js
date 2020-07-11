@@ -12,7 +12,7 @@ const user = {
             const insertId = result.insertId;
             return insertId;
         } catch(err) {
-          if (err.errno == 1062) {
+        if (err.errno == 1062) {
             console.log('signup ERROR : ', err.errno, err.code);
             throw err;
         }

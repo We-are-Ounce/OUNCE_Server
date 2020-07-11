@@ -25,18 +25,9 @@ module.exports = {
     register: async(req, res) => {
         const userIdx = req.userIdx;
 
-        const {
-            profileIdx,
-            profileImg,
-            profileName,
-            profileWeight,
-            profileGender,
-            profileNeutral,
-            profileAge,
-            profileInfo,   
-        } = req.body;
+        const {profileImg,profileName,profileWeight,profileGender,profileNeutral,profileAge,profileInfo} = req.body;
 
-        if (!profileIdx || !profileImg|| !profileName || !profileWeight || !profileGender || !profileNeutral || !profileAge || !profileInfo){
+        if (!profileImg|| !profileName || !profileWeight || !profileGender || !profileNeutral || !profileAge || !profileInfo){
             res.status(statusCode.BAD_REQUEST)
                 .send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
             return;
@@ -70,7 +61,7 @@ module.exports = {
             return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.PERMISSION_DENIED_UPDATE_PROFILE));
         }
 
-        const result = await profile.update(profileIdx, profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx);
+        const result = await profile.updateProfile(profileIdx, profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx);
 
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_UPDATE_PROFILE, {
             profileIdx : isMyProfileIdx
@@ -94,22 +85,51 @@ module.exports = {
         if (user.idx == undefined) {
             return res.json(util.fail(statusCodes.UNAUTHORIZED, resMessage.INVALID_TOKEN));
         }
-        const idx = await Profile.mainProfile(profileIdx);
+        const idx = await profile.mainProfile(profileIdx);
         return res.status(statusCode.OK)
             .send(util.success(statusCode.OK, resMessage.READ_PROFILE_SUCCESS, idx));
     }, 
+
     mainReviewAll: async(req, res) => {
         const profileIdx = req.params.profileIdx;
-        const idx = await Profile.mainReviewAll(profileIdx);
+        const idx = await profile.mainReviewAll(profileIdx);
         return res.status(statusCode.OK)
             .send(util.success(statusCode.OK, resMessage.READ_PROFILE_SUCCESS, {count:idx.length, result: idx}));
     },
+
     followList: async(req, res) => {
         const profileIdx = req.params.profileIdx;
-        const idx = await Profile.followList(profileIdx);
+        const idx = await profile.followList(profileIdx);
         return res.status(statusCode.OK)
             .send(util.success(statusCode.OK, resMessage.READ_FOLLOW_LIST_SUCCESS,{count:idx.length, result : idx}));
     },
 
+    followerList: async(req, res)=>{
+        const profileIdx = req.params.profileIdx;
+        const idx = await profile.followerList(profileIdx);
+        return res.status(statusCode.OK)
+            .send(util.success(statusCode.OK, resMessage.READ_FOLLOWER_LIST_SUCCESS,{count:idx.length, result:idx}));
+    },
 
+    requestFollow: async(req, res)=>{
+        const {myprofileIdx, followingIdx} = req.body;
+
+        if(!myprofileIdx || !followingIdx){
+            res.status(statusCode.BAD_REQUEST, resMessage.NULL_VALUE, {});
+        }
+
+        const idx = await profile.requestFollow(myprofileIdx, followingIdx);
+
+        res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.REQUEST_FOLLOW_SUCCESS, idx));
+
+    },
+    deleteFollow:async(req, res)=>{
+        const {myprofileIdx, followingIdx } = req.body;
+        if(!myprofileIdx || !followingIdx ) {
+            res.status(statusCode.BAD_REQUEST, resMessage.NULL_VALUE, {})
+        }
+        const idx = await profile.deleteFollow(myprofileIdx, followingIdx);
+        res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.DELETE_FOLLOW_SUCCESS, idx));
+
+    }
 }
