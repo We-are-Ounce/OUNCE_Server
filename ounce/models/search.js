@@ -20,7 +20,7 @@ const search = {
             const result = await pool.queryParam(query);
             return result;
         } catch (err) {
-            console.log('foodSearch ERROR');
+            console.log('sort ERROR');
             throw err;
         }
     },
@@ -31,7 +31,7 @@ const search = {
             const result = await pool.queryParam(query);
             return result;
         } catch (err) {
-            console.log('foodSearch ERROR');
+            console.log('sort ERROR');
             throw err;
         }
     },
