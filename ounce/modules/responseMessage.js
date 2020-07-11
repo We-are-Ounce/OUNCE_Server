@@ -16,5 +16,8 @@ module.exports = {
     SUCCESS_UPDATE_PROFILE : "프로필 수정 성공입니다",
     PERMISSION_DENIED_UPDATE_POST:'수정 권한이 없습니다',
     READ_POST_SUCCESS: "게시글 조회 성공",
-    READ_POST_FAIL: "게시글 조회 실패"
+    READ_POST_FAIL: "게시글 조회 실패",
+    CONVERSE_PROFILE_SUCCESS: "프로필 전환 성공",
+    REQUEST_FOLLOW_SUCCESS: "팔로우 신청 성공",
+    DELETE_FOLLOW_SUCCESS: "팔로우 취소 성공"
 };

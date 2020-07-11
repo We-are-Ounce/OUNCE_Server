@@ -104,6 +104,34 @@ module.exports = {
         return res.status(CODE.OK)
             .send(util.success(CODE.OK, MSG.READ_FOLLOW_LIST_SUCCESS,{count:idx.length, result : idx}));
     },
+    followerList: async(req, res)=>{
+        const profileIdx = req.params.profileIdx;
+        const idx = await profile.followerList(profileIdx);
+        return res.status(statusCode.OK)
+            .send(util.success(statusCode.OK, resMessage.READ_FOLLOWER_LIST_SUCCESS,{count:idx.length, result:idx}));
+    },
+
+    requestFollow: async(req, res)=>{
+        const {myprofileIdx, followingIdx} = req.body;
+
+        if(!myprofileIdx || !followingIdx){
+            res.status(statusCode.BAD_REQUEST, resMessage.NULL_VALUE, {});
+        }
+
+        const idx = await profile.requestFollow(myprofileIdx, followingIdx);
+
+        res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.REQUEST_FOLLOW_SUCCESS, idx));
+
+    },
+    deleteFollow:async(req, res)=>{
+        const {myprofileIdx, followingIdx } = req.body;
+        if(!myprofileIdx || !followingIdx ) {
+            res.status(statusCode.BAD_REQUEST, resMessage.NULL_VALUE, {})
+        }
+        const idx = await profile.deleteFollow(myprofileIdx, followingIdx);
+        res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.DELETE_FOLLOW_SUCCESS, idx));
+
+    },
 
     conversionProfile : async(req, res) => {
         const profileIdx = req.params.profileIdx;
