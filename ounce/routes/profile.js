@@ -3,6 +3,7 @@ const router = express.Router();
 const profileControllers = require('../controllers/profileController')
 const middleware = require('../modules/middlewares');
 const profileController = require('../controllers/profileController');
+const profile = require('../models/profile');
 
 router.post('/register', middleware.userJwt, profileControllers.profileRegister);
 router.put('/edit/:profileIdx', middleware.userJwt, profileControllers.updateProfile);
@@ -14,5 +15,6 @@ router.get('/:profileIdx', profileControllers.diffProfile);
 //다른 고양이의 리뷰 목록 조회
 router.get('/review/:profileIdx', profileControllers.diffReviewAll);
 router.get('/home/:profileIdx', middleware.userJwt, profileController.mainProfile);
+router.get('/conversion/:profileIdx', middleware.userJwt, profileController.conversionProfile);
 
 module.exports = router;

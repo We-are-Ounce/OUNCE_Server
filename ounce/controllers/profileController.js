@@ -101,4 +101,19 @@ module.exports = {
         return res.status(statusCode.OK)
             .send(util.success(statusCode.OK, resMessage.READ_FOLLOW_LIST_SUCCESS,{count:idx.length, result : idx}));
     },
+
+    conversionProfile : async(req, res) => {
+        const profileIdx = req.params.profileIdx;
+        
+        const result = await Profile.conversionProfile(profileIdx);
+
+        if (result.length === 0) {
+            res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.NO_PROFILE, result));
+            return;
+        }
+
+        res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_PROFILE_READ, result));
+        
+    }
+
 }

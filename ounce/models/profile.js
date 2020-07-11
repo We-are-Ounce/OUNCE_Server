@@ -104,5 +104,16 @@ const profile = {
             throw err;
         }
     },
+
+    conversionProfile : async(profileIdx) => {
+        const query = `SELECT profileIdx, profileImg, profileName, profileInfo FROM profile WHERE profileIdx = ${profileIdx}`;
+        try {
+            const result = await pool.queryParam(query);
+            return result;
+        } catch (err) {
+            console.log('ERROR Conversion Profile');
+            throw err;
+        }
+    }
 }
 module.exports=  profile;
