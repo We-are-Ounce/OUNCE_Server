@@ -80,8 +80,6 @@ const profile = {
             throw err;
         }
     },
-
-    // 쿼리수정 예정
     mainProfile: async(profileIdx)=>{
         const query = `SELECT profile.profileImg, profile.profileName, profile.profileGender,  profile.profileNeutral, profile.profileWeight, profile.profileInfo, (SELECT count(follow.followingIdx) FROM follow WHERE follow.followingIdx = "${profileIdx}") as follower, count(follow.myProfileIdx) as following FROM profile join follow 
         on profile.profileIdx = follow.myProfileIdx WHERE profile.profileIdx = "${profileIdx}"`;
