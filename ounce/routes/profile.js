@@ -12,5 +12,7 @@ router.get('/:profileIdx', profileControllers.diffProfile);
 
 //다른 고양이의 리뷰 목록 조회
 router.get('/review/:profileIdx', profileControllers.diffReviewAll);
+router.get('/home/:profileIdx', middleware.userJwt, profileController.mainProfile);
+router.get('/conversion/:profileIdx', middleware.userJwt, profileController.conversionProfile);
 
 module.exports = router;

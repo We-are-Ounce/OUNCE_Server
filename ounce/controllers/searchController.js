@@ -135,6 +135,28 @@ const search = {
 
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_REVIEW_DETAIL, result));
     },
+
+    /** 
+    * 리뷰 평점 순으로 정렬
+    * @summary 리뷰 평점 순으로 정렬
+    * @param 캣푸드 인덱스
+    * @return 캣 푸드에 등록된 리뷰 전체
+    */
+
+    reviewSortRating : async(req, res) => {
+
+    },
+
+    /** 
+    * 리뷰 선호도 순으로 정렬
+    * @summary 리뷰 선호도 순으로 정렬
+    * @param 캣푸드 인덱스
+    * @return 캣 푸드에 등록된 리뷰 전체
+    */
+
+    reviewSortPrefer : async(req, res) => {
+
+    }
 }
 
 module.exports = search;

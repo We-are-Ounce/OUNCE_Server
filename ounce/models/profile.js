@@ -25,7 +25,7 @@ const profile = {
     },
     //프로필 정보 등록(고양이 사진, 고양이 이름)
 
-    register: async (profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx) => {
+    profileRegister: async (profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx) => {
         const fields = 'profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx';
         const questions = `?, ?, ?, ?, ?, ?, ?, ?`;
         const values = [profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx];
@@ -44,7 +44,7 @@ const profile = {
         }
     },
 
-    update : async (profileIdx, profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx) => {
+    profileUpdate : async (profileIdx, profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx) => {
         const fields = 'profileImg = ?, profileName = ?, profileWeight = ?, profileGender = ?, profileNeutral = ?, profileAge = ?, profileInfo = ?, userIdx = ?';
         const values = [profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx];
 
@@ -91,6 +91,7 @@ const profile = {
             throw err;
         }
     },
+
     mainReviewAll: async(profileIdx)=>{
         const query = `SELECT review.reviewIdx, food.foodImg, food.foodManu, food.foodName, review.reviewInfo, review.reviewRating, review.reviewPrefer, review.createdAt FROM review join food on review.foodIdx = food.foodIdx where review.profileIdx = "${profileIdx}"`
         try{
@@ -100,6 +101,17 @@ const profile = {
             console.log("mainReviewAll error : ", err);
             throw err;
         }
+    },
+
+    conversionProfile : async(profileIdx) => {
+        const query = `SELECT profileIdx, profileImg, profileName, profileInfo FROM profile WHERE profileIdx = ${profileIdx}`;
+        try {
+            const result = await pool.queryParam(query);
+            return result;
+        } catch (err) {
+            console.log('ERROR Conversion Profile');
+            throw err;
+        }
     }
-    }
+}
 module.exports=  profile;
