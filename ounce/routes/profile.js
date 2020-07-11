@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const profileControllers = require('../controllers/profileController')
 const middlewares = require('../modules/middlewares');
-
-router.post('/register', middlewares.userJwt, profileControllers.register);
+const upload = require('../modules/multer');
+router.post('/register', middlewares.userJwt, upload.single('profile'),  profileControllers.register);
 router.put('/edit/:profileIdx', middlewares.userJwt, profileControllers.updateProfile);
 //router.get('/home', ProfileController.home);
 //다른 고양이의 프로필
