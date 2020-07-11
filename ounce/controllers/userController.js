@@ -90,21 +90,4 @@ module.exports = {
                 //, refreshToken: refreshToken
             }));
     },
-    /*updateProfile: async (req, res) => {
-        //데이터 불러오기
-        const userIdx = req.decoded.userIdx;
-        const profileImg = req.file.location;
-        // data check - undefined
-        if(profileImg == undefined || !userIdx ){
-            return res.status(CODE.OK).send(util.fail(CODE.BAD_REQUEST, MSG.NULL_VALUE));
-        }
-        //image type check
-        const type = req.file.mimetype.split('/')[1];
-        if(type !=='jpeg' && type !=='jpg' && type !=='png'){
-            return res.status(CODE.OK).send(util.fail(CODE.OK, MSG.UNSUPPORTED_TYPE));
-        }
-        //call model - database
-        const result = await UserModel.updateProfile(userIdx, profileImg);
-        res.status(CODE.OK).send(util.fail(CODE.OK, MSG.UPDATE_PROFILE_SUCCESS, result));
-    }*/
 }
