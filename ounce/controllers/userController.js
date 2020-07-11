@@ -93,6 +93,6 @@ module.exports = {
                 accessToken: token,
                 profileIdx : result[0].profileIdx,
                 profileCount : result[0].profileCount
-            }));
+        }));
     },
 }
