@@ -7,6 +7,13 @@ const Hangul = require('hangul-js');
 const ChosungSearch = require('hangul-chosung-search-js');
 
 const search = {
+    /** 
+    * 제품명 검색
+    * @summary 제품명, 제조사명 검색
+    * @param 검색 키워드
+    * @return 검색 결과
+    */
+
     searchFood : async(req, res) => {
         let {keyword} = req.body;
         
@@ -83,7 +90,12 @@ const search = {
 
     },
 
-    // 유저검색
+    /** 
+    * 유저검색
+    * @summary 유저검색
+    * @param 유저아이디
+    * @return 유저의 고양이 프로필
+    */
     searchUser : async(req, res) => {
         const {userId} = req.body;
 
@@ -103,7 +115,13 @@ const search = {
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_USER, result))   
     },
 
-    // 리뷰 전체보기
+    /** 
+    * 제품 리뷰 전체보기
+    * @summary 제품 검색 후 리뷰 전체보기
+    * @param 캣푸드 인덱스
+    * @return 캣 푸드 리뷰 전체
+    */
+
     reviewAll : async(req, res) => {
         const {foodIdx} = req.body;
 

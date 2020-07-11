@@ -1,4 +1,5 @@
 const pool = require('../modules/pool');
+const { value } = require('../config/database');
 const table = 'profile';
 
 const profile = {
@@ -24,14 +25,14 @@ const profile = {
         }
     },
     //프로필 정보 등록(고양이 사진, 고양이 이름)
-    register: async(profileImg, profileName)=>{
-        const fields = 'profileImg, profileName';
-        const questions = `?,?`;
-        const values = [profileImg, profileName];
+    register: async (profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx) => {
+        const fields = 'profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx';
+        const questions = `?, ?, ?, ?, ?, ?, ?, ?`;
+        const values = [profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx];
         const query = `INSERT INTO ${table}(${fields}) VALUES(${questions})`;
-        try{
+        try {
             const result = await pool.queryParamArr(query, values);
-            const insertId = result.insetId;
+            const insertId = result.insertId;
             return insertId;
         } catch(err){
             if(err.errno == 1062){
@@ -42,6 +43,34 @@ const profile = {
             throw err;
         }
     },
+
+    update : async (profileIdx, profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx) => {
+        const fields = 'profileImg = ?, profileName = ?, profileWeight = ?, profileGender = ?, profileNeutral = ?, profileAge = ?, profileInfo = ?, userIdx = ?';
+        const values = [profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx];
+
+        const query = `UPDATE ${table} SET ${fields} WHERE profileIdx = ${profileIdx}`;
+        try {
+            const result = await pool.queryParamArr(query, values);
+            return result;
+        } catch(err) {
+            console.log("UPDATE PROFILE ERROR");
+            throw err;
+        }
+    },
+ 
+    isMyProfileIdx : async(profileIdx, userIdx) => {
+        const query = `SELECT * FROM ${table} WHERE profileIdx = ${profileIdx} and userIdx = ${userIdx}`;
+        try {
+            const result = await pool.queryParam(query);
+            if (result.length === 0) {
+                return false;
+            } 
+            return true;
+        } catch(err) {
+            throw err;
+        }
+    },
+
     getProfileByIdx: async (idx) => {
         const query = `SELECT * FROM ${table} WHERE userIdx="${idx}"`;
         try {

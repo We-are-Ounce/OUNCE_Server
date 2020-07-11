@@ -57,6 +57,7 @@ module.exports = {
             id,
             password
         } = req.body;
+
         if (!id || !password) {
             res.status(CODE.BAD_REQUEST)
                 .send(util.fail(CODE.BAD_REQUEST, MSG.NULL_VALUE));
@@ -64,7 +65,8 @@ module.exports = {
         }
 
         // User의 아이디가 있는지 확인 - 없다면 NO_USER 반납
-        const user = await UserModel.getUserById(id);
+        const user = await UserModel.findByUserId(id);
+
         if (user[0] === undefined) {
             return res.status(CODE.BAD_REQUEST)
                 .send(util.fail(CODE.BAD_REQUEST, MSG.NO_USER));
