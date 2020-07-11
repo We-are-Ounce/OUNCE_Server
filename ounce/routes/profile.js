@@ -4,7 +4,6 @@ const profileControllers = require('../controllers/profileController')
 const middlewares = require('../modules/middlewares');
 
 router.post('/register', middlewares.userJwt, profileControllers.register);
-
 router.put('/edit/:profileIdx', middlewares.userJwt, profileControllers.updateProfile);
 
 //router.get('/home', ProfileController.home);
