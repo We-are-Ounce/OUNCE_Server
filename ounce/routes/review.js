@@ -1,13 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const resMessage = require('../modules/responseMessage');
-const util = require('../modules/util');
-const statusCode = require('../modules/statusCode');
 const reviewControllers = require('../controllers/reviewController');
-const middlewares = require('../modules/middlewares');
+const middleware = require('../modules/middlewares');
 
 // search reviewALl 
-router.post('/add', middlewares.userJwt, reviewControllers.reviewAdd);
+router.post('/add', middleware.userJwt, reviewControllers.reviewAdd);
 
 //내가 쓴 리뷰 제조사만 필터링
 router.get('/:profileIdx/category', reviewControllers.myReviewManu);
@@ -31,9 +28,9 @@ router.get('/:profileIdx/prefer', reviewControllers.sortByPrefer);
 router.get('/:profileIdx/date', reviewControllers.sortByDate);
 
 //내가 쓴 리뷰 수정
-router.put('/update/:reviewIdx',  middlewares.userJwt, reviewControllers.updateReview);
+router.put('/update/:reviewIdx',  middleware.userJwt, reviewControllers.updateReview);
 
 //내가 쓴 리뷰 삭제
-router.delete('/delete/:reviewIdx',  middlewares.userJwt, reviewControllers.deleteReview);
+router.delete('/delete/:reviewIdx',  middleware.userJwt, reviewControllers.deleteReview);
 
 module.exports = router;

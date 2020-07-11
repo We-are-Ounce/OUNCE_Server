@@ -1,9 +1,7 @@
-let util = require('../modules/util');
-let statusCode = require('../modules/statusCode');
-let resMessage = require('../modules/responseMessage');
-let Profile = require('../models/profile');
-const jwt = require('../modules/jwt');
-const profile = require('../models/profile');
+const util = require('../modules/util');
+const statusCode = require('../modules/statusCode');
+const resMessage = require('../modules/responseMessage');
+const Profile = require('../models/profile');
 
 module.exports = {
     //다른 고양이 계정 프로필 조회
@@ -24,7 +22,7 @@ module.exports = {
 
     profileRegister: async(req, res) => {
         const userIdx = req.userIdx;
-        const profileImg = req.file.path;
+        const profileImg = req.file.location;
         const {
             profileName,
             profileWeight,
@@ -34,13 +32,19 @@ module.exports = {
             profileInfo,   
         } = req.body;
 
+        console.log(profileImg,profileName,
+            profileWeight,
+            profileGender,
+            profileNeutral,
+            profileAge,
+            profileInfo,   )
         if (profileImg===undefined|| !profileName || !profileWeight || !profileGender || !profileNeutral || !profileAge || !profileInfo){
             res.status(statusCode.BAD_REQUEST)
                 .send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
             return;
         }
         
-        const pIdx = await profile.profileRegister(profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx);
+        const pIdx = await Profile.profileRegister(profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx);
 
         res.status(statusCode.OK)
             .send(util.success(statusCode.OK, resMessage.REGISTER_PROFILE,{
@@ -51,8 +55,8 @@ module.exports = {
     updateProfile : async(req, res) => {
         const userIdx = req.userIdx;
         const {profileIdx} = req.params;
+        const profileImg = req.file.location;
         const {
-            profileImg,
             profileName,
             profileWeight,
             profileGender,
@@ -62,13 +66,13 @@ module.exports = {
         } = req.body;
 
         
-        const isMyProfileIdx = await profile.isMyProfileIdx(profileIdx, userIdx);
+        const isMyProfileIdx = await Profile.isMyProfileIdx(profileIdx, userIdx);
 
         if (!isMyProfileIdx) {
             return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.PERMISSION_DENIED_UPDATE_PROFILE));
         }
 
-        const result = await profile.ProfileUpdate(profileIdx, profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx);
+        const result = await Profile.ProfileUpdate(profileIdx, profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx);
 
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_UPDATE_PROFILE, {
             profileIdx : isMyProfileIdx

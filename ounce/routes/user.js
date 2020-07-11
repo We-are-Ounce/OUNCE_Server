@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const UserController = require('../controllers/userController');
-//const AuthMiddleware = require('../middlewares/auth');
+const userController = require('../controllers/userController');
 
-router.post('/signup', UserController.signup);
-router.post('/signin', UserController.signin);
+router.post('/signup', userController.signup);
+router.post('/signin', userController.signin);
 
 /* 
     ✔️ update profile
