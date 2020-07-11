@@ -12,7 +12,7 @@ module.exports = {
             return res.json(util.fail(statusCode.BAD_REQUEST, resMessage.EMPTY_TOKEN));
         }
         const user = await jwt.verify(token);
-        console.log("user: "+user);
+        console.log("user: " + user);
         if (user === TOKEN_EXPIRED) {
             return res.json(util.fail(statusCode.UNAUTHORIZED, resMessage.EXPIRED_TOKEN));
         }
