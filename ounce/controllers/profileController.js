@@ -22,11 +22,10 @@ module.exports = {
         .send(util.success(statusCode.OK, resMessage.READ_POST_SUCCESS, {count:idx.length,result:idx}));
     },
 
-    register: async(req, res) => {
+    profileRegister: async(req, res) => {
         const userIdx = req.userIdx;
 
         const {
-            profileIdx,
             profileImg,
             profileName,
             profileWeight,
@@ -36,13 +35,13 @@ module.exports = {
             profileInfo,   
         } = req.body;
 
-        if (!profileIdx || !profileImg|| !profileName || !profileWeight || !profileGender || !profileNeutral || !profileAge || !profileInfo){
+        if (!profileImg|| !profileName || !profileWeight || !profileGender || !profileNeutral || !profileAge || !profileInfo){
             res.status(statusCode.BAD_REQUEST)
                 .send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
             return;
         }
         
-        const pIdx = await profile.register(profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx);
+        const pIdx = await profile.profileRegister(profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx);
 
         res.status(statusCode.OK)
             .send(util.success(statusCode.OK, resMessage.REGISTER_PROFILE,{
@@ -70,7 +69,7 @@ module.exports = {
             return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.PERMISSION_DENIED_UPDATE_PROFILE));
         }
 
-        const result = await profile.update(profileIdx, profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx);
+        const result = await profile.ProfileUpdate(profileIdx, profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx);
 
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_UPDATE_PROFILE, {
             profileIdx : isMyProfileIdx
@@ -80,36 +79,26 @@ module.exports = {
 
     mainProfile: async(req, res) => {
         const profileIdx = req.params.profileIdx;
-        if (!token) {
-            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.EMPTY_TOKEN))
-            return;
-        }
-        const user = await jwt.verify(token);
-        if (user == TOKEN_EXPIRED) {
-            return res.json(util.fail(statusCode.UNAUTHORIZED, resMessage.EXPIRED_TOKEN));
-        }
-        if (user == TOKEN_INVALID) {
-            return res.json(util.fail(statusCode.UNAUTHORIZED, resMessage.EXPIRED_TOKEN));
-        }
-        if (user.idx == undefined) {
-            return res.json(util.fail(statusCodes.UNAUTHORIZED, resMessage.INVALID_TOKEN));
-        }
+        // 어디에 쓸지 userIdx
+        const userIdx = req.userIdx;
+
         const idx = await Profile.mainProfile(profileIdx);
+
         return res.status(statusCode.OK)
             .send(util.success(statusCode.OK, resMessage.READ_PROFILE_SUCCESS, idx));
-    }, 
+    },
+
     mainReviewAll: async(req, res) => {
         const profileIdx = req.params.profileIdx;
         const idx = await Profile.mainReviewAll(profileIdx);
         return res.status(statusCode.OK)
             .send(util.success(statusCode.OK, resMessage.READ_PROFILE_SUCCESS, {count:idx.length, result: idx}));
     },
+
     followList: async(req, res) => {
         const profileIdx = req.params.profileIdx;
         const idx = await Profile.followList(profileIdx);
         return res.status(statusCode.OK)
             .send(util.success(statusCode.OK, resMessage.READ_FOLLOW_LIST_SUCCESS,{count:idx.length, result : idx}));
     },
-
-
 }
