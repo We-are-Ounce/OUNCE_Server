@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const profileControllers = require('../controllers/profileController')
-const authUtil  = require('../middlewares/auth');
+const middlewares = require('../modules/middlewares');
 
-router.post('/register', authUtil.checkToken, profileControllers.register);
+router.post('/register', middlewares.userJwt, profileControllers.register);
 
-router.put('/edit/:profileIdx', authUtil.checkToken, profileControllers.update);
+router.put('/edit/:profileIdx', middlewares.userJwt, profileControllers.updateProfile);
 
 //router.get('/home', ProfileController.home);
 //다른 고양이의 프로필
@@ -14,4 +14,5 @@ router.get('/:profileIdx', profileControllers.diffProfile);
 
 //다른 고양이의 리뷰 목록 조회
 router.get('/review/:profileIdx', profileControllers.diffReviewAll);
+
 module.exports = router;

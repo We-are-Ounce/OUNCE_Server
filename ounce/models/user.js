@@ -11,15 +11,16 @@ const user = {
             const result = await pool.queryParamArr(query, values);
             const insertId = result.insertId;
             return insertId;
-        } catch (err) {
-            if (err.errno == 1062) {
-                console.log('signup ERROR : ', err.errno, err.code);
-                throw err;
-            }
-            console.log('signup ERROR : ', err);
+        } catch(err) {
+          if (err.errno == 1062) {
+            console.log('signup ERROR : ', err.errno, err.code);
             throw err;
         }
+        console.log('signup ERROR : ', err);
+        throw err;
+        }
     },
+
     checkUser: async (id) => {
         const query = `SELECT * FROM ${table} WHERE id="${id}"`;
         try {
@@ -63,18 +64,6 @@ const user = {
             throw err;
         }
     },
-/* updateProfile: async (userIdx, profile) => {
-        let query = `UPDATE ${table} SET image="${profile}" WHERE userIdx="${userIdx}"`;
-        try {
-            await pool.queryParam(query);
-            query = `SELECT id, name, email, image FROM ${table} WHERE userIdx="${userIdx}"`;
-            const result = await pool.queryParam(query);
-            return result;
-        } catch (err) {
-            console.log('update profile ERROR : ', err);
-            throw err;
-        }
-    }*/
 }
 
 module.exports = user;
