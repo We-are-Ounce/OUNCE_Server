@@ -6,19 +6,19 @@ const encrypt = require('../modules/crypto');
 const jwt = require('../modules/jwt');
 
 module.exports = {
-    signup: async (req, res) => {
+    signup: async ( req , res ) => {
         const {
             id,
             password,
             email
         } = req.body;
-        if (!id || !password || !email) {
+        if ( !id || !password || !email ) {
             res.status(statusCode.BAD_REQUEST)
                 .send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
             return;
         }
         // 사용자 중인 아이디가 있는지 확인
-        if (await UserModel.checkUser(id)) {
+        if ( await UserModel.checkUser(id) ) {
             res.status(statusCode.BAD_REQUEST)
                 .send(util.fail(statusCode.BAD_REQUEST, resMessage.ALREADY_ID));
             return;
@@ -27,8 +27,8 @@ module.exports = {
             salt,
             hashed
         } = await encrypt.encrypt(password);
-        const idx = await UserModel.signup(id, hashed, salt, email);
-        if (idx === -1) {
+        const idx = await UserModel.signup( id, hashed, salt, email );
+        if ( idx === -1 ) {
             return res.status(statusCode.DB_ERROR)
                 .send(util.fail(statusCode.DB_ERROR, resMessage.DB_ERROR));
         }
@@ -84,7 +84,7 @@ module.exports = {
 
         const {
             token,
-            refreshToken
+            __
         } = await jwt.sign(user[0]);
 
         // 로그인이 성공적으로 마쳤다면 - LOGIN_SUCCESS 전달
