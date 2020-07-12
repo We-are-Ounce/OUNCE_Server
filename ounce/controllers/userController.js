@@ -58,7 +58,8 @@ module.exports = {
             password
         } = req.body;
 
-        if ( !id || !password ) {
+
+        if (!id || !password) {
             res.status(statusCode.BAD_REQUEST)
                 .send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
             return;
@@ -73,10 +74,13 @@ module.exports = {
         }
         // req의 Password 확인 - 틀렸다면 MISS_MATCH_PW 반납
         const hashed = await encrypt.encryptWithSalt(password, user[0].salt);
-        if (hashed !== user[0].password) {
-            return res.status(statusCode.BAD_REQUEST)
-                .send(util.fail(statusCode.BAD_REQUEST, resMessage.MISS_MATCH_PW));
-        }
+
+        // if (hashed !== user[0].password) {
+        //     return res.status(statusCode.BAD_REQUEST)
+        //         .send(util.fail(statusCode.BAD_REQUEST, resMessage.MISS_MATCH_PW));
+        // }
+
+        const result = await UserModel.getProfileCount(user[0].userIdx);
 
         const {
             token,
@@ -86,8 +90,9 @@ module.exports = {
         // 로그인이 성공적으로 마쳤다면 - LOGIN_SUCCESS 전달
         res.status(statusCode.OK)
             .send(util.success(statusCode.OK, resMessage.LOGIN_SUCCESS, {
-                accessToken: token
-            }));
+                accessToken: token,
+                profileIdx : result[0].profileIdx,
+                profileCount : result[0].profileCount
+        }));
     },
-
 }

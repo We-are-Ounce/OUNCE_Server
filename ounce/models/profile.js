@@ -13,6 +13,7 @@ const profile = {
             throw err;
         }
     },
+
     diffReviewAll : async (profileIdx) => {
         const query = `SELECT review.reviewIdx, food.foodIdx, food.foodImg, food.foodManu, food.foodName, review.reviewInfo, review.reviewRating, review.reviewPrefer, review.createdAt FROM review join food on review.foodIdx = food.foodIdx where review.profileIdx="${profileIdx}";` 
         try {
@@ -23,9 +24,9 @@ const profile = {
             throw err;
         }
     },
-    
-    //1. 프로필 정보 등록(고양이 사진, 고양이 이름)
-    register: async (profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx) => {
+    //프로필 정보 등록(고양이 사진, 고양이 이름)
+
+    profileRegister: async (profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx) => {
         const fields = 'profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx';
         const questions = `?, ?, ?, ?, ?, ?, ?, ?`;
         const values = [profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx];
@@ -43,6 +44,7 @@ const profile = {
             throw err;
         }
     },
+
     //1-2 프로필 추가
     addProfile: async(userIdx)=>{
         const query = `SELECT count(userIdx) as count FROM ${table} WHERE userIdx = ${userIdx}`
@@ -65,7 +67,8 @@ const profile = {
         }
     },
     //2. 프로필 수정
-    updateProfiles : async (profileIdx, profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx) => {
+    profileUpdate : async (profileIdx, profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx) => {
+
         const fields = 'profileImg = ?, profileName = ?, profileWeight = ?, profileGender = ?, profileNeutral = ?, profileAge = ?, profileInfo = ?, userIdx = ?';
         const values = [profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx];
         const query = `UPDATE ${table} SET ${fields} WHERE profileIdx = ${profileIdx}`;
@@ -77,7 +80,6 @@ const profile = {
             throw err;
         }
     },
-
     isMyProfileIdx : async(profileIdx, userIdx) => {
         const query = `SELECT * FROM ${table} WHERE profileIdx = ${profileIdx} and userIdx = ${userIdx}`;
         try {
@@ -123,6 +125,16 @@ const profile = {
             throw err;
         }
     },
+
+    conversionProfile : async(profileIdx) => {
+        const query = `SELECT profileIdx, profileImg, profileName, profileInfo FROM profile WHERE profileIdx = ${profileIdx}`;
+        try {
+            const result = await pool.queryParam(query);
+            return result;
+        } catch (err) {
+            console.log('ERROR Conversion Profile');
+            throw err;
+        }},
     //4 팔로우 목록
     followList: async(profileIdx)=>{
         const query = `SELECT profile.profileIdx,profile.profileImg, profile.profileName, profile.profileGender, profile.profileNeutral, profile.profileAge, profile.profileWeight

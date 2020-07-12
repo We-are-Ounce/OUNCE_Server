@@ -15,9 +15,7 @@ const user = {
         if (err.errno == 1062) {
             console.log('signup ERROR : ', err.errno, err.code);
             throw err;
-        }
-        console.log('signup ERROR : ', err);
-        throw err;
+           }   
         }
     },
 
@@ -27,7 +25,8 @@ const user = {
             const result = await pool.queryParam(query);
             if (result.length === 0) {
                 return false;
-            } else return true;
+            } 
+            return true;
         } catch (err) {
             console.log('checkUser ERROR : ', err);
             throw err;
@@ -61,6 +60,19 @@ const user = {
             throw err;
         }
     },
+
+    getProfileCount: async(userIdx) => {
+        const query = `SELECT p.profileIdx, count(p.profileIdx) as profileCount FROM user u JOIN profile p ON u.userIdx = p.userIdx WHERE u.userIdx = ${userIdx}`;
+        try {
+            const result = await pool.queryParam(query);
+            return result;
+        } catch(err) {
+            console.log('profileCount Error');
+            throw err;
+        }
+    }
+
+    
 }
 
 module.exports = user;

@@ -1,13 +1,11 @@
-let util = require('../modules/util');
-let statusCode = require('../modules/statusCode');
-let resMessage = require('../modules/responseMessage');
-let Profile = require('../models/profile');
-const jwt = require('../modules/jwt');
-const profile = require('../models/profile');
+const util = require('../modules/util');
+const statusCode = require('../modules/statusCode');
+const resMessage = require('../modules/responseMessage');
+const Profile = require('../models/profile');
 
 module.exports = {
     //다른 고양이 계정 프로필 조회
-    diffProfile:async(req, res) => {
+    diffProfile : async(req, res) => {
         const profileIdx = req.params.profileIdx;
         const idx = await Profile.diffProfile(profileIdx);
         return res.status(statusCode.OK)
@@ -15,23 +13,40 @@ module.exports = {
     },
 
     //다른 고양이 계정에서 리뷰 전체 조회
-    diffReviewAll: async(req, res) => {
+    diffReviewAll: async(req, res)=>{
         const profileIdx = req.params.profileIdx;
         const idx = await Profile.diffReviewAll(profileIdx);
         return res.status(statusCode.OK)
         .send(util.success(statusCode.OK, resMessage.READ_POST_SUCCESS, {count:idx.length,result:idx}));
     },
-    //1. 프로필 등록
-    register: async(req, res) => {
+
+    profileRegister: async(req, res) => {
         const userIdx = req.userIdx;
-        const {profileImg,profileName,profileWeight,profileGender,profileNeutral,profileAge,profileInfo} = req.body;
-        if (!profileImg|| !profileName || !profileWeight || !profileGender || !profileNeutral || !profileAge || !profileInfo){
+        const profileImg = req.file.location;
+        const {
+            profileName,
+            profileWeight,
+            profileGender,
+            profileNeutral,
+            profileAge,
+            profileInfo,   
+        } = req.body;
+
+        console.log(profileImg,profileName,
+            profileWeight,
+            profileGender,
+            profileNeutral,
+            profileAge,
+            profileInfo,   )
+        if (profileImg===undefined|| !profileName || !profileWeight || !profileGender || !profileNeutral || !profileAge || !profileInfo){
+
             res.status(statusCode.BAD_REQUEST)
                 .send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
             return;
         }
         
-        const pIdx = await profile.register(profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx);
+        const pIdx = await Profile.profileRegister(profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx);
+
         res.status(statusCode.OK)
             .send(util.success(statusCode.OK, resMessage.REGISTER_PROFILE,{
                 profileIdx: pIdx
@@ -52,8 +67,8 @@ module.exports = {
     updateProfile : async(req, res) => {
         const userIdx = req.userIdx;
         const {profileIdx} = req.params;
+        const profileImg = req.file.location;
         const {
-            profileImg,
             profileName,
             profileWeight,
             profileGender,
@@ -76,42 +91,34 @@ module.exports = {
     //4. 프로필 조회(상단)
     mainProfile: async(req, res) => {
         const profileIdx = req.params.profileIdx;
-        if (!token) {
-            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.EMPTY_TOKEN))
-            return;
-        }
-        const user = await jwt.verify(token);
-        if (user == TOKEN_EXPIRED) {
-            return res.json(util.fail(statusCode.UNAUTHORIZED, resMessage.EXPIRED_TOKEN));
-        }
-        if (user == TOKEN_INVALID) {
-            return res.json(util.fail(statusCode.UNAUTHORIZED, resMessage.EXPIRED_TOKEN));
-        }
-        if (user.idx == undefined) {
-            return res.json(util.fail(statusCodes.UNAUTHORIZED, resMessage.INVALID_TOKEN));
-        }
-        const idx = await profile.mainProfile(profileIdx);
+        // 어디에 쓸지 userIdx
+        const userIdx = req.userIdx;
+
+        const idx = await Profile.mainProfile(profileIdx);
+
         return res.status(statusCode.OK)
             .send(util.success(statusCode.OK, resMessage.READ_PROFILE_SUCCESS, idx));
     }, 
+
     //4-2 프로필 조회(하단)
     mainReviewAll: async(req, res) => {
         const profileIdx = req.params.profileIdx;
-        const idx = await profile.mainReviewAll(profileIdx);
+        const idx = await Profile.mainReviewAll(profileIdx);
         return res.status(statusCode.OK)
             .send(util.success(statusCode.OK, resMessage.READ_PROFILE_SUCCESS, {count:idx.length, result: idx}));
     },
     //5. 팔로우 목록 조회
     followList: async(req, res) => {
         const profileIdx = req.params.profileIdx;
-        const idx = await profile.followList(profileIdx);
+        const idx = await Profile.followList(profileIdx);
         return res.status(statusCode.OK)
             .send(util.success(statusCode.OK, resMessage.READ_FOLLOW_LIST_SUCCESS,{count:idx.length, result : idx}));
     },
+    
     //5-2. 팔로워 목록 조회
     followerList: async(req, res)=>{
         const profileIdx = req.params.profileIdx;
-        const idx = await profile.followerList(profileIdx);
+        const idx = await Profile.followerList(profileIdx);
         return res.status(statusCode.OK)
             .send(util.success(statusCode.OK, resMessage.READ_FOLLOWER_LIST_SUCCESS,{count:idx.length, result:idx}));
     },
@@ -136,5 +143,20 @@ module.exports = {
         const idx = await profile.deleteFollow(myprofileIdx, followingIdx);
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.DELETE_FOLLOW_SUCCESS, idx));
 
+    },
+
+    conversionProfile : async(req, res) => {
+        const profileIdx = req.params.profileIdx;
+        
+        const result = await Profile.conversionProfile(profileIdx);
+
+        if (result.length === 0) {
+            res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.NO_PROFILE, result));
+            return;
+        }
+
+        res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_PROFILE_READ, result));
+        
     }
+
 }

@@ -103,10 +103,10 @@ const review = {
             throw err;
         }
     },
-    updateReview : async (reviewIdx,reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit) => {
-        const fields = 'reviewRating=?, reviewPrefer=?, reviewInfo=?, reviewMemo=?, reviewStatus=?, reviewSmell=?, reviewEye=?, reviewEar=?, reviewHair=?, reviewVomit=?';
+    updateReview : async (reviewIdx,reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt) => {
+        const fields = 'reviewRating=?, reviewPrefer=?, reviewInfo=?, reviewMemo=?, reviewStatus=?, reviewSmell=?, reviewEye=?, reviewEar=?, reviewHair=?, reviewVomit=?, createdA=?';
         const query = `UPDATE ${table} SET ${fields} WHERE reviewIdx="${reviewIdx}"`;
-        const values = [reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit];
+        const values = [reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt];
         try {
             const result = await pool.queryParamArr(query,values);
             return true;
