@@ -94,19 +94,19 @@ module.exports = {
     mainReviewAll: async(req, res) => {
         const profileIdx = req.params.profileIdx;
         const idx = await Profile.mainReviewAll(profileIdx);
-        return res.status(CODE.OK)
-            .send(util.success(CODE.OK, MSG.READ_PROFILE_SUCCESS, {count:idx.length, result: idx}));
+        return res.status(statusCode.OK)
+            .send(util.success(statusCode.OK, resMessage.READ_PROFILE_SUCCESS, {count:idx.length, result: idx}));
     },
 
     followList: async(req, res) => {
         const profileIdx = req.params.profileIdx;
         const idx = await Profile.followList(profileIdx);
-        return res.status(CODE.OK)
-            .send(util.success(CODE.OK, MSG.READ_FOLLOW_LIST_SUCCESS,{count:idx.length, result : idx}));
+        return res.status(statusCode.OK)
+            .send(util.success(statusCode.OK, resMessage.READ_FOLLOW_LIST_SUCCESS,{count:idx.length, result : idx}));
     },
     followerList: async(req, res)=>{
         const profileIdx = req.params.profileIdx;
-        const idx = await profile.followerList(profileIdx);
+        const idx = await Profile.followerList(profileIdx);
         return res.status(statusCode.OK)
             .send(util.success(statusCode.OK, resMessage.READ_FOLLOWER_LIST_SUCCESS,{count:idx.length, result:idx}));
     },

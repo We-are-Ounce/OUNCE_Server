@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const profileControllers = require('../controllers/profileController')
-
 const middleware = require('../modules/middlewares');
 const upload = require('../modules/multer');
+
 router.post('/register', middleware.userJwt, upload.single('profileImg'),  profileControllers.profileRegister);
 router.put('/edit/:profileIdx', middleware.userJwt, profileControllers.updateProfile);
 
@@ -22,8 +22,8 @@ router.put('/updateProfile/:profileIdx', middleware.userJwt, profileControllers.
 router.get('/mainProfile/:profileIdx', middleware.userJwt, profileControllers.mainProfile);
 router.get('/mainReviewAll/:profileIdx', middleware.userJwt, profileControllers.mainReviewAll);
 //4. 팔로우 리스트
-router.get('/followList/:profileIdx',middleware.userJwt, profileControllers.followList);
-router.get('/followerList/:profileIdx', middleware.userJwt, profileControllers.followerList);
+router.get('/followList/:profileIdx', profileControllers.followList);
+router.get('/followerList/:profileIdx', profileControllers.followerList);
 //5. 프로필 전환
 //6. 팔로우 신청
 router.post('/requestFollow',profileControllers.requestFollow );

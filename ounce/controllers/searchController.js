@@ -15,12 +15,11 @@ const search = {
     */
 
     searchFood : async(req, res) => {
-        let {keyword} = req.body;
+        let {searchKeyword} = req.body;
 
-        const inko = new Inko();
 
         if (checkKeyword.checkWord(searchKeyword)) {
-            let result = await searchKey.foodSearch(keyword, keyword);
+            let result = await searchKey.foodSearch(searchKeyword, searchKeyword);
             res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, result));
             return;
         }
@@ -59,7 +58,7 @@ const search = {
         const result = await searchKey.userSearch(userId);
 
         if (result.length === 0) {
-            res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.NO_USER, result));
+            res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.NO_USER_PROFILE, result));
             return;
         }
         

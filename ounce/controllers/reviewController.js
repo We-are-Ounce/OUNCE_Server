@@ -23,7 +23,7 @@ module.exports = {
         const isMyProfileIdx = await profile.isMyProfileIdx(profileIdx, userIdx);
 
         if (!isMyProfileIdx) {
-            return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.PERMISSION_DENIED_UPDATE_PROFILE));
+            return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.PERMISSION_DENIED_UPDATE_REVIEW));
         }
 
         const createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
