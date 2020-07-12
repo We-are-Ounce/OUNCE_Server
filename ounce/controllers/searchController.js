@@ -33,6 +33,7 @@ const search = {
                 res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, result));
                 return;
             }
+            
 
             // 입력한 글자가 자음일 때
             if (Hangul.isConsonant(keyword)) {
