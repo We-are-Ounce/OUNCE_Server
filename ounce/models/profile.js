@@ -43,6 +43,27 @@ const profile = {
             throw err;
         }
     },
+    //1-2 프로필 추가
+    addProfile: async(userIdx)=>{
+        const query = `SELECT count(userIdx) as count FROM ${table} WHERE userIdx = ${userIdx}`
+        
+        try {
+            const result = await pool.queryParamArr(query);
+            console.log("result[0]: "+result);
+            console.log("result[0].count(userIdx): "+result[0].count);
+            if(result[0].count >= 4){
+                return false;
+            }
+            return true;
+        } catch(err){
+            if(err.errno == 1062){
+                console.log('duplicate ERROR : ', err.errno, err.code);
+                throw err;
+            }
+            console.log('add profile ERROR', err)
+            throw err;
+        }
+    },
     //2. 프로필 수정
     updateProfiles : async (profileIdx, profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx) => {
         const fields = 'profileImg = ?, profileName = ?, profileWeight = ?, profileGender = ?, profileNeutral = ?, profileAge = ?, profileInfo = ?, userIdx = ?';
@@ -130,6 +151,7 @@ const profile = {
             throw err;
         }
     },
+    //5-2 팔로우 신청
     requestFollow: async(myprofileIdx, followingIdx) => {
         const fields = 'myprofileIdx, followingIdx';
         const questions = `?,?`;
@@ -144,6 +166,7 @@ const profile = {
             throw err;
         }
     },
+    //5-3 팔로우 취소
     deleteFollow: async(myprofileIdx) =>{
         const query = `DELETE FROM follow WHERE follow.myprofileIdx = "${myprofileIdx}"`
         try{

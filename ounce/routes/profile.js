@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const profileControllers = require('../controllers/profileController')
 const middleware = require('../modules/middlewares');
+//const profileControllers = require('../controllers/profileController');
 
 //router.get('/home', ProfileController.home);
 //다른 고양이의 프로필
@@ -12,6 +13,7 @@ router.get('/review/:profileIdx', profileControllers.diffReviewAll)
 
 //1. 프로필 등록
 router.post('/register', middleware.userJwt, profileControllers.register);
+router.post('/addProfile', middleware.userJwt, profileControllers.addProfile);
 //2. 프로필 수정
 router.put('/updateProfile/:profileIdx', middleware.userJwt, profileControllers.updateProfile);
 //3. 프로필조회

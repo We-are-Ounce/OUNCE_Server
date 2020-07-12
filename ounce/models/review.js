@@ -2,7 +2,7 @@ const pool = require('../modules/pool');
 const table = 'review';
 
 const review = {
-   reviewAdd : async(reviewRating, reviewPrefer, reviewInfo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, reviewMemo, createdAt, foodIdx, profileIdx, userIdx) => {
+    reviewAdd : async(reviewRating, reviewPrefer, reviewInfo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, reviewMemo, createdAt, foodIdx, profileIdx, userIdx) => {
         const fields = 'reviewRating, reviewPrefer, reviewInfo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, reviewMemo, createdAt, foodIdx, profileIdx, userIdx';
         const questions = `?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?`;
         const values = [reviewRating, reviewPrefer, reviewInfo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, reviewMemo, createdAt, foodIdx, profileIdx, userIdx];
@@ -139,6 +139,27 @@ const review = {
             throw err;
         }
     },
+    // 리뷰 추가 (프로필 하나당 제품 리뷰 하나씩 제한)
+    addReview: async(profileIdx, foodIdx)=>{
+        const query = `SELECT count(reviewIdx) as count FROM ${table} WHERE profileIdx = "${profileIdx}"and foodIdx = "${foodIdx}"`
+        
+        try {
+            const result = await pool.queryParamArr(query);
+           // console.log("result[0]: "+result);
+            console.log("result[0].count(reviewIdx): "+result[0].count);
+            if(result[0].count >= 2){
+                return false;
+            }
+            return true;
+        } catch(err){
+            if(err.errno == 1062){
+                console.log('duplicate ERROR : ', err.errno, err.code);
+                throw err;
+            }
+            console.log('add profile ERROR', err)
+            throw err;
+        }
+}
 }
 
 module.exports = review;
