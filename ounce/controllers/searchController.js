@@ -156,7 +156,13 @@ const search = {
 
     reviewSortPrefer : async(req, res) => {
 
-    }
+    },
+    recommend : async(req, res) => {
+        const {profileIdx} = req.body;
+        const idx = await searchKey.recommend(profileIdx);
+        return res.status(statusCode.OK)
+        .send(util.success(statusCode.OK, resMessage.READ_RECOMMEND_SUCCESS, idx));
+    },
 }
 
 module.exports = search;

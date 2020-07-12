@@ -9,6 +9,9 @@ router.post('/user', searchController.searchUser);
 
 router.post('/reviewAll', searchController.reviewAll);
 
+router.post('/recommend', searchController.recommend);
+
+
 // search/review;
 
 
