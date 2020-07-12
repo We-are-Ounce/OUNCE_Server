@@ -12,7 +12,7 @@ module.exports = {
         const userIdx = req.userIdx;
 
         // 리뷰 (평점, 선호도, 한줄소개, 변상태, 변냄새, 트리블(눈, 귀, 털, 구토), 메모)
-        const {reviewRating, reviewPrefer, reviewInfo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, reviewMemo, foodIdx, profileIdx} = req.body;
+        const {reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx} = req.body;
         
         // 필수 파라미터가 부족할 때 
         if (!reviewRating || !reviewPrefer || !reviewInfo) {
@@ -26,8 +26,7 @@ module.exports = {
             return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.PERMISSION_DENIED_UPDATE_REVIEW));
         }
 
-        const createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
-        const result = await Review.reviewAdd(reviewRating, reviewPrefer, reviewInfo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, reviewMemo, createdAt, foodIdx, profileIdx, userIdx);
+        const result = await Review.reviewAdd(reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx, userIdx);
         
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_REVIEW_ADD, result));    
     },
@@ -108,12 +107,12 @@ module.exports = {
     updateReview: async(req, res) => {
         const reviewIdx = req.params.reviewIdx;
         const userIdx = req.userIdx;
-        const {profileIdx,reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit} = req.body;
+        const {reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx} = req.body;
         const checkMyReview = await Review.checkMyReview(userIdx,reviewIdx);
         if(!checkMyReview){
             return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.PERMISSION_DENIED_UPDATE_POST));
         }
-        const result = await Review.updateReview(reviewIdx,reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit);
+        const result = await Review.updateReview(reviewIdx, reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx, userIdx);
         //성공하면
         return res.status(statusCode.OK)
         .send(util.success(statusCode.OK, resMessage.POSTING_UPDATE_SUCCESS, {updateReview: result}));
