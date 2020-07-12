@@ -9,7 +9,8 @@ router.post('/user', searchController.searchUser);
 
 router.post('/reviewAll', searchController.reviewAll);
 
-// search/review;
+router.post('/reviewAll/avgRating', searchController.reviewSortRating);
 
+router.post('/reviewAll/avgPrefer', searchController.reviewSortPrefer);
 
 module.exports = router;
