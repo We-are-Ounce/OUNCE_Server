@@ -2,7 +2,7 @@ const pool = require('../modules/pool');
 const table = 'profile';
 
 const profile = {
-    diffProfile : async (profileIdx) => {
+    diffProfile: async (profileIdx) => {
         const query = `SELECT profile.profileImg, profile.profileName, profile.profileGender, profile.profileNeutral, profile.profileAge, profile.profileWeight, profile.profileInfo, (SELECT count(follow.followingIdx) FROM follow WHERE follow.followingIdx="${profileIdx}") as follower, count(follow.myprofileIdx) as following FROM profile join follow
         on profile.profileIdx = follow.myprofileIdx WHERE follow.myprofileIdx="${profileIdx}"`;
         try {
@@ -14,7 +14,7 @@ const profile = {
         }
     },
 
-    diffReviewAll : async (profileIdx) => {
+    diffReviewAll: async (profileIdx) => {
         const query = `SELECT review.reviewIdx, food.foodIdx, food.foodImg, food.foodManu, food.foodName, review.reviewInfo, review.reviewRating, review.reviewPrefer, review.createdAt FROM review join food on review.foodIdx = food.foodIdx where review.profileIdx="${profileIdx}";` 
         try {
             const result = await pool.queryParamArr(query);
@@ -51,8 +51,8 @@ const profile = {
         
         try {
             const result = await pool.queryParamArr(query);
-            console.log("result[0]: "+result);
-            console.log("result[0].count(userIdx): "+result[0].count);
+            console.log("result[0]: " + result);
+            console.log("result[0].count(userIdx): " + result[0].count);
             if(result[0].count >= 4){
                 return false;
             }
@@ -67,8 +67,7 @@ const profile = {
         }
     },
     //2. 프로필 수정
-    profileUpdate : async (profileIdx, profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx) => {
-
+    profileUpdate: async (profileIdx, profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx) => {
         const fields = 'profileImg = ?, profileName = ?, profileWeight = ?, profileGender = ?, profileNeutral = ?, profileAge = ?, profileInfo = ?, userIdx = ?';
         const values = [profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx];
         const query = `UPDATE ${table} SET ${fields} WHERE profileIdx = ${profileIdx}`;
@@ -103,10 +102,10 @@ const profile = {
         }
     },
     //3-1 프로필 조회(상단)
-    mainProfile: async(profileIdx)=>{
+    mainProfile: async(profileIdx) => {
         const query = `SELECT profile.profileImg, profile.profileName, profile.profileGender, profile.profileNeutral, profile.profileAge, profile.profileWeight, profile.profileInfo, 
         (SELECT count(follow.followingIdx) FROM follow WHERE follow.followingIdx = "${profileIdx}") as follower, count(follow.myprofileIdx) as following FROM follow right join profile on profile.profileIdx = follow.myprofileIdx WHERE profile.profileIdx = "${profileIdx}"`;
-        try{
+        try {
             const result = await pool.queryParamArr(query);
             return result;
         } catch(err){
@@ -115,9 +114,9 @@ const profile = {
         }
     },
      //3-2 프로필 조회(하단)
-    mainReviewAll: async(profileIdx)=>{
+    mainReviewAll: async(profileIdx) => {
         const query = `SELECT review.reviewIdx, food.foodImg, food.foodManu, food.foodName, review.reviewInfo, review.reviewRating, review.reviewPrefer, review.createdAt FROM review join food on review.foodIdx = food.foodIdx where review.profileIdx = "${profileIdx}"`
-        try{
+        try {
             const result = await pool.queryParamArr(query);
             return result;
         } catch(err){
@@ -136,12 +135,12 @@ const profile = {
             throw err;
         }},
     //4 팔로우 목록
-    followList: async(profileIdx)=>{
+    followList: async(profileIdx) => {
         const query = `SELECT profile.profileIdx,profile.profileImg, profile.profileName, profile.profileGender, profile.profileNeutral, profile.profileAge, profile.profileWeight
         FROM profile 
         join follow
         on profile.profileIdx =follow.followingIdx  WHERE follow.myProfileIdx= "${profileIdx}"`;
-        try{
+        try {
             const result = await pool.queryParam(query);
             return result;
         } catch(err){
@@ -150,12 +149,12 @@ const profile = {
         }
     },
     //5. 팔로워 목록
-    followerList: async(profileIdx)=>{
+    followerList: async(profileIdx) => {
         const query = `SELECT profile.profileIdx,profile.profileImg, profile.profileName, profile.profileGender, profile.profileNeutral, profile.profileAge, profile.profileWeight
         FROM profile 
         join follow
         on profile.profileIdx = follow.myprofileIdx WHERE follow.followingIdx = "${profileIdx}"`
-        try{
+        try {
             const result = await pool.queryParam(query);
             return result;
         } catch(err){
@@ -169,7 +168,7 @@ const profile = {
         const questions = `?,?`;
         const values = [myprofileIdx,followingIdx];
         const query = `INSERT INTO follow(${fields}) VALUES(${questions})`;
-        try{
+        try {
             const result  = await pool.queryParamArr(query, values);
             const insertId = result.insertId;
             return insertId;
@@ -179,9 +178,9 @@ const profile = {
         }
     },
     //5-3 팔로우 취소
-    deleteFollow: async(myprofileIdx) =>{
+    deleteFollow: async(myprofileIdx) => {
         const query = `DELETE FROM follow WHERE follow.myprofileIdx = "${myprofileIdx}"`
-        try{
+        try {
             const result = await pool.queryParam(query);
             return result;
         } catch (err) {
@@ -191,4 +190,4 @@ const profile = {
         
     }
 }
-module.exports=  profile;
+module.exports = profile;
