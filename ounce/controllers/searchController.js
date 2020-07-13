@@ -15,21 +15,25 @@ const search = {
     */
 
     searchFood : async(req, res) => {
-        let {searchKeyword} = req.body;
+        let {searchKeyword, pageStart, pageEnd} = req.body;
 
+        if (!searchKeyword || !pageStart || !pageEnd) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+            return;
+        }
 
         if (checkKeyword.checkWord(searchKeyword)) {
-            let result = await searchKey.foodSearch(searchKeyword, searchKeyword);
+            let result = await searchKey.foodSearch(searchKeyword, searchKeyword, pageStart, pageEnd);
             res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, result));
             return;
         }
         
         // 검색키워드가 영어일 때
-        const engKeyword = await searchKey.foodSearch(keyword, keyword);
+        const engKeyword = await searchKey.foodSearch(keyword, keyword, pageStart, pageEnd);
         const korKeyword = await checkKeyword.changeKeyword(searchKeyword);
 
         if (engKeyword.length === 0) {       
-            const result = await searchKey.foodSearch(korKeyword, korKeyword);
+            const result = await searchKey.foodSearch(korKeyword, korKeyword, pageStart, pageEnd);
             res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, result));
             return;
         } 
@@ -126,10 +130,10 @@ const search = {
 
         const korKeyword = await checkKeyword.changeKeyword(searchKeyword);
 
-        const result = await searchKey.sortPrefer(korKeyword);
-      
+        const result = await searchKey.sortPrefer(korKeyword);  
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH_PREFER, result));
     },
+    
     recommend : async(req, res) => {
         const {profileIdx} = req.body;
         const idx = await searchKey.recommend(profileIdx);
