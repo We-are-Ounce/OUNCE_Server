@@ -111,6 +111,6 @@ module.exports = {
             return;
         }
 
-        res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.AVAILABLE_ID, {}))
+        res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.AVAILABLE_ID))
     }
 }

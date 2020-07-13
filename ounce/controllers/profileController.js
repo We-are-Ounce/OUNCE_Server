@@ -130,11 +130,12 @@ module.exports = {
     //5-3 팔로우 신청
     requestFollow: async(req, res)=>{
         const {myprofileIdx, followingIdx} = req.body;
+
         if(!myprofileIdx || !followingIdx){
             res.status(statusCode.BAD_REQUEST, resMessage.NULL_VALUE, {});
         }
 
-        const idx = await profile.requestFollow(myprofileIdx, followingIdx);
+        const idx = await Profile.requestFollow(myprofileIdx, followingIdx);
 
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.REQUEST_FOLLOW_SUCCESS, idx));
 
@@ -142,16 +143,23 @@ module.exports = {
     //5-4 팔로우 취소
     deleteFollow:async(req, res)=>{
         const {myprofileIdx, followingIdx } = req.body;
+
         if(!myprofileIdx || !followingIdx ) {
             res.status(statusCode.BAD_REQUEST, resMessage.NULL_VALUE, {})
         }
-        const idx = await profile.deleteFollow(myprofileIdx, followingIdx);
-        res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.DELETE_FOLLOW_SUCCESS, idx));
-
+        const idx = await Profile.deleteFollow(myprofileIdx, followingIdx);
+        res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.DELETE_FOLLOW_SUCCESS, {
+            "unfollowingIdx" : followingIdx
+        }));
     },
 
     conversionProfile : async(req, res) => {
         const profileIdx = req.params.profileIdx;
+        
+        if (!profileIdx) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+            return;
+        }
         
         const result = await Profile.conversionProfile(profileIdx);
 
