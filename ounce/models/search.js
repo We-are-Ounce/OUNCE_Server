@@ -118,11 +118,34 @@ const search = {
         nresultProfileIdx = resultProfileIdx.replace("(","").replace(",0)","")
         nresultProfileIdx = nresultProfileIdx.split(',')
         console.log(nresultProfileIdx)
-        var one = nresultProfileIdx[0]
-        var two = nresultProfileIdx[1]
-        var three = nresultProfileIdx[2]
-        var four = nresultProfileIdx[3]
-        var five = nresultProfileIdx[4]
+        if (nresultProfileIdx == '0)'){
+            var one = 0
+            var two = 0
+            var three = 0
+            var four = 0
+            var five = 0
+        } else {
+        one = nresultProfileIdx[0]
+        two = nresultProfileIdx[1]
+        three = nresultProfileIdx[2]
+        four = nresultProfileIdx[3]
+        five = nresultProfileIdx[4]
+        }
+        if (one == undefined){
+            one = 0
+        }
+        if (two == undefined){
+            two = 0
+        }
+        if (three == undefined){
+            three = 0
+        }
+        if (four == undefined){
+            four = 0
+        }
+        if (five == undefined){
+            five = 0
+        }
         console.log(one, two, three, four, five)
         const query3 = `select profileIdx, profileImg, profileName from profile where profileIdx in ${resultProfileIdx}`;
         const resultProfile = await pool.queryParam(query3);
