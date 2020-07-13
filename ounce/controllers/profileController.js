@@ -120,7 +120,7 @@ module.exports = {
 
         const idx = await Profile.followList(profileIdx);
         return res.status(statusCode.OK)
-            .send(util.success(statusCode.OK, resMessage.READ_FOLLOW_LIST_SUCCESS,{result : idx}));
+            .send(util.success(statusCode.OK, resMessage.READ_FOLLOW_LIST_SUCCESS, idx));
     },
     
     //5-2. 팔로워 목록 조회
@@ -135,7 +135,7 @@ module.exports = {
         const idx = await Profile.followerList(profileIdx);
         
         return res.status(statusCode.OK)
-            .send(util.success(statusCode.OK, resMessage.READ_FOLLOWER_LIST_SUCCESS,{result:idx}));
+            .send(util.success(statusCode.OK, resMessage.READ_FOLLOWER_LIST_SUCCESS, idx));
     },
     //5-3 팔로우 신청
     requestFollow: async(req, res)=>{
