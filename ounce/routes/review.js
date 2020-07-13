@@ -32,6 +32,6 @@ router.put('/update/:reviewIdx',  middleware.userJwt, reviewControllers.updateRe
 
 //내가 쓴 리뷰 삭제
 router.delete('/delete/:reviewIdx',  middleware.userJwt, reviewControllers.deleteReview);
-router.post('/addReview', reviewControllers.addReview);
+router.post('/limit', reviewControllers.limitReview);
 
 module.exports = router;

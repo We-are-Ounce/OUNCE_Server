@@ -145,8 +145,6 @@ const review = {
         
         try {
             const result = await pool.queryParamArr(query);
-           // console.log("result[0]: "+result);
-            console.log("result[0].count(reviewIdx): "+result[0].count);
             if(result[0].count >= 2){
                 return false;
             }

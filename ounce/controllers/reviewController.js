@@ -13,7 +13,7 @@ module.exports = {
 
         // 리뷰 (평점, 선호도, 한줄소개, 변상태, 변냄새, 트리블(눈, 귀, 털, 구토), 메모
         const {reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx} = req.body;
-                  
+
         // 필수 파라미터가 부족할 때 
         if (!reviewRating || !reviewPrefer || !reviewInfo) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
@@ -32,13 +32,28 @@ module.exports = {
         
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_REVIEW_ADD, result));    
     },
-    addReview: async(req, res) => {
+
+    limitReview: async(req, res) => {
         const {profileIdx, foodIdx} = req.body;
+
+        if (!profileIdx, !foodIdx) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+            return;
+        }
+
         const rIdx = await Review.addReview(profileIdx, foodIdx);
 
-        res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.ADD_REVIEW_SUCCESS, {
-            possibleAddReview : rIdx
+        if (!rIdx) {
+            res.status(statusCode.BAD_REQUEST).send(util.success(statusCode.BAD_REQUEST, resMessage.NO_ADD_REVIEW, {
+                unPossibleAddReview : rIdx
+            }))
+            return;
+        }
+
+        res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_REVIEW, {
+            PossibleAddReview : rIdx
         }))
+
     },
 
       //총점 순으로 정렬
