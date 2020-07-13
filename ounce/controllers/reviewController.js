@@ -10,7 +10,6 @@ module.exports = {
     reviewAdd : async(req, res) => {
         const userIdx = req.userIdx;
 
-
         // 리뷰 (평점, 선호도, 한줄소개, 변상태, 변냄새, 트리블(눈, 귀, 털, 구토), 메모
         const {reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx} = req.body;
 
@@ -24,13 +23,14 @@ module.exports = {
 
         if (!isMyProfileIdx) {
             return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.PERMISSION_DENIED_UPDATE_REVIEW));
+
         }
 
 
         const result = await Review.reviewAdd(reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx, userIdx);
 
         
-        res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_REVIEW_ADD, result));    
+        res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_REVIEW_ADD));    
     },
 
     limitReview: async(req, res) => {
@@ -107,7 +107,6 @@ module.exports = {
     //내가 쓴 리뷰 필터링 조건 받아왔을 때 처리부분
     myReviewFilter: async(req, res) => {
         var {foodManu, foodDry, foodMeat} = req.body;
-        
         if (foodManu.length != 0){
         foodManu = '"' + foodManu.join('","') + '"';
         } else{
