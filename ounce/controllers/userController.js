@@ -97,7 +97,12 @@ module.exports = {
     },
 
     checkUserId : async(req, res) => {
-        const {userId} = req.body;
+        const {id} = req.body;
+
+        if (!id) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE))
+            return;
+        }
 
         // 사용자 중인 아이디가 있는지 확인
         if ( await UserModel.checkUser(id) ) {

@@ -16,7 +16,7 @@ router.get('/review/:profileIdx', profileControllers.diffReviewAll)
 
 //1. 프로필 등록
 router.post('/register', middleware.userJwt, profileControllers.profileRegister);
-router.post('/addProfile', middleware.userJwt, profileControllers.addProfile);
+router.post('/limitProfile', middleware.userJwt, profileControllers.limitProfile);
 
 router.post('/register', middleware.userJwt, profileControllers.profileRegister);
 
