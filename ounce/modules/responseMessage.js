@@ -4,6 +4,7 @@ module.exports = {
     //profile
     NO_PROFILE: '프로필 값이 없습니다.',
     SUCCESS_SEARCH : "제조사를 검색 성공 했습니다",
+    MISS_MATCH_PW : "로그인 정보가 일치하지 않습니다",
     SUCCESS_USER : "유저를 검색 성공했습니다",
     SUCCESS_SEARCH_RATING : "평점 정렬을 성공 했습니다",
     SUCCESS_SEARCH_PREFER : "선호도 정렬을 성공 했습니다",
