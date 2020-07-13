@@ -48,7 +48,7 @@ const search = {
     },
 
     foodALl : async() => {
-        const query = `SELECT * FROM food`;
+        const query = `SELECT foodName FROM food`;
         try {
             const result = await pool.queryParam(query);
             return result;

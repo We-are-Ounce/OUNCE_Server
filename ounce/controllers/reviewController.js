@@ -8,12 +8,12 @@ const profile = require('../models/profile');
 // 리뷰등록
 module.exports = {
     reviewAdd : async(req, res) => {
-    
         const userIdx = req.userIdx;
 
-        // 리뷰 (평점, 선호도, 한줄소개, 변상태, 변냄새, 트리블(눈, 귀, 털, 구토), 메모)
-        const {createdAt,reviewRating, reviewPrefer, reviewInfo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, reviewMemo, foodIdx, profileIdx} = req.body;
-        
+
+        // 리뷰 (평점, 선호도, 한줄소개, 변상태, 변냄새, 트리블(눈, 귀, 털, 구토), 메모
+        const {reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx} = req.body;
+      
         // 필수 파라미터가 부족할 때 
         if (!reviewRating || !reviewPrefer || !reviewInfo) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
@@ -23,18 +23,28 @@ module.exports = {
         const isMyProfileIdx = await profile.isMyProfileIdx(profileIdx, userIdx);
 
         if (!isMyProfileIdx) {
-            return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.PERMISSION_DENIED_UPDATE_PROFILE));
+            return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.PERMISSION_DENIED_UPDATE_REVIEW));
         }
 
-        const result = await Review.reviewAdd(reviewRating, reviewPrefer, reviewInfo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, reviewMemo, createdAt, foodIdx, profileIdx, userIdx);
+
+        const result = await Review.reviewAdd(reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx, userIdx);
+
         
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_REVIEW_ADD, result));    
+    },
+    addReview: async(req, res) => {
+        const {profileIdx, foodIdx} = req.body;
+        const rIdx = await Review.addReview(profileIdx, foodIdx);
+
+        res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.ADD_REVIEW_SUCCESS, {
+            possibleAddReview : rIdx
+        }))
     },
 
       //총점 순으로 정렬
     sortByRating: async(req, res) => {
         const profileIdx = req.params.profileIdx;
-        const idx = await Review.sortByRating(profileIdx);
+        const idx = await Review.sortByRatding(profileIdx);
         return res.status(statusCode.OK)
         .send(util.success(statusCode.OK, resMessage.READ_POST_SUCCESS, idx));
     },
@@ -107,12 +117,13 @@ module.exports = {
     updateReview: async(req, res) => {
         const reviewIdx = req.params.reviewIdx;
         const userIdx = req.userIdx;
-        const {profileIdx,reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit} = req.body;
+        const {reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx} = req.body;
         const checkMyReview = await Review.checkMyReview(userIdx,reviewIdx);
         if(!checkMyReview){
             return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.PERMISSION_DENIED_UPDATE_POST));
         }
-        const result = await Review.updateReview(reviewIdx,reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit);
+      
+        const result = await Review.updateReview(reviewIdx, reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx, userIdx);
         //성공하면
         return res.status(statusCode.OK)
         .send(util.success(statusCode.OK, resMessage.POSTING_UPDATE_SUCCESS, {updateReview: result}));
@@ -132,5 +143,6 @@ module.exports = {
         }
         const result = await Review.deleteReview(reviewIdx);
         return await res.status(statusCode.OK).send(util.success(statusCode.OK,resMessage.DELETE_POST,{deleteReview:result}));
-    }
+    },
+    
 }

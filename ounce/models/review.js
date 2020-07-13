@@ -2,10 +2,10 @@ const pool = require('../modules/pool');
 const table = 'review';
 
 const review = {
-   reviewAdd : async(reviewRating, reviewPrefer, reviewInfo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, reviewMemo, createdAt, foodIdx, profileIdx, userIdx) => {
-        const fields = 'reviewRating, reviewPrefer, reviewInfo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, reviewMemo, createdAt, foodIdx, profileIdx, userIdx';
+   reviewAdd : async(reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx, userIdx) => {
+        const fields = 'reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx, userIdx';
         const questions = `?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?`;
-        const values = [reviewRating, reviewPrefer, reviewInfo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, reviewMemo, createdAt, foodIdx, profileIdx, userIdx];
+        const values = [reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx, userIdx];
         const query = `INSERT INTO review (${fields}) VALUES (${questions})`;
         try {
             const result = await pool.queryParamArr(query, values);
@@ -103,12 +103,12 @@ const review = {
             throw err;
         }
     },
-    updateReview : async (reviewIdx,reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit) => {
-        const fields = 'reviewRating=?, reviewPrefer=?, reviewInfo=?, reviewMemo=?, reviewStatus=?, reviewSmell=?, reviewEye=?, reviewEar=?, reviewHair=?, reviewVomit=?';
+    updateReview : async (reviewIdx, reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx, userIdx) => {
+        const fields = 'reviewRating = ?, reviewPrefer = ?, reviewInfo = ?, reviewMemo = ?, reviewStatus = ?, reviewSmell = ?, reviewEye = ?, reviewEar = ?, reviewHair = ?, reviewVomit = ?, createdAt = ?, foodIdx = ?, profileIdx = ?, userIdx = ?';
         const query = `UPDATE ${table} SET ${fields} WHERE reviewIdx="${reviewIdx}"`;
-        const values = [reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit];
+        const values = [reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx, userIdx];
         try {
-            const result = await pool.queryParamArr(query,values);
+            const result = await pool.queryParamArr(query, values);
             return true;
         } catch (err) {
             console.log('updateReview error: ', err);
@@ -139,6 +139,27 @@ const review = {
             throw err;
         }
     },
+    // 리뷰 추가 (프로필 하나당 제품 리뷰 하나씩 제한)
+    addReview: async(profileIdx, foodIdx)=>{
+        const query = `SELECT count(reviewIdx) as count FROM ${table} WHERE profileIdx = "${profileIdx}"and foodIdx = "${foodIdx}"`
+        
+        try {
+            const result = await pool.queryParamArr(query);
+           // console.log("result[0]: "+result);
+            console.log("result[0].count(reviewIdx): "+result[0].count);
+            if(result[0].count >= 2){
+                return false;
+            }
+            return true;
+        } catch(err){
+            if(err.errno == 1062){
+                console.log('duplicate ERROR : ', err.errno, err.code);
+                throw err;
+            }
+            console.log('add profile ERROR', err)
+            throw err;
+        }
+}
 }
 
 module.exports = review;

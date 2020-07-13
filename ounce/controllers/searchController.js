@@ -2,9 +2,9 @@ const util = require('../modules/util');
 const statusCode = require('../modules/statusCode');
 const resMessage = require('../modules/responseMessage');
 const searchKey = require('../models/search');
-const Inko = require('inko');
 const Hangul = require('hangul-js');
 const ChosungSearch = require('hangul-chosung-search-js');
+const checkKeyword = require('../modules/checkKeyword');
 
 const search = {
     /** 
@@ -15,76 +15,26 @@ const search = {
     */
 
     searchFood : async(req, res) => {
-        let {keyword} = req.body;
-        
-        // 검색키워드가 영어인지 한글인지 구분하기 위해 정규식 사용
-        const korean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
-        const inko = new Inko();
-
-        // 검색키워드가 한글일 때 
-        if (korean.test(keyword)) {
-            // 한글을 제대로 쳤다면
-            if (Hangul.isComplete(keyword)) {
-                // 오타검증
-                const errorKeyword = Hangul.a(Hangul.d(keyword));
-
-                let result = await searchKey.foodSearch(errorKeyword, errorKeyword);
-                
-                res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, result));
-                return;
-            }
-
-            // 입력한 글자가 자음일 때
-            if (Hangul.isConsonant(keyword)) {
-                // 오타검증 ex) ㅇㅏ or ㅁ => 이런 상황이 해당 if문에 들어옴
-                const errorKeyword = Hangul.a(Hangul.d(keyword));
-                const food = await searchKey.foodALl();
-                foodData = [];
-                
-                for (i = 0; i < food.length; ++i) {
-                    if (ChosungSearch.isSearch(errorKeyword, food[i].foodManu) || ChosungSearch.isSearch(errorKeyword, food[i].foodName)) {
-                        const foodM = food[i].foodManu;
-                        const foodN = food[i].foodName;             
-                        const consonantKeyword = await searchKey.foodSearch(foodN, foodM); 
-                        if (consonantKeyword.length != 0) foodData.push(consonantKeyword);
-                    }
-                }
-
-                res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, foodData));
-                return;
-            }
+        let {searchKeyword} = req.body;
 
 
-            res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, {}));
+        if (checkKeyword.checkWord(searchKeyword)) {
+            let result = await searchKey.foodSearch(searchKeyword, searchKeyword);
+            res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, result));
             return;
         }
-
+        
         // 검색키워드가 영어일 때
-
         const engKeyword = await searchKey.foodSearch(keyword, keyword);
+        const korKeyword = await checkKeyword.changeKeyword(searchKeyword);
 
-        // 영어를 한글로 변환함 
-        const korKeyword = inko.en2ko(keyword);
-
-        // 영어단어가 들어있는 제조사명, 제품명이 존재하지 않을 때 
-        if (engKeyword.length === 0) {
-        
-            // 한글을 제대로 쳤다면
-            if (Hangul.isComplete(korKeyword)) {
-                const EngKeyword = await searchKey.foodSearch(korKeyword, korKeyword);
-        
-                // 검색한 결과가 존재할 때 
-                res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, EngKeyword));
-                return;
-            }
-
-            res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, {}));
+        if (engKeyword.length === 0) {       
+            const result = await searchKey.foodSearch(korKeyword, korKeyword);
+            res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, result));
             return;
-
         } 
         
         // 제품명, 제조사명에 영어가 들어있을 때
-
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, engKeyword));
         return;
 
@@ -108,7 +58,7 @@ const search = {
         const result = await searchKey.userSearch(userId);
 
         if (result.length === 0) {
-            res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.NO_USER, result));
+            res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.NO_USER_PROFILE, result));
             return;
         }
         
@@ -144,7 +94,18 @@ const search = {
     */
 
     reviewSortRating : async(req, res) => {
+        const {searchKeyword} = req.body;
 
+        if (await checkKeyword.checkWord(searchKeyword)) {
+            const result = await searchKey.sortRating(searchKeyword);
+            res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH_RATING, result));
+            return;
+        }
+
+        const korKeyword = await checkKeyword.changeKeyword(searchKeyword);
+        const result = await searchKey.sortRating(korKeyword);
+
+        res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH_RATING, result)); 
     },
 
     /** 
@@ -155,14 +116,27 @@ const search = {
     */
 
     reviewSortPrefer : async(req, res) => {
+        const {searchKeyword} = req.body;
 
+        if (await checkKeyword.checkWord(searchKeyword)) {
+            const result = await searchKey.sortPrefer(searchKeyword);
+            res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH_PREFER, result));
+            return;
+        }
+
+        const korKeyword = await checkKeyword.changeKeyword(searchKeyword);
+
+        const result = await searchKey.sortPrefer(korKeyword);
+      
+        res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH_PREFER, result));
     },
     recommend : async(req, res) => {
         const {profileIdx} = req.body;
         const idx = await searchKey.recommend(profileIdx);
         return res.status(statusCode.OK)
         .send(util.success(statusCode.OK, resMessage.READ_RECOMMEND_SUCCESS, idx));
-    },
+    }
+
 }
 
 module.exports = search;
