@@ -75,10 +75,10 @@ module.exports = {
         // req의 Password 확인 - 틀렸다면 MISS_MATCH_PW 반납
         const hashed = await encrypt.encryptWithSalt(password, user[0].salt);
 
-        // if (hashed !== user[0].password) {
-        //     return res.status(statusCode.BAD_REQUEST)
-        //         .send(util.fail(statusCode.BAD_REQUEST, resMessage.MISS_MATCH_PW));
-        // }
+        if (hashed !== user[0].password) {
+            return res.status(statusCode.BAD_REQUEST)
+                .send(util.fail(statusCode.BAD_REQUEST, resMessage.MISS_MATCH_PW));
+        }
 
         const result = await UserModel.getProfileCount(user[0].userIdx);
 
