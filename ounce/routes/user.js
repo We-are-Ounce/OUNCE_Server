@@ -4,6 +4,7 @@ const userController = require('../controllers/userController');
 
 router.post('/signup', userController.signup);
 router.post('/signin', userController.signin);
+router.post('/checkId', userController.checkUserId);
 
 /* 
     ✔️ update profile

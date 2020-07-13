@@ -6,6 +6,7 @@ module.exports = {
     SUCCESS_SEARCH : "제조사를 검색 성공 했습니다",
     MISS_MATCH_PW : "로그인 정보가 일치하지 않습니다",
     ALREADY_ID : "유저가 이미 존재합니다",
+    AVAILABLE_ID : "사용한 아이디 입니다",
     SUCCESS_USER : "유저를 검색 성공했습니다",
     SUCCESS_SEARCH_RATING : "평점 정렬을 성공 했습니다",
     SUCCESS_SEARCH_PREFER : "선호도 정렬을 성공 했습니다",

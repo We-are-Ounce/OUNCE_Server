@@ -45,10 +45,10 @@ module.exports = {
                 profileIdx: pIdx
         }));
     },
-    //2. 프로필 추가
-    addProfile: async(req, res)=>{
+    //2. 프로필 개수 제한
+    limitProfile: async(req, res)=>{
         const userIdx = req.userIdx;
-        const pIdx = await profile.addProfile(userIdx);
+        const pIdx = await Profile.addProfile(userIdx);
 
         res.status(statusCode.OK)
             .send(util.success(statusCode.OK, resMessage.ADD_PROFILE_SUCCESS,{

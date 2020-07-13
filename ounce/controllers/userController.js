@@ -95,4 +95,17 @@ module.exports = {
                 profileCount : result[0].profileCount
         }));
     },
+
+    checkUserId : async(req, res) => {
+        const {userId} = req.body;
+
+        // 사용자 중인 아이디가 있는지 확인
+        if ( await UserModel.checkUser(id) ) {
+            res.status(statusCode.BAD_REQUEST)
+                .send(util.fail(statusCode.BAD_REQUEST, resMessage.ALREADY_ID));
+            return;
+        }
+
+        res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.AVAILABLE_ID, {}))
+    }
 }

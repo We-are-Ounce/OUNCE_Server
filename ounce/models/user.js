@@ -15,7 +15,7 @@ const user = {
         if (err.errno == 1062) {
             console.log('signup ERROR : ', err.errno, err.code);
             throw err;
-           }   
+            }   
         }
     },
 
