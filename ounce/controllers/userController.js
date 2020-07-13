@@ -47,7 +47,8 @@ module.exports = {
 
         res.status(statusCode.OK)
             .send(util.success(statusCode.OK, resMessage.CREATED_USER, {
-                accessToken: token
+                accessToken: token,
+                userIdx : user[0].userIdx
                 //, refreshToken: refreshToken
             }));
             
@@ -92,7 +93,8 @@ module.exports = {
             .send(util.success(statusCode.OK, resMessage.LOGIN_SUCCESS, {
                 accessToken: token,
                 profileIdx : result[0].profileIdx,
-                profileCount : result[0].profileCount
+                profileCount : result[0].profileCount,
+                userIdx : user[0].userIdx
         }));
     },
 
