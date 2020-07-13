@@ -123,7 +123,7 @@ module.exports = {
         const profileIdx = req.params.profileIdx;
         const idx = await Review.myReviewFilter(foodManu, foodDry, foodMeat, profileIdx);
         return res.status(statusCode.OK)
-        .send(util.success(statusCode.OK, resMessage.READ_POST_SUCCESS, idx));
+            .send(util.success(statusCode.OK, resMessage.READ_POST_SUCCESS, idx));
     },
 
     updateReview: async(req, res) => {
