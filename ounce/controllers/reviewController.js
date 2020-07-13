@@ -10,6 +10,7 @@ module.exports = {
     reviewAdd : async(req, res) => {
         const userIdx = req.userIdx;
 
+
         // 리뷰 (평점, 선호도, 한줄소개, 변상태, 변냄새, 트리블(눈, 귀, 털, 구토), 메모
         const {reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx} = req.body;
       
@@ -25,7 +26,9 @@ module.exports = {
             return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.PERMISSION_DENIED_UPDATE_REVIEW));
         }
 
+
         const result = await Review.reviewAdd(reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx, userIdx);
+
         
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_REVIEW_ADD, result));    
     },
