@@ -91,7 +91,8 @@ const search = {
                 array.forEach(val => this[val] = (this[val] || 0) + 1);
             }
             arrResult = new Counter(arrNumber);
-            // Create items array
+        // 내 고양이 계정과 입맛이 유사한 profileIdx와 유사한 정도를 배열로 나타내기 위해 items 배열 생성 
+        // python에서 Counter 형태로 해당 key에 대한 values의 갯수를 알려주는 dictionary 형태를 js 배열 형태로 바꿈
         var items = Object.keys(arrResult).map(function(key) {
             return [key, arrResult[key]];
         });
@@ -101,7 +102,9 @@ const search = {
             return second[1] - first[1];
         });
 
+        // 추천 리스트를 5개로 지정
         items = items.slice(0,5);
+
         var returnProfileIdx = new Array();
         var similarity = new Array();
         var resultProfileIdx = "(";
@@ -117,7 +120,9 @@ const search = {
         resultProfileIdx = resultProfileIdx+"0)";
         nresultProfileIdx = resultProfileIdx.replace("(","").replace(",0)","")
         nresultProfileIdx = nresultProfileIdx.split(',')
-        console.log(nresultProfileIdx)
+        //console.log(nresultProfileIdx)
+
+        //배열에 아무것도 없을 때 0을 임시로 넣어뒀기 때문에 undefined를 모두 0으로 바꿔줌
         if (nresultProfileIdx == '0)'){
             var one = 0
             var two = 0
@@ -146,7 +151,7 @@ const search = {
         if (five == undefined){
             five = 0
         }
-        console.log(one, two, three, four, five)
+        //console.log(one, two, three, four, five)
         const query3 = `select profileIdx, profileImg, profileName from profile where profileIdx in ${resultProfileIdx}`;
         const resultProfile = await pool.queryParam(query3);
         const query4 = `(
@@ -195,8 +200,7 @@ const search = {
             console.log('recommend ERROR');
             throw err;
         }
-    },
-
+    }
 }
 
 module.exports = search;
