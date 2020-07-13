@@ -5,7 +5,7 @@ const middleware = require('../modules/middlewares');
 const upload = require('../modules/multer');
 
 router.post('/register', middleware.userJwt, upload.single('profileImg'),  profileControllers.profileRegister);
-router.put('/edit/:profileIdx', middleware.userJwt, profileControllers.updateProfile);
+router.put('/edit/:profileIdx', middleware.userJwt, upload.single('profileImg'), profileControllers.updateProfile);
 
 //router.get('/home', ProfileController.home);
 //다른 고양이의 프로필

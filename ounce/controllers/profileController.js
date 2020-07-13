@@ -71,11 +71,11 @@ module.exports = {
         } = req.body;
 
         
-        const isMyProfileIdx = await profile.isMyProfileIdx(profileIdx, userIdx);
+        const isMyProfileIdx = await Profile.isMyProfileIdx(profileIdx, userIdx);
         if (!isMyProfileIdx) {
             return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.PERMISSION_DENIED_UPDATE_PROFILE));
         }
-        const result = await profile.updateProfile(profileIdx, profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx);
+        const result = await Profile.profileUpdate(profileIdx, profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx);
 
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_UPDATE_PROFILE, {
             profileIdx : isMyProfileIdx
