@@ -70,7 +70,12 @@ module.exports = {
             profileInfo   
         } = req.body;
 
-        
+        if (profileImg === undefined|| !profileName || !profileWeight || !profileGender || !profileNeutral || !profileAge || !profileInfo || profileIdx){
+            res.status(statusCode.BAD_REQUEST)
+                .send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+            return;
+        }
+                
         const isMyProfileIdx = await Profile.isMyProfileIdx(profileIdx, userIdx);
         if (!isMyProfileIdx) {
             return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.PERMISSION_DENIED_UPDATE_PROFILE));
