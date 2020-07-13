@@ -27,6 +27,8 @@ module.exports = {
     READ_POST_FAIL: "게시글 조회 실패",
     CONVERSE_PROFILE_SUCCESS: "프로필 전환 성공",
     REQUEST_FOLLOW_SUCCESS: "팔로우 신청 성공",
+    READ_FOLLOW_LIST_SUCCESS : "팔로우 목록 조회 성공",
+    READ_FOLLOWER_LIST_SUCCESS : "팔로워 목록 조회 성공",
     DELETE_FOLLOW_SUCCESS: "팔로우 취소 성공",
     READ_RECOMMEND_SUCCESS:"추천 리스트 조회 성공",
     EXCEEDED_PROFILE_NUMBER: "프로필 등록 횟수 초과",

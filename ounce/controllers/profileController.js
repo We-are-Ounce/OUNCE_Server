@@ -103,6 +103,12 @@ module.exports = {
     //5. 팔로우 목록 조회
     followList: async(req, res) => {
         const profileIdx = req.params.profileIdx;
+        
+        if (!profileIdx) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+            return;
+        } 
+
         const idx = await Profile.followList(profileIdx);
         return res.status(statusCode.OK)
             .send(util.success(statusCode.OK, resMessage.READ_FOLLOW_LIST_SUCCESS,{count:idx.length, result : idx}));
@@ -111,6 +117,12 @@ module.exports = {
     //5-2. 팔로워 목록 조회
     followerList: async(req, res)=>{
         const profileIdx = req.params.profileIdx;
+
+        if (!profileIdx) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+            return;
+        }
+
         const idx = await Profile.followerList(profileIdx);
         return res.status(statusCode.OK)
             .send(util.success(statusCode.OK, resMessage.READ_FOLLOWER_LIST_SUCCESS,{count:idx.length, result:idx}));
