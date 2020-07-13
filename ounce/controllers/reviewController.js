@@ -138,7 +138,7 @@ module.exports = {
         const result = await Review.updateReview(reviewIdx, reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx, userIdx);
         //성공하면
         return res.status(statusCode.OK)
-        .send(util.success(statusCode.OK, resMessage.POSTING_UPDATE_SUCCESS, {updateReview: result}));
+        .send(util.success(statusCode.OK, resMessage.POSTING_UPDATE_SUCCESS));
     },
 
     deleteReview : async (req,res)=> {
