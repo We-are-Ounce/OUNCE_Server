@@ -29,8 +29,10 @@ router.get('/mainReviewAll/:profileIdx', middleware.userJwt, profileControllers.
 router.get('/followingList/:profileIdx', profileControllers.followList);
 router.get('/followerList/:profileIdx', profileControllers.followerList);
 //5. 프로필 전환
+router.get('/conversion/:profileIdx', profileControllers.conversionProfile);
 //6. 팔로우 신청
 router.post('/requestFollow',profileControllers.requestFollow);
+// 7. 팔로우 취소
 router.delete('/deleteFollow', profileControllers.deleteFollow);
 
 module.exports = router;

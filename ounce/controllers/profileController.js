@@ -84,8 +84,17 @@ module.exports = {
     //4. 프로필 조회(상단)
     mainProfile: async(req, res) => {
         const profileIdx = req.params.profileIdx;
+
+        if (!profileIdx) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+            return;
+        }
         // 어디에 쓸지 userIdx
         const userIdx = req.userIdx;
+        if (!userIdx) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.EMPTY_TOKEN));
+            return;
+        }
 
         const idx = await Profile.mainProfile(profileIdx);
 
@@ -137,7 +146,7 @@ module.exports = {
 
         const idx = await Profile.requestFollow(myprofileIdx, followingIdx);
 
-        res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.REQUEST_FOLLOW_SUCCESS, idx));
+        res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.REQUEST_FOLLOW_SUCCESS));
 
     },
     //5-4 팔로우 취소

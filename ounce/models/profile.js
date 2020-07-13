@@ -104,8 +104,8 @@ const profile = {
     },
     //3-1 프로필 조회(상단)
     mainProfile: async(profileIdx)=>{
-        const query = `SELECT profile.profileImg, profile.profileName, profile.profileGender,  profile.profileNeutral, profile.profileWeight, profile.profileInfo, (SELECT count(follow.followingIdx) FROM follow WHERE follow.followingIdx = "${profileIdx}") as follower, count(follow.myProfileIdx) as following FROM profile join follow 
-        on profile.profileIdx = follow.myProfileIdx WHERE profile.profileIdx = "${profileIdx}"`;
+        const query = `SELECT profile.profileImg, profile.profileName, profile.profileGender, profile.profileNeutral, profile.profileAge, profile.profileWeight, profile.profileInfo, 
+        (SELECT count(follow.followingIdx) FROM follow WHERE follow.followingIdx = "${profileIdx}") as follower, count(follow.myprofileIdx) as following FROM follow right join profile on profile.profileIdx = follow.myprofileIdx WHERE profile.profileIdx = "${profileIdx}"`;
         try{
             const result = await pool.queryParamArr(query);
             return result;
