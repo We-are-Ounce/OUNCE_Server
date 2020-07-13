@@ -194,7 +194,6 @@ const search = {
             LIMIT 3
           )`
         const recommendFoodList = await pool.queryParam(query4);
-        console.log(recommendFoodList)
         return {resultProfile, similarity, recommendFoodList};
         } catch(err) {
             console.log('recommend ERROR');
