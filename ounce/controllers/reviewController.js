@@ -110,7 +110,7 @@ module.exports = {
 
         if (foodManu.length != 0){
             foodManu = '"' + foodManu.join('","') + '"';
-        } else{
+        } else {
             foodManu = `SELECT foodManu FROM food`
         }
         if (foodMeat.length != 0) {

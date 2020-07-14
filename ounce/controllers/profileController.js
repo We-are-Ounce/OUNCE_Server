@@ -32,6 +32,11 @@ module.exports = {
             profileInfo,   
         } = req.body;
 
+        if (!userIdx) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST.resMessage.EMPTY_TOKEN));
+            return;
+        }
+
         if (profileImg === undefined|| !profileName || !profileWeight || !profileGender || !profileNeutral || !profileAge || !profileInfo){
             res.status(statusCode.BAD_REQUEST)
                 .send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
@@ -69,6 +74,11 @@ module.exports = {
             profileAge,
             profileInfo   
         } = req.body;
+
+        if (!userIdx) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST.resMessage.EMPTY_TOKEN));
+            return;
+        }
 
         if (profileImg === undefined|| !profileName || !profileWeight || !profileGender || !profileNeutral || !profileAge || !profileInfo || profileIdx){
             res.status(statusCode.BAD_REQUEST)
