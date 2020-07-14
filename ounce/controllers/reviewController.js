@@ -4,6 +4,7 @@ const resMessage = require('../modules/responseMessage');
 const Review = require('../models/review');
 const moment = require('moment');
 const profile = require('../models/profile');
+require('moment-timezone');
 
 // 리뷰등록
 module.exports = {
@@ -25,7 +26,9 @@ module.exports = {
             return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.PERMISSION_DENIED_UPDATE_REVIEW));
         }
 
-        const createdAt = moment().format('YYYY-MM-DD hh:mm');
+        moment.tz.setDefault("Asia/Seoul");
+
+        const createdAt = moment().format('YYYY-MM-DD HH:mm');
 
         const result = await Review.reviewAdd(reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx, userIdx);
 
@@ -140,9 +143,7 @@ module.exports = {
             return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.PERMISSION_DENIED_UPDATE_POST));
         }
 
-        const createdAt = moment().format('YYYY-MM-DD hh:mm');
-
-        const result = await Review.updateReview(reviewIdx, reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx, userIdx);
+        const result = await Review.updateReview(reviewIdx, reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, foodIdx, profileIdx, userIdx);
         
         return res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.POSTING_UPDATE_SUCCESS));
     },
