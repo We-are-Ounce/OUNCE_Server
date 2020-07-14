@@ -28,8 +28,8 @@ module.exports = {
             return;
         }
 
-        console.log(userIdx);
         const profileImg = req.file.location;
+        
         const {
             profileName,
             profileWeight,
@@ -39,20 +39,13 @@ module.exports = {
             profileInfo,   
         } = req.body;
 
-        
-        console.log("profileName " + profileName)
-        console.log("profileWeight " + profileWeight)
-        console.log("profileGender " + profileGender);
-        console.log("profileImg " + profileImg);
-        console.log("profileAge" + profileAge)
-        console.log("profileInfo " + profileInfo);
  
         if (profileImg === undefined || !profileName || !profileWeight || !profileGender || !profileNeutral || !profileAge || !profileInfo){
             res.status(statusCode.BAD_REQUEST)
                 .send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
             return;
         }
-        //profileImg, 
+
         const pIdx = await Profile.profileRegister(profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx);
 
         res.status(statusCode.OK)
