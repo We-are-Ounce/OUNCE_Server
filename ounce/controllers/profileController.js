@@ -36,7 +36,6 @@ module.exports = {
         console.log("profileName " + profileName)
         console.log("profileWeight " + profileWeight)
         console.log("profileGender " + profileGender);
-        console.log("profileImg " + profileImg);
         console.log("profileAge" + profileAge)
         console.log("profileInfo " + profileInfo);
 
