@@ -11,7 +11,7 @@ module.exports = {
         const userIdx = req.userIdx;
 
         // 리뷰 (평점, 선호도, 한줄소개, 변상태, 변냄새, 트리블(눈, 귀, 털, 구토), 메모
-        const {reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx} = req.body;
+        const {reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, foodIdx, profileIdx} = req.body;
 
         // 필수 파라미터가 부족할 때 
         if (!reviewRating || !reviewPrefer || !reviewInfo || !foodIdx || !profileIdx) {
@@ -24,6 +24,8 @@ module.exports = {
         if (!isMyProfileIdx) {
             return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.PERMISSION_DENIED_UPDATE_REVIEW));
         }
+
+        const createdAt = moment().format('YYYY-MM-DD hh:mm');
 
         const result = await Review.reviewAdd(reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx, userIdx);
 
@@ -105,13 +107,14 @@ module.exports = {
     //내가 쓴 리뷰 필터링 조건 받아왔을 때 처리부분
     myReviewFilter: async(req, res) => {
         var {foodManu, foodDry, foodMeat} = req.body;
+
         if (foodManu.length != 0){
-        foodManu = '"' + foodManu.join('","') + '"';
+            foodManu = '"' + foodManu.join('","') + '"';
         } else{
             foodManu = `SELECT foodManu FROM food`
         }
         if (foodMeat.length != 0) {
-        foodMeat = '"' + foodMeat.join('","') + '"';
+            foodMeat = '"' + foodMeat.join('","') + '"';
         } else {
             foodMeat = `SELECT foodMeat FROM food`
         }
@@ -129,16 +132,19 @@ module.exports = {
     updateReview: async(req, res) => {
         const reviewIdx = req.params.reviewIdx;
         const userIdx = req.userIdx;
-        const {reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx} = req.body;
+        const {reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, foodIdx, profileIdx} = req.body;
+        
         const checkMyReview = await Review.checkMyReview(userIdx,reviewIdx);
+
         if(!checkMyReview){
             return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.PERMISSION_DENIED_UPDATE_POST));
         }
-      
+
+        const createdAt = moment().format('YYYY-MM-DD hh:mm');
+
         const result = await Review.updateReview(reviewIdx, reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx, userIdx);
-        //성공하면
-        return res.status(statusCode.OK)
-        .send(util.success(statusCode.OK, resMessage.POSTING_UPDATE_SUCCESS));
+        
+        return res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.POSTING_UPDATE_SUCCESS));
     },
 
     deleteReview : async (req,res)=> {
