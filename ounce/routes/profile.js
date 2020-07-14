@@ -4,7 +4,7 @@ const profileControllers = require('../controllers/profileController')
 const middleware = require('../modules/middlewares');
 const upload = require('../modules/multer');
 
-router.post('/register', middleware.userJwt, upload.single('profileImg'),  profileControllers.profileRegister);
+router.post('/register', middleware.userJwt, profileControllers.profileRegister);
 router.put('/edit/:profileIdx', middleware.userJwt, upload.single('profileImg'), profileControllers.updateProfile);
 
 //router.get('/home', ProfileController.home);

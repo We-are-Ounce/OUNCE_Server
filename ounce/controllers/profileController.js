@@ -23,7 +23,7 @@ module.exports = {
     profileRegister: async(req, res) => {
         const userIdx = req.userIdx;
         console.log(userIdx);
-        const profileImg = req.file.location;
+        //const profileImg = req.file.location;
         const {
             profileName,
             profileWeight,
@@ -52,7 +52,7 @@ module.exports = {
             return;
         }
         
-        const pIdx = await Profile.profileRegister(profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx);
+        const pIdx = await Profile.profileRegister(profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx);
 
         res.status(statusCode.OK)
             .send(util.success(statusCode.OK, resMessage.REGISTER_PROFILE,{

@@ -26,10 +26,10 @@ const profile = {
     },
     //프로필 정보 등록(고양이 사진, 고양이 이름)
 
-    profileRegister: async (profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx) => {
-        const fields = 'profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx';
-        const questions = `?, ?, ?, ?, ?, ?, ?, ?`;
-        const values = [profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx];
+    profileRegister: async (profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx) => {
+        const fields = 'profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx';
+        const questions = `?, ?, ?, ?, ?, ?, ?`;
+        const values = [profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx];
         const query = `INSERT INTO ${table}(${fields}) VALUES(${questions})`;
         try {
             const result = await pool.queryParamArr(query, values);
