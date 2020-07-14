@@ -7,6 +7,12 @@ module.exports = {
     //다른 고양이 계정 프로필 조회
     diffProfile : async(req, res) => {
         const profileIdx = req.params.profileIdx;
+
+        if (!profileIdx) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+            return;
+        }
+
         const idx = await Profile.diffProfile(profileIdx);
         return res.status(statusCode.OK)
         .send(util.success(statusCode.OK, resMessage.READ_POST_SUCCESS, idx));
@@ -15,7 +21,16 @@ module.exports = {
     //다른 고양이 계정에서 리뷰 전체 조회
     diffReviewAll: async(req, res)=>{
         const profileIdx = req.params.profileIdx;
-        const idx = await Profile.diffReviewAll(profileIdx);
+
+        const {pageStart} = req.query;
+        const {pageEnd} = req.query;
+
+        if (!profileIdx || !pageStart || !pageEnd) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+            return;
+        } 
+        
+        const idx = await Profile.diffReviewAll(profileIdx, pageStart, pageEnd);
         return res.status(statusCode.OK)
         .send(util.success(statusCode.OK, resMessage.READ_POST_SUCCESS, {count:idx.length,result:idx}));
     },

@@ -118,7 +118,7 @@ module.exports = {
             return;
         } 
 
-        const idx = await Review.myReviewAll(profileIdx);
+        const idx = await Review.myReviewAll(profileIdx, pageStart, pageEnd);
         return res.status(statusCode.OK)
         .send(util.success(statusCode.OK, resMessage.READ_POST_SUCCESS, idx));
     },
