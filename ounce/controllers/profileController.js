@@ -45,7 +45,7 @@ module.exports = {
             return;
         }
 
-        if (profileImg === undefined || !profileName || !profileWeight || !profileGender || !profileNeutral || !profileAge || !profileInfo){
+        if (!profileName || !profileWeight || !profileGender || !profileNeutral || !profileAge || !profileInfo){
             res.status(statusCode.BAD_REQUEST)
                 .send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
             return;
