@@ -27,9 +27,9 @@ module.exports = {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST.resMessage.EMPTY_TOKEN));
             return;
         }
-        
+
         console.log(userIdx);
-        const profileImg = req.file.location;
+        //const profileImg = req.file.location;
         const {
             profileName,
             profileWeight,
@@ -43,18 +43,18 @@ module.exports = {
         console.log("profileName " + profileName)
         console.log("profileWeight " + profileWeight)
         console.log("profileGender " + profileGender);
-        console.log("profileImg " + profileImg);
+        //console.log("profileImg " + profileImg);
         console.log("profileAge" + profileAge)
         console.log("profileInfo " + profileInfo);
 
-
-        if (profileImg === undefined || !profileName || !profileWeight || !profileGender || !profileNeutral || !profileAge || !profileInfo){
+//profileImg === undefined || 
+        if (!profileName || !profileWeight || !profileGender || !profileNeutral || !profileAge || !profileInfo){
             res.status(statusCode.BAD_REQUEST)
                 .send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
             return;
         }
-        
-        const pIdx = await Profile.profileRegister(profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx);
+        //profileImg, 
+        const pIdx = await Profile.profileRegister(profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx);
 
         res.status(statusCode.OK)
             .send(util.success(statusCode.OK, resMessage.REGISTER_PROFILE,{
