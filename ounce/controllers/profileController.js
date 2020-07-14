@@ -99,6 +99,7 @@ module.exports = {
             profileIdx : isMyProfileIdx
         }))
     },
+
     //4. 프로필 조회(상단)
     mainProfile: async(req, res) => {
         const profileIdx = req.params.profileIdx;
@@ -127,16 +128,20 @@ module.exports = {
         return res.status(statusCode.OK)
             .send(util.success(statusCode.OK, resMessage.READ_PROFILE_SUCCESS, {count:idx.length, result: idx}));
     },
+
     //5. 팔로우 목록 조회
     followList: async(req, res) => {
         const profileIdx = req.params.profileIdx;
+        const {pageStart} = req.query;
+        const {pageEnd} = req.query;
+
         
-        if (!profileIdx) {
+        if (!profileIdx || !pageStart || !pageEnd) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
             return;
         } 
 
-        const idx = await Profile.followList(profileIdx);
+        const idx = await Profile.followList(profileIdx, pageStart, pageEnd);
         return res.status(statusCode.OK)
             .send(util.success(statusCode.OK, resMessage.READ_FOLLOW_LIST_SUCCESS, idx));
     },
@@ -144,17 +149,20 @@ module.exports = {
     //5-2. 팔로워 목록 조회
     followerList: async(req, res)=>{
         const profileIdx = req.params.profileIdx;
+        const {pageStart} = req.query;
+        const {pageEnd} = req.query;
 
-        if (!profileIdx) {
+        if (!profileIdx || !pageStart || !pageEnd) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
             return;
-        }
+        } 
 
-        const idx = await Profile.followerList(profileIdx);
+        const idx = await Profile.followerList(profileIdx, pageStart, pageEnd);
         
         return res.status(statusCode.OK)
             .send(util.success(statusCode.OK, resMessage.READ_FOLLOWER_LIST_SUCCESS, idx));
     },
+
     //5-3 팔로우 신청
     requestFollow: async(req, res)=>{
         const {myprofileIdx, followingIdx} = req.body;
@@ -168,6 +176,7 @@ module.exports = {
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.REQUEST_FOLLOW_SUCCESS));
 
     },
+
     //5-4 팔로우 취소
     deleteFollow:async(req, res)=>{
         const {myprofileIdx, followingIdx } = req.body;

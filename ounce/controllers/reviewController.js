@@ -62,7 +62,15 @@ module.exports = {
       //총점 순으로 정렬
     sortByRating: async(req, res) => {
         const profileIdx = req.params.profileIdx;
-        const idx = await Review.sortByRatding(profileIdx);
+        const {pageStart} = req.query;
+        const {pageEnd} = req.query;
+
+        if (!profileIdx || !pageStart || !pageEnd) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+            return;
+        } 
+
+        const idx = await Review.sortByRating(profileIdx, pageStart, pageEnd);
         return res.status(statusCode.OK)
         .send(util.success(statusCode.OK, resMessage.READ_POST_SUCCESS, idx));
     },
@@ -70,7 +78,15 @@ module.exports = {
     //기호도 순으로 정렬
     sortByPrefer: async(req, res) => {
         const profileIdx = req.params.profileIdx;
-        const idx = await Review.sortByPrefer(profileIdx);
+        const {pageStart} = req.query;
+        const {pageEnd} = req.query;
+
+        if (!profileIdx || !pageStart || !pageEnd) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+            return;
+        } 
+
+        const idx = await Review.sortByPrefer(profileIdx, pageStart, pageEnd);
         return res.status(statusCode.OK)
         .send(util.success(statusCode.OK, resMessage.READ_POST_SUCCESS, idx));
     },
@@ -78,7 +94,15 @@ module.exports = {
     //시간 순으로 정렬
     sortByDate: async(req, res) => {
         const profileIdx = req.params.profileIdx;
-        const idx = await Review.sortByDate(profileIdx);
+        const {pageStart} = req.query;
+        const {pageEnd} = req.query;
+
+        if (!profileIdx || !pageStart || !pageEnd) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+            return;
+        } 
+
+        const idx = await Review.sortByDate(profileIdx, pageStart, pageEnd);
         return res.status(statusCode.OK)
         .send(util.success(statusCode.OK, resMessage.READ_POST_SUCCESS, idx));
     },
@@ -86,6 +110,14 @@ module.exports = {
     //내 계정 중 선택된 고양이 별 내가 쓴 리뷰 전체 조회
     myReviewAll: async(req, res) => {
         const profileIdx = req.params.profileIdx;
+        const {pageStart} = req.query;
+        const {pageEnd} = req.query;
+
+        if (!profileIdx || !pageStart || !pageEnd) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+            return;
+        } 
+
         const idx = await Review.myReviewAll(profileIdx);
         return res.status(statusCode.OK)
         .send(util.success(statusCode.OK, resMessage.READ_POST_SUCCESS, idx));
@@ -94,6 +126,12 @@ module.exports = {
     //내 계정 중 선택된 고양이 별 내가 쓴 리뷰 하나 클릭 시 상세 조회
     myReviewOne: async(req, res) => {
         const reviewIdx = req.params.reviewIdx;
+    
+        if (!reviewIdx) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+            return;
+        }
+
         const idx = await Review.myReviewOne(reviewIdx);
         return res.status(statusCode.OK)
         .send(util.success(statusCode.OK, resMessage.READ_POST_SUCCESS, idx));
@@ -102,6 +140,12 @@ module.exports = {
     //내 계정 중 선택된 고양이 별 내가 쓴 리뷰 제조사만 필터링
     myReviewManu: async(req, res) => {
         const profileIdx = req.params.profileIdx;
+
+        if (!profileIdx) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+            return;
+        }
+
         const idx = await Review.myReviewManu(profileIdx);
         return res.status(statusCode.OK)
         .send(util.success(statusCode.OK, resMessage.READ_POST_SUCCESS, idx));
@@ -110,6 +154,12 @@ module.exports = {
     //내가 쓴 리뷰 필터링 조건 받아왔을 때 처리부분
     myReviewFilter: async(req, res) => {
         var {foodManu, foodDry, foodMeat} = req.body;
+        const profileIdx = req.params.profileIdx;
+
+        if (!profileIdx) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+            return;
+        }
 
         if (foodManu.length != 0){
             foodManu = '"' + foodManu.join('","') + '"';
@@ -126,7 +176,6 @@ module.exports = {
         } else {
             foodDry = '"' + foodDry.join('","') + '"';
         }
-        const profileIdx = req.params.profileIdx;
         const idx = await Review.myReviewFilter(foodManu, foodDry, foodMeat, profileIdx);
         return res.status(statusCode.OK)
             .send(util.success(statusCode.OK, resMessage.READ_POST_SUCCESS, idx));
@@ -135,9 +184,20 @@ module.exports = {
     updateReview: async(req, res) => {
         const reviewIdx = req.params.reviewIdx;
         const userIdx = req.userIdx;
+
+        if (!reviewIdx) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+            return;
+        }
+
+        if (!userIdx) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.EMPTY_TOKEN));
+            return;
+        }
+
         const {reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, foodIdx, profileIdx} = req.body;
         
-        const checkMyReview = await Review.checkMyReview(userIdx,reviewIdx);
+        const checkMyReview = await Review.checkMyReview(userIdx, reviewIdx);
 
         if(!checkMyReview){
             return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.PERMISSION_DENIED_UPDATE_POST));
@@ -150,7 +210,14 @@ module.exports = {
 
     deleteReview : async (req,res)=> {
         const userIdx = req.userIdx;
+
+        if (!userIdx) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.EMPTY_TOKEN));
+            return;
+        }
+
         const reviewIdx = req.params.reviewIdx;
+
         if(!reviewIdx){
             return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
         }
@@ -160,6 +227,7 @@ module.exports = {
         if (!checkMyReview){
             return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.PERMISSION_DENIED_DELETE_POST));
         }
+
         const result = await Review.deleteReview(reviewIdx);
         return await res.status(statusCode.OK).send(util.success(statusCode.OK,resMessage.DELETE_POST,{deleteReview:result}));
     },

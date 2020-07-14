@@ -135,11 +135,9 @@ const profile = {
             throw err;
         }},
     //4 팔로우 목록
-    followList: async(profileIdx) => {
+    followList: async(profileIdx, pageStart, pageEnd) => {
         const query = `SELECT profile.profileIdx,profile.profileImg, profile.profileName, profile.profileGender, profile.profileNeutral, profile.profileAge, profile.profileWeight
-        FROM profile 
-        join follow
-        on profile.profileIdx =follow.followingIdx  WHERE follow.myProfileIdx= "${profileIdx}"`;
+                        FROM profile join follow on profile.profileIdx = follow.followingIdx WHERE follow.myProfileIdx = "${profileIdx}" Limit ${pageStart}, ${pageEnd}`;
         try {
             const result = await pool.queryParam(query);
             return result;
@@ -149,11 +147,9 @@ const profile = {
         }
     },
     //5. 팔로워 목록
-    followerList: async(profileIdx) => {
+    followerList: async(profileIdx, pageStart, pageEnd) => {
         const query = `SELECT profile.profileIdx,profile.profileImg, profile.profileName, profile.profileGender, profile.profileNeutral, profile.profileAge, profile.profileWeight
-        FROM profile 
-        join follow
-        on profile.profileIdx = follow.myprofileIdx WHERE follow.followingIdx = "${profileIdx}"`
+                        FROM profile join follow on profile.profileIdx = follow.myprofileIdx WHERE follow.followingIdx = "${profileIdx}" Limit ${pageStart}, ${pageEnd}`;
         try {
             const result = await pool.queryParam(query);
             return result;

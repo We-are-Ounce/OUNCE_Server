@@ -15,8 +15,8 @@ const review = {
             throw err;
         }
     },
-    sortByRating : async (profileIdx) => {
-        const query = `SELECT review.reviewIdx, food.foodImg, food.foodManu, food.foodName, review.reviewInfo, review.reviewRating, review.reviewPrefer, review.createdAt FROM ${table} join food on review.foodIdx = food.foodIdx where review.profileIdx="${profileIdx}" order by review.reviewRating desc;`;
+    sortByRating : async (profileIdx, pageStart, pageEnd) => {
+        const query = `SELECT review.reviewIdx, food.foodImg, food.foodManu, food.foodName, review.reviewInfo, review.reviewRating, review.reviewPrefer, review.createdAt FROM ${table} join food on review.foodIdx = food.foodIdx where review.profileIdx="${profileIdx}" order by review.reviewRating desc LIMIT ${pageStart}, ${pageEnd};`;
         try {
             const result = await pool.queryParamArr(query);
             return result;
@@ -25,8 +25,8 @@ const review = {
             throw err;
         }
     },
-    sortByPrefer : async (profileIdx) => {
-        const query = `SELECT review.reviewIdx, food.foodImg, food.foodManu, food.foodName, review.reviewInfo, review.reviewRating, review.reviewPrefer, review.createdAt FROM ${table} join food on review.foodIdx = food.foodIdx where review.profileIdx="${profileIdx}" order by review.reviewPrefer desc;`;
+    sortByPrefer : async (profileIdx, pageStart, pageEnd) => {
+        const query = `SELECT review.reviewIdx, food.foodImg, food.foodManu, food.foodName, review.reviewInfo, review.reviewRating, review.reviewPrefer, review.createdAt FROM ${table} join food on review.foodIdx = food.foodIdx where review.profileIdx="${profileIdx}" order by review.reviewPrefer desc LIMIT ${pageStart}, ${pageEnd};`;
         try {
             const result = await pool.queryParamArr(query);
             return result;
@@ -35,8 +35,8 @@ const review = {
             throw err;
         }
     },
-    sortByDate : async (profileIdx) => {
-        const query = `SELECT review.reviewIdx, food.foodImg, food.foodManu, food.foodName, review.reviewInfo, review.reviewRating, review.reviewPrefer, review.createdAt FROM ${table} join food on review.foodIdx = food.foodIdx where review.profileIdx="${profileIdx}" order by review.createdAt desc;`;
+    sortByDate : async (profileIdx, pageStart, pageEnd) => {
+        const query = `SELECT review.reviewIdx, food.foodImg, food.foodManu, food.foodName, review.reviewInfo, review.reviewRating, review.reviewPrefer, review.createdAt FROM ${table} join food on review.foodIdx = food.foodIdx where review.profileIdx="${profileIdx}" order by review.createdAt desc LIMIT ${pageStart}, ${pageEnd};`;
         try {
             const result = await pool.queryParamArr(query);
             return result;

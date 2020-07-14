@@ -39,7 +39,6 @@ const search = {
             return;
         } 
 
-        
         // 제품명, 제조사명에 영어가 들어있을 때
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, engKeyword));
         return;
@@ -53,15 +52,15 @@ const search = {
     * @return 유저의 고양이 프로필
     */
     searchUser : async(req, res) => {
-        const {userId} = req.body;
+        const {userId, pageStart, pageEnd} = req.body;
 
         // id를 넘겨주지 않을 때
-        if (!userId) {
+        if (!userId || !pageStart || !pageEnd) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
             return;
         } 
         
-        const result = await searchKey.userSearch(userId);
+        const result = await searchKey.userSearch(userId, pageStart, pageEnd);
 
         if (result.length === 0) {
             res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.NO_USER_PROFILE, result));
@@ -100,16 +99,21 @@ const search = {
     */
 
     reviewSortRating : async(req, res) => {
-        const {searchKeyword} = req.body;
+        const {searchKeyword, pageStart, pageEnd} = req.body;
+
+        if (!searchKeyword || !pageStart || !pageEnd) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+            return;
+        }
 
         if (await checkKeyword.checkWord(searchKeyword)) {
-            const result = await searchKey.sortRating(searchKeyword);
+            const result = await searchKey.sortRating(searchKeyword, searchKeyword, pageStart, pageEnd);
             res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH_RATING, result));
             return;
         }
 
         const korKeyword = await checkKeyword.changeKeyword(searchKeyword);
-        const result = await searchKey.sortRating(korKeyword);
+        const result = await searchKey.sortRating(korKeyword, korKeyword, pageStart, pageEnd);
 
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH_RATING, result)); 
     },
@@ -122,17 +126,22 @@ const search = {
     */
 
     reviewSortPrefer : async(req, res) => {
-        const {searchKeyword} = req.body;
+        const {searchKeyword, pageStart, pageEnd} = req.body;
+
+        if (!searchKeyword || !pageStart || !pageEnd) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+            return;
+        }
 
         if (await checkKeyword.checkWord(searchKeyword)) {
-            const result = await searchKey.sortPrefer(searchKeyword);
+            const result = await searchKey.sortPrefer(searchKeyword, searchKeyword,  pageStart, pageEnd);
             res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH_PREFER, result));
             return;
         }
 
         const korKeyword = await checkKeyword.changeKeyword(searchKeyword);
 
-        const result = await searchKey.sortPrefer(korKeyword);  
+        const result = await searchKey.sortPrefer(korKeyword, korKeyword, pageStart, pageEnd);  
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH_PREFER, result));
     },
     
