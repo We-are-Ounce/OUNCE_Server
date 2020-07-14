@@ -22,21 +22,23 @@ const search = {
             return;
         }
 
-        if (checkKeyword.checkWord(searchKeyword)) {
+        if (await checkKeyword.checkWord(searchKeyword)) {
             let result = await searchKey.foodSearch(searchKeyword, searchKeyword, pageStart, pageEnd);
             res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, result));
             return;
         }
         
         // 검색키워드가 영어일 때
-        const engKeyword = await searchKey.foodSearch(keyword, keyword, pageStart, pageEnd);
+        const engKeyword = await searchKey.foodSearch(searchKeyword, searchKeyword, pageStart, pageEnd);
         const korKeyword = await checkKeyword.changeKeyword(searchKeyword);
 
+        // 영어단어가 존재하지 않을 때 
         if (engKeyword.length === 0) {       
             const result = await searchKey.foodSearch(korKeyword, korKeyword, pageStart, pageEnd);
             res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, result));
             return;
         } 
+
         
         // 제품명, 제조사명에 영어가 들어있을 때
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, engKeyword));
