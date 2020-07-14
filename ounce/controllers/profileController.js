@@ -22,6 +22,12 @@ module.exports = {
 
     profileRegister: async(req, res) => {
         const userIdx = req.userIdx;
+
+        if (!userIdx) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST.resMessage.EMPTY_TOKEN));
+            return;
+        }
+
         console.log(userIdx);
         //const profileImg = req.file.location;
         const {
@@ -39,10 +45,6 @@ module.exports = {
         console.log("profileAge" + profileAge)
         console.log("profileInfo " + profileInfo);
 
-        if (!userIdx) {
-            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST.resMessage.EMPTY_TOKEN));
-            return;
-        }
 
         if (!profileName || !profileWeight || !profileGender || !profileNeutral || !profileAge || !profileInfo){
             res.status(statusCode.BAD_REQUEST)
