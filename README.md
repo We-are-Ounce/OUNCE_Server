@@ -32,6 +32,28 @@
 
 
 <br>
+### 실행하기 
+* Express 앱용 프로세스 관리자 `pm2` 를 이용해 배포 합니다.
+```
+npm install pm2 -g
+```
+* Express 앱용 프로세스 관리자 pm2 를 이용해 배포 합니다.
+```
+ pm2 start ./bin/www --name "앱 이름"
+```
+* 현재 실행중인 프로세스 목록을 확인합니다.
+```
+ pm2 list
+```
+* 프로세스를 중지합니다.
+```
+pm2 delete --name "앱 이릅"
+```
+* 프로세스를 모니터 합니다.
+```
+pm2 moni t --name "앱 이름"
+```
+<br>
 
 ### :computer: package.json
 
@@ -89,7 +111,7 @@
 
 <br>
 
-### SERVER ARCHITECTURE
+### :globe_with_meridians: SERVER ARCHITECTURE
 ![아키텍처](https://user-images.githubusercontent.com/55784772/87590633-10080d00-c722-11ea-9ec4-45d4ece0dbe9.PNG)
 
 <br>
@@ -158,7 +180,7 @@
                 <li>팔로우 기능 담당</li>
             </ul>
         </td>
-        <td>인기상</td>
+        <td>서버 </td>
     </tr>
     <tr align="center">
         <td>
@@ -179,3 +201,7 @@
         <td>MVP</td>
     </tr>
 </table>
+            
+## OUNCE의 다른 프로젝트
+* [ANDROID](https://github.com/We-are-Ounce/OUNCE_Android)
+* [IOS](https://github.com/We-are-Ounce/OUNCE_iOS)
