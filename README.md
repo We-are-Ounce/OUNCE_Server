@@ -32,6 +32,7 @@
 
 
 <br>
+```
 ### 실행하기 
 * Express 앱용 프로세스 관리자 `pm2` 를 이용해 배포 합니다.
 ```
@@ -201,7 +202,9 @@ pm2 moni t --name "앱 이름"
         <td>MVP</td>
     </tr>
 </table>
-            
+ 
+<br>
+
 ## OUNCE의 다른 프로젝트
 * [ANDROID](https://github.com/We-are-Ounce/OUNCE_Android)
 * [IOS](https://github.com/We-are-Ounce/OUNCE_iOS)
