@@ -182,7 +182,18 @@ const profile = {
             console.log("delete follow ERROR : ", err.errno, err.code);
             throw err;
         }
-        
+    },
+    isFollow: async(myprofileIdx, profileIdx) => {
+        const query = `SELECT * FROM follow WHERE follow.myprofileIdx= "${myprofileIdx}" and follow.followingIdx = "${profileIdx}" `;
+        try {
+            const result = await pool.queryParam(query);
+            if (result.length === 0) {
+                return false;
+            } 
+            return true;
+        } catch(err) {
+            throw err;
+        }
     }
 }
 module.exports = profile;
