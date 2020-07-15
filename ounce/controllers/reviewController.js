@@ -8,11 +8,16 @@ require('moment-timezone');
 
 // 리뷰등록
 module.exports = {
-    reviewAdd : async(req, res) => {
+    reviewAdd: async(req, res) => {
         const userIdx = req.userIdx;
 
         // 리뷰 (평점, 선호도, 한줄소개, 변상태, 변냄새, 트리블(눈, 귀, 털, 구토), 메모
         const {reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, foodIdx, profileIdx} = req.body;
+
+        if (!userIdx) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST), resMessage.EMPTY_TOKEN);
+            return;
+        }
 
         // 필수 파라미터가 부족할 때 
         if (!reviewRating || !reviewPrefer || !reviewInfo || !foodIdx || !profileIdx) {
@@ -31,8 +36,7 @@ module.exports = {
         const createdAt = moment().format('YYYY-MM-DD HH:mm');
 
         const result = await Review.reviewAdd(reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx, userIdx);
-
-        
+   
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_REVIEW_ADD));    
     },
 
@@ -208,7 +212,7 @@ module.exports = {
         return res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.POSTING_UPDATE_SUCCESS));
     },
 
-    deleteReview : async (req,res)=> {
+    deleteReview: async (req,res) => {
         const userIdx = req.userIdx;
 
         if (!userIdx) {
@@ -224,6 +228,7 @@ module.exports = {
 
         // 내가쓴 글이 아니라면 삭제 불가
         const checkMyReview = await Review.checkMyReview(userIdx,reviewIdx);
+        
         if (!checkMyReview){
             return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.PERMISSION_DENIED_DELETE_POST));
         }

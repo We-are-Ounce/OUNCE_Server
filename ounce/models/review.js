@@ -2,7 +2,7 @@ const pool = require('../modules/pool');
 const table = 'review';
 
 const review = {
-   reviewAdd : async(reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx, userIdx) => {
+   reviewAdd: async(reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx, userIdx) => {
         const fields = 'reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx, userIdx';
         const questions = `?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?`;
         const values = [reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx, userIdx];
@@ -15,7 +15,7 @@ const review = {
             throw err;
         }
     },
-    sortByRating : async (profileIdx, pageStart, pageEnd) => {
+    sortByRating: async (profileIdx, pageStart, pageEnd) => {
         const query = `SELECT review.reviewIdx, food.foodImg, food.foodManu, food.foodName, review.reviewInfo, review.reviewRating, review.reviewPrefer, review.createdAt FROM ${table} join food on review.foodIdx = food.foodIdx where review.profileIdx="${profileIdx}" order by review.reviewRating desc LIMIT ${pageStart}, ${pageEnd};`;
         try {
             const result = await pool.queryParamArr(query);
@@ -25,7 +25,7 @@ const review = {
             throw err;
         }
     },
-    sortByPrefer : async (profileIdx, pageStart, pageEnd) => {
+    sortByPrefer: async (profileIdx, pageStart, pageEnd) => {
         const query = `SELECT review.reviewIdx, food.foodImg, food.foodManu, food.foodName, review.reviewInfo, review.reviewRating, review.reviewPrefer, review.createdAt FROM ${table} join food on review.foodIdx = food.foodIdx where review.profileIdx="${profileIdx}" order by review.reviewPrefer desc LIMIT ${pageStart}, ${pageEnd};`;
         try {
             const result = await pool.queryParamArr(query);
@@ -35,7 +35,7 @@ const review = {
             throw err;
         }
     },
-    sortByDate : async (profileIdx, pageStart, pageEnd) => {
+    sortByDate: async (profileIdx, pageStart, pageEnd) => {
         const query = `SELECT review.reviewIdx, food.foodImg, food.foodManu, food.foodName, review.reviewInfo, review.reviewRating, review.reviewPrefer, review.createdAt FROM ${table} join food on review.foodIdx = food.foodIdx where review.profileIdx="${profileIdx}" order by review.createdAt desc LIMIT ${pageStart}, ${pageEnd};`;
         try {
             const result = await pool.queryParamArr(query);
@@ -45,7 +45,7 @@ const review = {
             throw err;
         }
     },
-    myReviewOne : async (reviewIdx) => {
+    myReviewOne: async (reviewIdx) => {
         const query = `SELECT food.q foodIdx, food.foodImg, food.foodManu, food.foodName, food.foodDry, food.foodMeat1, food.foodMeat2, review.createdAt, review.reviewRating, review.reviewPrefer, review.reviewInfo, review.reviewStatus, review.reviewSmell, review.reviewEye, review.reviewEar, review.reviewHair, review.reviewVomit, review.reviewMemo FROM review join food on review.foodIdx = food.foodIdx where reviewIdx="${reviewIdx}";`
         try {
             const result = await pool.queryParamArr(query);
@@ -55,7 +55,7 @@ const review = {
             throw err;
         }
     },
-    myReviewAll : async (profileIdx, pageStart, pageEnd) => {
+    myReviewAll: async (profileIdx, pageStart, pageEnd) => {
         const query = `SELECT review.reviewIdx, food.foodIdx, food.foodImg, food.foodManu, food.foodName, review.reviewInfo, review.reviewRating, review.reviewPrefer, review.createdAt FROM review join food on review.foodIdx = food.foodIdx where review.profileIdx="${profileIdx}" LIMIT ${pageStart}, ${pageEnd};` 
         try {
             const result = await pool.queryParamArr(query);
@@ -65,7 +65,7 @@ const review = {
             throw err;
         }
     },
-    myReviewManu : async (profileIdx) => {
+    myReviewManu: async (profileIdx) => {
         const query = `SELECT distinct food.foodManu FROM review join food on review.foodIdx = food.foodIdx where review.profileIdx="${profileIdx}";` 
         try {
             const result = await pool.queryParamArr(query);
@@ -75,7 +75,7 @@ const review = {
             throw err;
         }
     },
-    myReviewFilter : async (foodManu, foodDry, foodMeat, profileIdx) => {
+    myReviewFilter: async (foodManu, foodDry, foodMeat, profileIdx) => {
         //query에서 foodMeat 가져오는 부분 합집합과 교집합 성공한거같아,,,
         const query = `SELECT review.reviewIdx, food.foodImg, food.foodManu, food.foodName, review.reviewInfo, review.reviewRating, review.reviewPrefer, review.createdAt FROM review join food on review.foodIdx = food.foodIdx where review.profileIdx="${profileIdx}" and ((food.foodManu IN (${foodManu})) and (food.foodDry IN (${foodDry})) and ((food.foodMeat1 IN (${foodMeat}) or (food.foodMeat2 IN (${foodMeat})))));` 
         console.log(query);
@@ -87,23 +87,21 @@ const review = {
             throw err;
         }
     },
-    checkReview : async (reviewIdx) => {
+    checkReview: async (reviewIdx) => {
         const query = `SELECT * FROM ${table} where reviewIdx="${reviewIdx}"`;
         try {
             const result = await pool.queryParamArr(query);
 
-            if (result.length>0){
+            if (result.length > 0) {
                 return true;
-            } else{
-                return false;
             }
-
+            return false;
         } catch (err) {
             console.log('checkReview error: ', err);
             throw err;
         }
     },
-    updateReview : async (reviewIdx, reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, foodIdx, profileIdx, userIdx) => {
+    updateReview: async (reviewIdx, reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, foodIdx, profileIdx, userIdx) => {
         const fields = 'reviewRating = ?, reviewPrefer = ?, reviewInfo = ?, reviewMemo = ?, reviewStatus = ?, reviewSmell = ?, reviewEye = ?, reviewEar = ?, reviewHair = ?, reviewVomit = ?, foodIdx = ?, profileIdx = ?, userIdx = ?';
         const query = `UPDATE ${table} SET ${fields} WHERE reviewIdx="${reviewIdx}"`;
         const values = [reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, foodIdx, profileIdx, userIdx];
@@ -115,7 +113,7 @@ const review = {
             throw err;
         }
     },
-    deleteReview : async (reviewIdx) => {
+    deleteReview: async (reviewIdx) => {
         const query = `DELETE FROM ${table} where reviewIdx="${reviewIdx}"`;
     
         try {
@@ -127,13 +125,14 @@ const review = {
             throw err;
         }
     },
-    checkMyReview : async (userIdx, reviewIdx) =>{
+    checkMyReview: async (userIdx, reviewIdx) =>{
         const query = `SELECT * FROM ${table} WHERE userIdx ="${userIdx}" and reviewIdx = "${reviewIdx}"`;
-        try{
+        try {
             const result = await pool.queryParam(query);
-            if(result.length === 0){
+            if (result.length === 0) {
                 return false;
-            }else return true;
+            }
+            return true;
         } catch(err) {
             console.log('checkMyReview ERROR :'+ err);
             throw err;
@@ -145,12 +144,12 @@ const review = {
         
         try {
             const result = await pool.queryParamArr(query);
-            if(result[0].count >= 2){
+            if (result[0].count >= 2) {
                 return false;
             }
             return true;
-        } catch(err){
-            if(err.errno == 1062){
+        } catch(err) {
+            if (err.errno == 1062) {
                 console.log('duplicate ERROR : ', err.errno, err.code);
                 throw err;
             }

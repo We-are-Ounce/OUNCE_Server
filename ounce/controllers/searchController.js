@@ -14,7 +14,7 @@ const search = {
     * @return 검색 결과
     */
 
-    searchFood : async(req, res) => {
+    searchFood: async(req, res) => {
         let {searchKeyword, pageStart, pageEnd} = req.body;
 
         if (!searchKeyword || !pageStart || !pageEnd) {
@@ -51,7 +51,7 @@ const search = {
     * @param 유저아이디
     * @return 유저의 고양이 프로필
     */
-    searchUser : async(req, res) => {
+    searchUser: async(req, res) => {
         const {userId, pageStart, pageEnd} = req.body;
 
         // id를 넘겨주지 않을 때
@@ -77,7 +77,7 @@ const search = {
     * @return 캣 푸드 리뷰 전체
     */
 
-    reviewAll : async(req, res) => {
+    reviewAll: async(req, res) => {
         const {foodIdx} = req.body;
 
         // foodIdx가 넘어오지 않았을 때
@@ -98,7 +98,7 @@ const search = {
     * @return 캣 푸드에 등록된 리뷰 전체
     */
 
-    reviewSortRating : async(req, res) => {
+    reviewSortRating: async(req, res) => {
         const {searchKeyword, pageStart, pageEnd} = req.body;
 
         if (!searchKeyword || !pageStart || !pageEnd) {
@@ -125,7 +125,7 @@ const search = {
     * @return 캣 푸드에 등록된 리뷰 전체
     */
 
-    reviewSortPrefer : async(req, res) => {
+    reviewSortPrefer: async(req, res) => {
         const {searchKeyword, pageStart, pageEnd} = req.body;
 
         if (!searchKeyword || !pageStart || !pageEnd) {
@@ -141,11 +141,11 @@ const search = {
 
         const korKeyword = await checkKeyword.changeKeyword(searchKeyword);
 
-        const result = await searchKey.sortPrefer(korKeyword, korKeyword, pageStart, pageEnd);  
+        const result = await searchKey.sortPrefer(korKeyword, korKeyword, pageStart, pageEnd);          
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH_PREFER, result));
     },
     
-    recommend : async(req, res) => {
+    recommend: async(req, res) => {
         const {profileIdx} = req.body;
         const idx = await searchKey.recommend(profileIdx);
         return res.status(statusCode.OK)

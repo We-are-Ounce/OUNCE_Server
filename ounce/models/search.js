@@ -3,7 +3,7 @@ const pool = require('../modules/pool');
 
 const search = {
     // 캣푸드 제조사 or 이름으로 검색 
-    foodSearch : async(foodName, foodManu, pageStart, pageEnd) => {    
+    foodSearch: async(foodName, foodManu, pageStart, pageEnd) => {    
         const query = `SELECT f.foodIdx, f.foodMeat, f.foodDry, f.foodImg, f.foodManu, f.foodName, f.foodLink,  count(r.reviewIdx) as reviewCount, r.reviewIdx, r.reviewInfo, round(avg(r.reviewRating), 1) as avgRating, round(avg(r.reviewPrefer), 1) as avgPrefer FROM food f LEFT JOIN review r ON f.foodIdx = r.foodIdx WHERE f.foodName Like "%${foodName}%" or f.foodManu Like "%${foodManu}%" GROUP BY f.foodIdx Limit ${pageStart}, ${pageEnd}`;
         try {
             const result = await pool.queryParam(query);
@@ -14,7 +14,7 @@ const search = {
         }
     },
 
-    sortRating : async(foodName, foodManu, pageStart, pageEnd) => { 
+    sortRating: async(foodName, foodManu, pageStart, pageEnd) => { 
         const query = `SELECT f.foodIdx, f.foodMeat, f.foodDry, f.foodImg, f.foodManu, f.foodName, f.foodLink,  count(r.reviewIdx) as reviewCount, r.reviewIdx, r.reviewInfo, round(avg(r.reviewRating), 1) as avgRating, round(avg(r.reviewPrefer), 1) as avgPrefer FROM food f LEFT JOIN review r ON f.foodIdx = r.foodIdx WHERE f.foodName Like "%${foodName}%" or f.foodManu Like "%${foodManu}%" GROUP BY f.foodIdx ORDER BY avgRating LIMIT ${pageStart}, ${pageEnd}`;
         try {
             const result = await pool.queryParam(query);
@@ -25,7 +25,7 @@ const search = {
         }
     },
 
-    sortPrefer : async(foodName, foodManu, pageStart, pageEnd) => {    
+    sortPrefer: async(foodName, foodManu, pageStart, pageEnd) => {    
         const query = `SELECT f.foodIdx, f.foodMeat, f.foodDry, f.foodImg, f.foodManu, f.foodName, f.foodLink,  count(r.reviewIdx) as reviewCount, r.reviewIdx, r.reviewInfo, round(avg(r.reviewRating), 1) as avgRating, round(avg(r.reviewPrefer), 1) as avgPrefer FROM food f LEFT JOIN review r ON f.foodIdx = r.foodIdx WHERE f.foodName Like "%${foodName}%" or f.foodManu Like "%${foodManu}%" GROUP BY f.foodIdx ORDER BY avgPrefer LIMIT ${pageStart}, ${pageEnd}`;
         try {
             const result = await pool.queryParam(query);
@@ -36,7 +36,7 @@ const search = {
         }
     },
 
-    userSearch : async(userId, pageStart, pageEnd) => {
+    userSearch: async(userId, pageStart, pageEnd) => {
         const query = `SELECT u.userIdx, u.id, p.profileIdx, p.profileImg, p.profileName, p.profileInfo FROM user u JOIN profile p ON u.userIdx = p.userIdx WHERE u.id Like "%${userId}%" LIMIT ${pageStart}, ${pageEnd}`;
         try {
             const result = await pool.queryParam(query);
@@ -47,7 +47,7 @@ const search = {
         } 
     },
 
-    foodALl : async() => {
+    foodALl: async() => {
         const query = `SELECT foodName FROM food`;
         try {
             const result = await pool.queryParam(query);
@@ -58,7 +58,7 @@ const search = {
         }
     },
 
-    reviewALL : async(foodIdx) => {
+    reviewALL: async(foodIdx) => {
         const query = `SELECT p.profileIdx, p.profileName, p.profileInfo, p.profileAge, r.reviewIdx, r.reviewRating, r.reviewPrefer, f.foodIdx FROM profile p JOIN review r ON p.profileIdx = r.profileIdx JOIN food f ON f.foodIdx = r.foodIdx WHERE f.foodIdx = ${foodIdx}`;
         try {
             const result = await pool.queryParam(query);
@@ -69,7 +69,7 @@ const search = {
         }
     },
 
-    recommend : async(profileIdx) => {
+    recommend: async(profileIdx) => {
         const query = `select foodIdx,profileIdx from review where profileIdx=${profileIdx} and reviewPrefer in (4,5);`;
         const query2 = `select foodIdx,profileIdx from review where profileIdx not in (${profileIdx}) and reviewPrefer in (4,5);`;
         const countMyReview = `select count(reviewIdx) as reviewCount from review where profileIdx=${profileIdx};`;
@@ -78,9 +78,9 @@ const search = {
             const result2 = await pool.queryParam(query2);
             const resultCount = await pool.queryParam(countMyReview);
             var arrNumber = new Array();
-            for (j=0; j<result2.length; j++){
-                var count=0;
-                for (i=0; i<result.length; i++){
+            for (j = 0; j < result2.length; j++){
+                var count = 0;
+                for (i = 0; i < result.length; i++){
                     if (result[i].foodIdx == result2[j].foodIdx){
                         count++;
                         arrNumber.push(result2[j].profileIdx);
@@ -108,19 +108,18 @@ const search = {
         var returnProfileIdx = new Array();
         var similarity = new Array();
         var resultProfileIdx = "(";
-        for (i=0; i<items.length; i++){
+        for (i = 0; i < items.length; i++){
             returnProfileIdx.push(Number(items[i][0]))
         }
-        for (i=0; i<items.length; i++){
-            similarity.push(Math.ceil(Number(items[i][1]/resultCount[0].reviewCount)*100));
+        for (i = 0; i < items.length; i++){
+            similarity.push(Math.ceil(Number(items[i][1] / resultCount[0].reviewCount) * 100));
         }
-        for (i=0; i<returnProfileIdx.length; i++){
-            resultProfileIdx=resultProfileIdx+returnProfileIdx[i]+",";
+        for (i = 0; i < returnProfileIdx.length; i++){
+            resultProfileIdx = resultProfileIdx+returnProfileIdx[i] + ",";
         }
-        resultProfileIdx = resultProfileIdx+"0)";
+        resultProfileIdx = resultProfileIdx + "0)";
         nresultProfileIdx = resultProfileIdx.replace("(","").replace(",0)","")
         nresultProfileIdx = nresultProfileIdx.split(',')
-        //console.log(nresultProfileIdx)
 
         //배열에 아무것도 없을 때 0을 임시로 넣어뒀기 때문에 undefined를 모두 0으로 바꿔줌
         if (nresultProfileIdx == '0)'){
@@ -130,11 +129,11 @@ const search = {
             var four = 0
             var five = 0
         } else {
-        one = nresultProfileIdx[0]
-        two = nresultProfileIdx[1]
-        three = nresultProfileIdx[2]
-        four = nresultProfileIdx[3]
-        five = nresultProfileIdx[4]
+            one = nresultProfileIdx[0]
+            two = nresultProfileIdx[1]
+            three = nresultProfileIdx[2]
+            four = nresultProfileIdx[3]
+            five = nresultProfileIdx[4]
         }
         if (one == undefined){
             one = 0

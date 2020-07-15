@@ -4,7 +4,7 @@ const table = 'profile';
 const profile = {
     diffProfile: async (profileIdx) => {
         const query = `SELECT profile.profileImg, profile.profileName, profile.profileGender, profile.profileNeutral, profile.profileAge, profile.profileWeight, profile.profileInfo, (SELECT count(follow.followingIdx) FROM follow WHERE follow.followingIdx="${profileIdx}") as follower, count(follow.myprofileIdx) as following FROM profile join follow
-        on profile.profileIdx = follow.myprofileIdx WHERE follow.myprofileIdx="${profileIdx}"`;
+                        on profile.profileIdx = follow.myprofileIdx WHERE follow.myprofileIdx="${profileIdx}"`;
         try {
             const result = await pool.queryParamArr(query);
             return result;
@@ -48,7 +48,6 @@ const profile = {
     //1-2 프로필 추가
     addProfile: async(userIdx)=>{
         const query = `SELECT count(userIdx) as count FROM ${table} WHERE userIdx = ${userIdx}`
-        
         try {
             const result = await pool.queryParamArr(query);
             console.log("result[0]: " + result);
@@ -79,7 +78,7 @@ const profile = {
             throw err;
         }
     },
-    isMyProfileIdx : async(profileIdx, userIdx) => {
+    isMyProfileIdx: async(profileIdx, userIdx) => {
         const query = `SELECT * FROM ${table} WHERE profileIdx = ${profileIdx} and userIdx = ${userIdx}`;
         try {
             const result = await pool.queryParam(query);
@@ -125,7 +124,7 @@ const profile = {
         }
     },
 
-    conversionProfile : async(profileIdx) => {
+    conversionProfile: async(profileIdx) => {
         const query = `SELECT profileIdx, profileImg, profileName, profileInfo FROM profile WHERE profileIdx = ${profileIdx}`;
         try {
             const result = await pool.queryParam(query);

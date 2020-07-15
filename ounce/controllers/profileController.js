@@ -98,7 +98,7 @@ module.exports = {
             return;
         }
 
-        if (profileImg === undefined|| !profileName || !profileWeight || !profileGender || !profileNeutral || !profileAge || !profileInfo || profileIdx){
+        if (profileImg === undefined || !profileName || !profileWeight || !profileGender || !profileNeutral || !profileAge || !profileInfo || profileIdx) {
             res.status(statusCode.BAD_REQUEST)
                 .send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
             return;
@@ -162,7 +162,7 @@ module.exports = {
     },
     
     //5-2. 팔로워 목록 조회
-    followerList: async(req, res)=>{
+    followerList: async(req, res) => {
         const profileIdx = req.params.profileIdx;
         const {pageStart} = req.query;
         const {pageEnd} = req.query;
@@ -179,7 +179,7 @@ module.exports = {
     },
 
     //5-3 팔로우 신청
-    requestFollow: async(req, res)=>{
+    requestFollow: async(req, res) => {
         const {myprofileIdx, followingIdx} = req.body;
 
         if(!myprofileIdx || !followingIdx){
@@ -193,13 +193,15 @@ module.exports = {
     },
 
     //5-4 팔로우 취소
-    deleteFollow:async(req, res)=>{
-        const {myprofileIdx, followingIdx } = req.body;
+    deleteFollow: async(req, res) => {
+        const {myprofileIdx, followingIdx} = req.body;
 
-        if(!myprofileIdx || !followingIdx ) {
+        if(!myprofileIdx || !followingIdx) {
             res.status(statusCode.BAD_REQUEST, resMessage.NULL_VALUE, {})
         }
+
         const idx = await Profile.deleteFollow(myprofileIdx, followingIdx);
+        
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.DELETE_FOLLOW_SUCCESS, {
             "unfollowingIdx" : followingIdx
         }));
