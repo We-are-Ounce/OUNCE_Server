@@ -16,7 +16,6 @@ const search = {
 
     searchFood: async(req, res) => {
         let {searchKeyword, pageStart, pageEnd} = req.body;
-        searchKeyword = searchKeyword.replace(" ", "");
 
         if (!searchKeyword || !pageStart || !pageEnd) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
@@ -25,7 +24,6 @@ const search = {
 
         if (await checkKeyword.checkWord(searchKeyword)) {
             let result = await searchKey.foodSearch(searchKeyword, searchKeyword, pageStart, pageEnd);
-            console.log(result);
             res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, result));
             return;
         }
@@ -37,7 +35,6 @@ const search = {
         // 영어단어가 존재하지 않을 때 
         if (engKeyword.length === 0) {       
             const result = await searchKey.foodSearch(korKeyword, korKeyword, pageStart, pageEnd);
-            console.log(result);
             res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, result));
             return;
         } 
