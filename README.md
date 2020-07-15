@@ -89,6 +89,14 @@
 
 <br>
 
+### SERVER ARCHITECTURE
+![아키텍처](https://user-images.githubusercontent.com/55784772/87590633-10080d00-c722-11ea-9ec4-45d4ece0dbe9.PNG)
+
+<br>
+
+<br>
+
+
 ###  :paperclip: 핵심기능 설명
 
 
