@@ -2,7 +2,7 @@ const pool = require('../modules/pool');
 const table = 'review';
 
 const review = {
-   reviewAdd : async(reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx, userIdx) => {
+    reviewAdd : async(reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx, userIdx) => {
         const fields = 'reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx, userIdx';
         const questions = `?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?`;
         const values = [reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, createdAt, foodIdx, profileIdx, userIdx];
