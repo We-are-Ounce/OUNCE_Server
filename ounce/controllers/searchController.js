@@ -5,6 +5,7 @@ const searchKey = require('../models/search');
 const Hangul = require('hangul-js');
 const ChosungSearch = require('hangul-chosung-search-js');
 const checkKeyword = require('../modules/checkKeyword');
+const profile = require('../models/profile');
 
 const search = {
     /** 
@@ -43,6 +44,44 @@ const search = {
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, engKeyword));
         return;
 
+    },
+
+    toWrite: async(req, res) => {
+        const profileIdx = req.params.profileIdx;
+        const {searchKeyword, pageStart, pageEnd} = req.body;
+
+        if (!profileIdx) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+            return;
+        }
+
+        if (!searchKeyword || !pageStart || !pageEnd) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+            return;
+        }
+        
+        if (await checkKeyword.checkWord(searchKeyword)) {
+            let result = await searchKey.reviewSearch(profileIdx, searchKeyword, searchKeyword, pageStart, pageEnd);
+            res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, result));
+            return;
+        }
+        
+        // 검색키워드가 영어일 때
+        const engKeyword = await searchKey.reviewSearch(profileIdx, searchKeyword, searchKeyword, pageStart, pageEnd);
+        const korKeyword = await checkKeyword.changeKeyword(searchKeyword);
+
+        // 영어단어가 존재하지 않을 때 
+        if (engKeyword.length === 0) {       
+            const result = await searchKey.reviewSearch(profileIdx, korKeyword, korKeyword, pageStart, pageEnd);
+            res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, result));
+            return;
+        } 
+
+        // 제품명, 제조사명에 영어가 들어있을 때
+        res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, engKeyword));
+        return;
+
+        
     },
 
     /** 

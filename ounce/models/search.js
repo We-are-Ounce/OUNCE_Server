@@ -14,6 +14,18 @@ const search = {
         }
     },
 
+    reviewSearch: async(profileIdx, foodName, foodManu, pageStart, pageEnd) => {
+        const query = `SELECT distinct(food.foodIdx), food.foodImg, food.foodManu, food.foodName from food where (food.foodName Like '%${foodName}' or food.foodManu Like '%${foodManu}%') and food.foodIdx not in (SELECT food.foodIdx from food join review on food.foodIdx = review.foodIdx
+            where review.profileIdx = ${profileIdx} order by food.foodIdx) LIMIT ${pageStart}, ${pageEnd}`;
+        try {
+            const result = await pool.queryParam(query);
+            return result;
+        } catch(err) {
+            console.log('reviewSearch ERROR');
+            throw err;
+        }
+    },
+
     sortRating: async(foodName, foodManu, pageStart, pageEnd) => { 
         const query = `SELECT f.foodIdx, f.foodMeat, f.foodDry, f.foodImg, f.foodManu, f.foodName, f.foodLink,  count(r.reviewIdx) as reviewCount, r.reviewIdx, r.reviewInfo, round(avg(r.reviewRating), 1) as avgRating, round(avg(r.reviewPrefer), 1) as avgPrefer FROM food f LEFT JOIN review r ON f.foodIdx = r.foodIdx WHERE f.foodName Like "%${foodName}%" or f.foodManu Like "%${foodManu}%" GROUP BY f.foodIdx ORDER BY avgRating LIMIT ${pageStart}, ${pageEnd}`;
         try {
