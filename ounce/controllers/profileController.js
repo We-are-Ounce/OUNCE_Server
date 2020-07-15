@@ -118,7 +118,6 @@ module.exports = {
     //4. 프로필 조회(상단)
     mainProfile: async(req, res) => {
         const profileIdx = req.params.profileIdx;
-        console.log(profileIdx);
 
         if (!profileIdx) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
@@ -126,7 +125,7 @@ module.exports = {
         }
         // 어디에 쓸지 userIdx
         const userIdx = req.userIdx;
-        console.log(userIdx);
+        
         if (!userIdx) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.EMPTY_TOKEN));
             return;
