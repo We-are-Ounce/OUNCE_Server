@@ -41,7 +41,6 @@ const search = {
 
         // 제품명, 제조사명에 영어가 들어있을 때
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, engKeyword));
-        console.log(engKeyword);
         return;
 
     },
