@@ -27,6 +27,7 @@ const search = {
 
         if (await checkKeyword.checkWord(searchKeyword)) {
             let result = await searchKey.foodSearch(searchKeyword, searchKeyword, pageStart, pageEnd);
+            console.log(result);
             res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, result));
             return;
         }
@@ -38,12 +39,14 @@ const search = {
         // 영어단어가 존재하지 않을 때 
         if (engKeyword.length === 0) {       
             const result = await searchKey.foodSearch(korKeyword, korKeyword, pageStart, pageEnd);
+            console.log(result);
             res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, result));
             return;
         } 
 
         // 제품명, 제조사명에 영어가 들어있을 때
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, engKeyword));
+        console.log(engKeyword);
         return;
 
     },
