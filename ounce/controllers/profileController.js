@@ -27,8 +27,8 @@ module.exports = {
     //다른 고양이 계정에서 리뷰 전체 조회
     diffReviewAll: async(req, res)=>{
         const profileIdx = req.params.profileIdx;
-        const pageStart = req.query;
-        const pageEnd = req.query;
+        const {pageStart} = req.query;
+        const {pageEnd} = req.query;
 
         if (!profileIdx || !pageStart || !pageEnd) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
