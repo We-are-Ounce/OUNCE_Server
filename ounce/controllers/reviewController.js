@@ -68,6 +68,7 @@ module.exports = {
         const profileIdx = req.params.profileIdx;
         const {pageStart} = req.query;
         const {pageEnd} = req.query;
+        console.log(pageStart);
 
         if (!profileIdx || !pageStart || !pageEnd) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
@@ -116,7 +117,6 @@ module.exports = {
         const profileIdx = req.params.profileIdx;
         const {pageStart} = req.query;
         const {pageEnd} = req.query;
-
 
         if (!profileIdx || !pageStart || !pageEnd) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
