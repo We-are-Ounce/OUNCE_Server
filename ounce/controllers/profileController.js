@@ -21,7 +21,7 @@ module.exports = {
         console.log(ischeck);
 
         return res.status(statusCode.OK)
-        .send(util.success(statusCode.OK, resMessage.READ_POST_SUCCESS, {reviewCountAll:idx2.length, profileInfoArray : idx, ischeck}));
+        .send(util.success(statusCode.OK, resMessage.SUCCESS_PROFILE_REVIEW, {reviewCountAll:idx2.length, profileInfoArray : idx, ischeck}));
     },
 
     //다른 고양이 계정에서 리뷰 전체 조회
@@ -37,7 +37,7 @@ module.exports = {
 
         const idx = await Profile.diffReviewAll(profileIdx, pageStart, pageEnd);
         return res.status(statusCode.OK)
-        .send(util.success(statusCode.OK, resMessage.READ_POST_SUCCESS, idx));
+        .send(util.success(statusCode.OK, resMessage.SUCCESS_PROFILE_REVIEW, idx));
     },
 
     profileRegister: async(req, res) => {
