@@ -18,7 +18,6 @@ module.exports = {
         const idx = await Profile.diffProfile(profileIdx);
         const idx2 = await Profile.mainReviewAll(profileIdx);
 
-        console.log(ischeck);
 
         return res.status(statusCode.OK)
         .send(util.success(statusCode.OK, resMessage.SUCCESS_PROFILE_REVIEW, {reviewCountAll:idx2.length, profileInfoArray : idx, ischeck}));
@@ -79,8 +78,9 @@ module.exports = {
     //3. 프로필 수정
     updateProfile : async(req, res) => {
         const userIdx = req.userIdx;
-        const {profileIdx} = req.params;
+        const profileIdx = req.params.profileIdx;
         const profileImg = req.file.location;
+
         const {
             profileName,
             profileWeight,
@@ -92,9 +92,11 @@ module.exports = {
 
         
         const isMyProfileIdx = await Profile.isMyProfileIdx(profileIdx, userIdx);
+
         if (!isMyProfileIdx) {
             return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.PERMISSION_DENIED_UPDATE_PROFILE));
         }
+
         const result = await Profile.profileUpdate(profileIdx, profileImg, profileName, profileWeight, profileGender, profileNeutral, profileAge, profileInfo, userIdx);
 
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_UPDATE_PROFILE, {
