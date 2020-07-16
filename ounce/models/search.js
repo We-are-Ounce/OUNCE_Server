@@ -15,7 +15,7 @@ const search = {
     },
 
     reviewSearch: async(profileIdx, foodName, foodManu, pageStart, pageEnd) => {
-        const query = `SELECT distinct(food.foodIdx), food.foodImg, food.foodManu, food.foodName from food where (food.foodName Like '%${foodName}' or food.foodManu Like '%${foodManu}%') and food.foodIdx not in (SELECT food.foodIdx from food join review on food.foodIdx = review.foodIdx
+        const query = `SELECT distinct(food.foodIdx), food.foodImg, food.foodManu, food.foodName, food.foodDry, food.foodMeat1, food.foodMeat2 from food where (food.foodName Like '%${foodName}' or food.foodManu Like '%${foodManu}%') and food.foodIdx not in (SELECT food.foodIdx from food join review on food.foodIdx = review.foodIdx
             where review.profileIdx = ${profileIdx} order by food.foodIdx) LIMIT ${pageStart}, ${pageEnd}`;
         try {
             const result = await pool.queryParam(query);
