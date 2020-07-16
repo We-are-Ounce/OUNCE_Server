@@ -90,8 +90,6 @@ module.exports = {
             profileInfo   
         } = req.body;
 
-        console.log(userIdx);
-        console.log(profileIdx);
 
         
         const isMyProfileIdx = await Profile.isMyProfileIdx(profileIdx, userIdx);
@@ -137,8 +135,8 @@ module.exports = {
     //5. 팔로우 목록 조회
     followList: async(req, res) => {
         const profileIdx = req.params.profileIdx;
-        const pageStart = req.query;
-        const pageEnd = req.query;
+        const {pageStart} = req.query;
+        const {pageEnd} = req.query;
         
         if (!profileIdx || !pageStart || !pageEnd) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
@@ -153,8 +151,8 @@ module.exports = {
     //5-2. 팔로워 목록 조회
     followerList: async(req, res)=>{
         const profileIdx = req.params.profileIdx;
-        const pageStart = req.query;
-        const pageEnd = req.query;
+        const {pageStart} = req.query;
+        const {pageEnd} = req.query;
         
         if (!profileIdx || !pageStart || !pageEnd) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
