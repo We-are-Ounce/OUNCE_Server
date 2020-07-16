@@ -90,6 +90,9 @@ module.exports = {
             profileInfo   
         } = req.body;
 
+        console.log(userIdx);
+        console.log(profileIdx);
+
         
         const isMyProfileIdx = await Profile.isMyProfileIdx(profileIdx, userIdx);
 
