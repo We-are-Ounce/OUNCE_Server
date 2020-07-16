@@ -3,8 +3,8 @@ const table = 'profile';
 
 const profile = {
     diffProfile: async (profileIdx) => {
-        const query = `SELECT profile.profileImg, profile.profileName, profile.profileGender, profile.profileNeutral, profile.profileAge, profile.profileWeight, profile.profileInfo, (SELECT count(follow.followingIdx) FROM follow WHERE follow.followingIdx="${profileIdx}") as follower, count(follow.myprofileIdx) as following FROM profile join follow
-                        on profile.profileIdx = follow.myprofileIdx WHERE follow.myprofileIdx="${profileIdx}"`;
+        const query = `SELECT profile.profileImg, profile.profileName, profile.profileGender, profile.profileNeutral, profile.profileAge, profile.profileWeight, profile.profileInfo, 
+        (SELECT count(follow.followingIdx) FROM follow WHERE follow.followingIdx = "${profileIdx}") as follower, count(follow.myprofileIdx) as following FROM follow right join profile on profile.profileIdx = follow.myprofileIdx WHERE profile.profileIdx = "${profileIdx}"`;
         try {
             const result = await pool.queryParamArr(query);
             return result;
