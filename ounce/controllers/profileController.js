@@ -2,6 +2,7 @@ const util = require('../modules/util');
 const statusCode = require('../modules/statusCode');
 const resMessage = require('../modules/responseMessage');
 const Profile = require('../models/profile');
+const profile = require('../models/profile');
 
 module.exports = {
     //다른 고양이 계정 프로필 조회
@@ -137,6 +138,10 @@ module.exports = {
         const profileIdx = req.params.profileIdx;
         const {pageStart} = req.query;
         const {pageEnd} = req.query;
+
+        if (profile <= 0) {
+
+        }
         
         if (!profileIdx || !pageStart || !pageEnd) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
@@ -189,14 +194,14 @@ module.exports = {
     },
 
     conversionProfile : async(req, res) => {
-        const profileIdx = req.params.profileIdx;
+        const userIdx = req.userIdx;
         
-        if (!profileIdx) {
+        if (!userIdx) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
             return;
         }
         
-        const result = await Profile.conversionProfile(profileIdx);
+        const result = await Profile.conversionProfile(userIdx);
 
         if (result.length === 0) {
             res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.NO_PROFILE, result));
