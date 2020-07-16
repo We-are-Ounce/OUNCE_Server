@@ -43,7 +43,7 @@ module.exports = {
     limitReview: async(req, res) => {
         const {profileIdx, foodIdx} = req.body;
 
-        if (!profileIdx, !foodIdx) {
+        if (!profileIdx || !foodIdx) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
             return;
         }
