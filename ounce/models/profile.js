@@ -172,8 +172,8 @@ const profile = {
         }
     },
     //5-3 팔로우 취소
-    deleteFollow: async(myprofileIdx) => {
-        const query = `DELETE FROM follow WHERE follow.myprofileIdx = "${myprofileIdx}"`
+    deleteFollow: async(myprofileIdx, profileIdx) => {
+        const query = `DELETE FROM follow WHERE follow.myprofileIdx = '${myprofileIdx}' and followingIdx = '${profileIdx}'`
         try {
             const result = await pool.queryParam(query);
             return result;
