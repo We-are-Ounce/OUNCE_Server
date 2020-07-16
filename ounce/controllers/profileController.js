@@ -210,6 +210,12 @@ module.exports = {
             res.status(statusCode.BAD_REQUEST, resMessage.NULL_VALUE, {})
         }
         const idx = await Profile.deleteFollow(myprofileIdx, followingIdx);
+
+        if (!idx) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+            return;
+        }
+
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.DELETE_FOLLOW_SUCCESS));
     },
 

@@ -173,10 +173,13 @@ const profile = {
     },
     //5-3 팔로우 취소
     deleteFollow: async(myprofileIdx, profileIdx) => {
-        const query = `DELETE FROM follow WHERE follow.myprofileIdx = '${myprofileIdx}' and followingIdx = '${profileIdx}'`
+        const query = `DELETE FROM follow WHERE follow.myprofileIdx = '${myprofileIdx}' and follow.followingIdx = '${profileIdx}'`
         try {
             const result = await pool.queryParam(query);
-            return result;
+            if (result.affectedRows > 0) {
+                return true;
+            }
+            return false;
         } catch (err) {
             console.log("delete follow ERROR : ", err.errno, err.code);
             throw err;
