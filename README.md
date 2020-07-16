@@ -15,7 +15,7 @@
 :smiley_cat: <b>[API Specification](https://github.com/We-are-Ounce/OUNCE_Server/wiki)</b>
 
 
-## :rainbow: :unicorn: Peaceful Server Team :unicorn: :rainbow:
+### :rainbow: :unicorn: Peaceful Server Team :unicorn: :rainbow:
 ![단체사진](./ounce/img/단체사진.jpg)
 
 
@@ -32,28 +32,9 @@
 
 
 <br>
-```
-### 실행하기 
-* Express 앱용 프로세스 관리자 `pm2` 를 이용해 배포 합니다.
-```
-npm install pm2 -g
-```
-* Express 앱용 프로세스 관리자 pm2 를 이용해 배포 합니다.
-```
- pm2 start ./bin/www --name "앱 이름"
-```
-* 현재 실행중인 프로세스 목록을 확인합니다.
-```
- pm2 list
-```
-* 프로세스를 중지합니다.
-```
-pm2 delete --name "앱 이릅"
-```
-* 프로세스를 모니터 합니다.
-```
-pm2 moni t --name "앱 이름"
-```
+
+
+
 <br>
 
 ### :computer: package.json
@@ -106,7 +87,8 @@ pm2 moni t --name "앱 이름"
 
 ### :crystal_ball: ERD 
 
-![ERD](./ounce/img/ERD.png)
+![ERD](https://user-images.githubusercontent.com/55784772/87702220-18208500-c7d4-11ea-8e54-f83f972f1d83.PNG)
+
 
 <br>
 
