@@ -50,8 +50,7 @@ const profile = {
         const query = `SELECT count(userIdx) as count FROM ${table} WHERE userIdx = ${userIdx}`
         try {
             const result = await pool.queryParamArr(query);
-            console.log("result[0]: " + result);
-            console.log("result[0].count(userIdx): " + result[0].count);
+            
             if(result[0].count >= 4){
                 return false;
             }

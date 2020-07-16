@@ -21,8 +21,6 @@ router.post('/limitProfile', middleware.userJwt, profileControllers.limitProfile
 
 router.post('/register', middleware.userJwt, profileControllers.profileRegister);
 
-//2. 프로필 수정
-router.put('/updateProfile/:profileIdx', middleware.userJwt, profileControllers.updateProfile);
 //3. 프로필조회
 router.get('/mainProfile/:profileIdx', middleware.userJwt, profileControllers.mainProfile);
 router.get('/mainReviewAll/:profileIdx', middleware.userJwt, profileControllers.mainReviewAll);

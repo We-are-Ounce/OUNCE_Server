@@ -68,6 +68,12 @@ module.exports = {
     //2. 프로필 개수 제한
     limitProfile: async(req, res)=>{
         const userIdx = req.userIdx;
+
+        if (!userIdx) {
+            res.status(statusCode.BAD_REQUEST).send(util.util(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+            return;
+        }
+
         const pIdx = await Profile.addProfile(userIdx);
 
         res.status(statusCode.OK)
@@ -79,6 +85,11 @@ module.exports = {
     //3. 프로필 수정
     updateProfile : async(req, res) => {
         const userIdx = req.userIdx;
+
+        if (!userIdx) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.EMPTY_TOKEN));
+            return;
+        }
         const profileIdx = req.params.profileIdx;
         const profileImg = req.file.location;
 
@@ -91,6 +102,11 @@ module.exports = {
             profileInfo   
         } = req.body;
 
+        if (!profileIdx || profileImg === undefined || !profileName || !profileWeight || !profileGender || !profileNeutral || !profileAge || !profileInfo){
+            res.status(statusCode.BAD_REQUEST)
+                .send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+            return;
+        }
 
         
         const isMyProfileIdx = await Profile.isMyProfileIdx(profileIdx, userIdx);
