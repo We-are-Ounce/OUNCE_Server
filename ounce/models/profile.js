@@ -15,7 +15,7 @@ const profile = {
     },
 
     diffReviewAll: async (profileIdx, pageStart, pageEnd) => {
-        const query = `SELECT review.reviewIdx, food.foodIdx, food.foodImg, food.foodManu, food.foodName, review.reviewInfo, review.reviewRating, review.reviewPrefer, review.createdAt FROM review join food on review.foodIdx = food.foodIdx where review.profileIdx="${profileIdx}" LIMIT ${pageStart}, ${pageEnd};` 
+        const query = `SELECT review.reviewIdx, food.foodIdx, food.foodImg, food.foodManu, food.foodName, review.reviewInfo, review.reviewRating, review.reviewPrefer, review.createdAt FROM review join food on review.foodIdx = food.foodIdx where review.profileIdx="${profileIdx}" LIMIT ${pageStart}, ${pageEnd}`; 
         try {
             const result = await pool.queryParamArr(query);
             return result;
