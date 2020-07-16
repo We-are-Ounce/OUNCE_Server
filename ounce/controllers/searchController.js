@@ -90,7 +90,11 @@ const search = {
     * @return 유저의 고양이 프로필
     */
     searchUser: async(req, res) => {
-        const {userId, pageStart, pageEnd} = req.body;
+        let {userId, pageStart, pageEnd} = req.body;
+
+        if (pageStart === 0) {
+            pageStart++;
+        }
 
         // id를 넘겨주지 않을 때
         if (!userId || !pageStart || !pageEnd) {
