@@ -116,15 +116,15 @@ const search = {
     */
 
     reviewAll: async(req, res) => {
-        const {foodIdx} = req.body;
+        const {foodIdx, pageStart, pageEnd} = req.body;
 
         // foodIdx가 넘어오지 않았을 때
-        if (!foodIdx) {
+        if (!foodIdx || !pageStart || !pageEnd) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
             return;
         }
 
-        const result = await searchKey.reviewALL(foodIdx);
+        const result = await searchKey.reviewALL(foodIdx, pageStart, pageEnd);
 
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_REVIEW_DETAIL, result));
     },
