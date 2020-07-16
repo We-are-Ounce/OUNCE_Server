@@ -37,7 +37,7 @@ module.exports = {
 
         const idx = await Profile.diffReviewAll(profileIdx, pageStart, pageEnd);
         return res.status(statusCode.OK)
-        .send(util.success(statusCode.OK, resMessage.READ_POST_SUCCESS, {count:idx.length, idx}));
+        .send(util.success(statusCode.OK, resMessage.READ_POST_SUCCESS, idx));
     },
 
     profileRegister: async(req, res) => {
