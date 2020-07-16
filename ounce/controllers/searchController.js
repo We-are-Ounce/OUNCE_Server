@@ -49,11 +49,7 @@ const search = {
     toWrite: async(req, res) => {
         const profileIdx = req.params.profileIdx;
         const {searchKeyword, pageStart, pageEnd} = req.body;
-        console.log(profileIdx);
-        console.log(searchKeyword);
-        console.log(pageStart);
-        console.log(pageEnd);
-
+        
         if (!profileIdx || !searchKeyword || !pageStart || !pageEnd) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
             return;
