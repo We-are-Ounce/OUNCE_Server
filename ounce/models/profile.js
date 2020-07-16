@@ -124,8 +124,8 @@ const profile = {
         }
     },
 
-    conversionProfile: async(userIdx) => {
-        const query = `SELECT profileIdx, profileImg, profileName, profileInfo FROM profile WHERE userIdx = ${userIdx}`;
+    conversionProfile: async(userIdx, profileIdx) => {
+        const query = `SELECT profileIdx, profileImg, profileName, profileInfo FROM profile WHERE userIdx = ${userIdx} and profileIdx not in (${profileIdx})`;
         try {
             const result = await pool.queryParam(query);
             return result;
