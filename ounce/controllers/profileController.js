@@ -182,9 +182,7 @@ module.exports = {
             res.status(statusCode.BAD_REQUEST, resMessage.NULL_VALUE, {})
         }
         const idx = await Profile.deleteFollow(myprofileIdx, followingIdx);
-        res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.DELETE_FOLLOW_SUCCESS, {
-            "unfollowingIdx" : followingIdx
-        }));
+        res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.DELETE_FOLLOW_SUCCESS));
     },
 
     conversionProfile : async(req, res)  => {
