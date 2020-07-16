@@ -15,7 +15,7 @@
 :smiley_cat: <b>[API Specification](https://github.com/We-are-Ounce/OUNCE_Server/wiki)</b>
 
 
-## :rainbow: :unicorn: Peaceful Server Team :unicorn: :rainbow:
+### :rainbow: :unicorn: Peaceful Server Team :unicorn: :rainbow:
 ![단체사진](./ounce/img/단체사진.jpg)
 
 
@@ -29,6 +29,10 @@
 ![기능2](./ounce/img/기능2.jpg)
 
 ![기능3](./ounce/img/기능3.jpg)
+
+
+<br>
+
 
 
 <br>
@@ -83,11 +87,18 @@
 
 ### :crystal_ball: ERD 
 
-![ERD](./ounce/img/ERD.png)
+![ERD](https://user-images.githubusercontent.com/55784772/87702220-18208500-c7d4-11ea-8e54-f83f972f1d83.PNG)
+
 
 <br>
 
 <br>
+
+### :globe_with_meridians: SERVER ARCHITECTURE
+![아키텍처](https://user-images.githubusercontent.com/55784772/87590633-10080d00-c722-11ea-9ec4-45d4ece0dbe9.PNG)
+
+<br>
+
 
 ###  :paperclip: 핵심기능 설명
 
@@ -171,3 +182,9 @@
         <td>MVP</td>
     </tr>
 </table>
+ 
+<br>
+
+## OUNCE의 다른 프로젝트
+* [ANDROID](https://github.com/We-are-Ounce/OUNCE_Android)
+* [IOS](https://github.com/We-are-Ounce/OUNCE_iOS)
