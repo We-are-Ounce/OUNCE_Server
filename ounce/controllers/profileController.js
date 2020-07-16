@@ -169,7 +169,7 @@ module.exports = {
         const {myprofileIdx, followingIdx} = req.body;
 
         if(!myprofileIdx || !followingIdx){
-            res.status(statusCoe.BAD_REQUEST, resMessage.NULL_VALUE, {});
+            res.status(statusCode.BAD_REQUEST, resMessage.NULL_VALUE, {});
         }
 
         const idx = await Profile.requestFollow(myprofileIdx, followingIdx);
@@ -188,7 +188,7 @@ module.exports = {
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.DELETE_FOLLOW_SUCCESS));
     },
 
-    conversionProfile : async(req, res)  => {
+    conversionProfile : async(req, res) => {
         const profileIdx = req.params.profileIdx;
         
         if (!profileIdx) {
