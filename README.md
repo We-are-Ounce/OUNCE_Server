@@ -99,8 +99,6 @@
 
 <br>
 
-<br>
-
 
 ###  :paperclip: 핵심기능 설명
 
@@ -163,7 +161,7 @@
                 <li>팔로우 기능 담당</li>
             </ul>
         </td>
-        <td>서버 </td>
+        <td>인기상</td>
     </tr>
     <tr align="center">
         <td>
