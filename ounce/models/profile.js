@@ -124,8 +124,8 @@ const profile = {
         }
     },
 
-    conversionProfile: async(profileIdx) => {
-        const query = `SELECT profileIdx, profileImg, profileName, profileInfo FROM profile WHERE profileIdx = ${profileIdx}`;
+    conversionProfile: async(userIdx) => {
+        const query = `SELECT profileIdx, profileImg, profileName, profileInfo FROM profile WHERE userIdx = ${userIdx}`;
         try {
             const result = await pool.queryParam(query);
             return result;
