@@ -239,7 +239,7 @@ module.exports = {
         }
 
         const result = await Review.deleteReview(reviewIdx);
-        return await res.status(statusCode.OK).send(util.success(statusCode.OK,resMessage.DELETE_POST,{deleteReview:result}));
+        return await res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.DELETE_POST));
     },
     
 }
