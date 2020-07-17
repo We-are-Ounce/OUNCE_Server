@@ -42,7 +42,6 @@ module.exports = {
 
     profileRegister: async(req, res) => {
         const userIdx = req.userIdx;
-        console.log(userIdx);
         const profileImg = req.file.location;
         const {
             profileName,
