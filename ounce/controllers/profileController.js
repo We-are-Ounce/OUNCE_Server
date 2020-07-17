@@ -193,6 +193,13 @@ module.exports = {
             res.status(statusCode.BAD_REQUEST, resMessage.NULL_VALUE, {});
         }
 
+        const result = await Profile.requestFollowCheck(myprofileIdx, followingIdx);
+
+        if (!result) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.FAIL_REQUEST_FOLLOW));
+            return;
+        }
+
         const idx = await Profile.requestFollow(myprofileIdx, followingIdx);
 
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.REQUEST_FOLLOW_SUCCESS));
@@ -203,13 +210,13 @@ module.exports = {
         const {myprofileIdx, followingIdx} = req.body;
 
         if(!myprofileIdx || !followingIdx) {
-            res.status(statusCode.BAD_REQUEST).send(statusCode.BAD_REQUEST, resMessage.NULL_VALUE);
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
             return;
         }
         const idx = await Profile.deleteFollow(myprofileIdx, followingIdx);
 
         if (!idx) {
-            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.FAIL_FOLLOW));
             return;
         }
 

@@ -171,6 +171,21 @@ const profile = {
             throw err;
         }
     },
+
+    requestFollowCheck : async(myprofileIdx, followingIdx) => {
+        const query = `SELECT * FROM follow WHERE myprofileIdx = ${myprofileIdx} and followingIdx = ${followingIdx}`;
+        try {
+            const result = await pool.queryParam(query);
+            if (result.length === 0) {
+                return true;   
+            }
+            return false;
+            
+        } catch(err) {
+            console.log('error follow');
+            throw err;
+        }
+    },
     //5-3 팔로우 취소
     deleteFollow: async(myprofileIdx, profileIdx) => {
         const query = `DELETE FROM follow WHERE follow.myprofileIdx = '${myprofileIdx}' and follow.followingIdx = '${profileIdx}'`
