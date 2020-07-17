@@ -27,18 +27,18 @@ const search = {
         }
 
         if (await checkKeyword.checkWord(searchKeyword)) {
-            let result = await searchKey.foodSearch(searchKeyword, searchKeyword, pageStart, pageEnd);
+            let result = await searchKey.foodSearch(searchKeyword, searchKeyword, pageStart - 1, pageEnd);
             res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, result));
             return;
         }
         
         // 검색키워드가 영어일 때
-        const engKeyword = await searchKey.foodSearch(searchKeyword, searchKeyword, pageStart, pageEnd);
+        const engKeyword = await searchKey.foodSearch(searchKeyword, searchKeyword, pageStart - 1, pageEnd);
         const korKeyword = await checkKeyword.changeKeyword(searchKeyword);
 
         // 영어단어가 존재하지 않을 때 
         if (engKeyword.length === 0) {       
-            const result = await searchKey.foodSearch(korKeyword, korKeyword, pageStart, pageEnd);
+            const result = await searchKey.foodSearch(korKeyword, korKeyword, pageStart - 1, pageEnd);
             res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, result));
             return;
         } 
@@ -62,18 +62,18 @@ const search = {
         }
         
         if (await checkKeyword.checkWord(searchKeyword)) {
-            let result = await searchKey.reviewSearch(profileIdx, searchKeyword, searchKeyword, pageStart, pageEnd);
+            let result = await searchKey.reviewSearch(profileIdx, searchKeyword, searchKeyword, pageStart - 1, pageEnd);
             res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, result));
             return;
         }
         
         // 검색키워드가 영어일 때
-        const engKeyword = await searchKey.reviewSearch(profileIdx, searchKeyword, searchKeyword, pageStart, pageEnd);
+        const engKeyword = await searchKey.reviewSearch(profileIdx, searchKeyword, searchKeyword, pageStart - 1, pageEnd);
         const korKeyword = await checkKeyword.changeKeyword(searchKeyword);
 
         // 영어단어가 존재하지 않을 때 
         if (engKeyword.length === 0) {       
-            const result = await searchKey.reviewSearch(profileIdx, korKeyword, korKeyword, pageStart, pageEnd);
+            const result = await searchKey.reviewSearch(profileIdx, korKeyword, korKeyword, pageStart - 1, pageEnd);
             res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH, result));
             return;
         } 
