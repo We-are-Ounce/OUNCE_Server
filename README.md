@@ -24,11 +24,8 @@
 
 ### :open_file_folder: 기능 명세서 및 역할 분담
 
-![기능1](./ounce/img/기능1.jpg)
+![기능명세서](https://user-images.githubusercontent.com/55784772/87778063-8feac000-c865-11ea-858b-ae2bfbae9c09.PNG)
 
-![기능2](./ounce/img/기능2.jpg)
-
-![기능3](./ounce/img/기능3.jpg)
 
 
 <br>
