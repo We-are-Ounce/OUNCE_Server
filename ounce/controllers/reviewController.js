@@ -10,7 +10,6 @@ require('moment-timezone');
 module.exports = {
     reviewAdd: async(req, res) => {
         const userIdx = req.userIdx;
-        console.log(userIdx);
 
         // 리뷰 (평점, 선호도, 한줄소개, 변상태, 변냄새, 트리블(눈, 귀, 털, 구토), 메모
         const {reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, foodIdx, profileIdx} = req.body;
