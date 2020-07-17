@@ -121,7 +121,7 @@
 
 <br>
 
-### PM2
+### :space_invader: PM2
 #### 유저
 <img width="400" alt="0" src="https://user-images.githubusercontent.com/55784772/87780318-6cc20f80-c869-11ea-9fcd-26ff777e3564.png">
 
@@ -136,7 +136,7 @@
 #### 리뷰 수정, 정렬
 <img width="400" alt="3" src="https://user-images.githubusercontent.com/55784772/87779785-5c5d6500-c868-11ea-904a-18743ba843fb.png">
 
-#### 필터, 추천, 
+#### 필터, 추천
 <img width="400" alt="4" src="https://user-images.githubusercontent.com/55784772/87779840-70a16200-c868-11ea-8be3-ad4dee22afdd.png">
 
 
