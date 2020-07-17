@@ -227,6 +227,8 @@ module.exports = {
         const userIdx = req.userIdx;
         const profileIdx = req.params.profileIdx;
         
+        console.log(userIdx);
+        console.log(profileIdx);
         if (!userIdx) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
             return;
