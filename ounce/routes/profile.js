@@ -15,11 +15,8 @@ router.get('/', profileControllers.diffProfile);
 //다른 고양이의 리뷰 목록 조회
 router.get('/review/:profileIdx', profileControllers.diffReviewAll)
 
-//1. 프로필 등록
-router.post('/register', middleware.userJwt, profileControllers.profileRegister);
 router.post('/limitProfile', middleware.userJwt, profileControllers.limitProfile);
 
-router.post('/register', middleware.userJwt, profileControllers.profileRegister);
 
 //3. 프로필조회
 router.get('/mainProfile/:profileIdx', middleware.userJwt, profileControllers.mainProfile);
