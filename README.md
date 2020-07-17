@@ -26,7 +26,8 @@
 
 ### :open_file_folder: 기능 명세서 및 역할 분담
 
-![기능명세서](https://user-images.githubusercontent.com/55784772/87778063-8feac000-c865-11ea-858b-ae2bfbae9c09.PNG)
+![기능 명세](https://user-images.githubusercontent.com/55784772/87781603-eeb33800-c86b-11ea-9570-c3549c04fe34.PNG)
+
 
 
 
@@ -139,7 +140,7 @@
 #### 필터, 추천
 <img width="400" alt="4" src="https://user-images.githubusercontent.com/55784772/87779840-70a16200-c868-11ea-8be3-ad4dee22afdd.png">
 
-
+<
 
 ### :eyes: 팀별 역할분담
 
