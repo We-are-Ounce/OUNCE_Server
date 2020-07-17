@@ -200,9 +200,9 @@ module.exports = {
     },
     //5-4 팔로우 취소
     deleteFollow: async(req, res) => {
-        const {myprofileIdx, followingIdx } = req.body;
+        const {myprofileIdx, followingIdx} = req.body;
 
-        if(!myprofileIdx || !followingIdx ) {
+        if(!myprofileIdx || !followingIdx) {
             res.status(statusCode.BAD_REQUEST).send(statusCode.BAD_REQUEST, resMessage.NULL_VALUE);
             return;
         }
