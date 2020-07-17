@@ -198,8 +198,6 @@ const search = {
     recommend: async(req, res) => {
         const {profileIdx} = req.body;
 
-        console.log(profileIdx);
-
         if (!profileIdx) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
             return;
