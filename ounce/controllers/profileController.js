@@ -3,6 +3,7 @@ const statusCode = require('../modules/statusCode');
 const resMessage = require('../modules/responseMessage');
 const Profile = require('../models/profile');
 const profile = require('../models/profile');
+const { NULL_VALUE } = require('../modules/responseMessage');
 
 module.exports = {
     //다른 고양이 계정 프로필 조회
@@ -146,6 +147,12 @@ module.exports = {
     //4-2 프로필 조회(하단)
     mainReviewAll: async(req, res) => {
         const profileIdx = req.params.profileIdx;
+
+        if (!profileIdx) {
+            res.status(statusCode.BAD_REQUEST).send(statusCode.BAD_REQUEST, resMessage,NULL_VALUE);
+            return;
+        }
+
         const idx = await Profile.mainReviewAll(profileIdx);
         return res.status(statusCode.OK)
             .send(util.success(statusCode.OK, resMessage.READ_PROFILE_SUCCESS, {count:idx.length, result: idx}));

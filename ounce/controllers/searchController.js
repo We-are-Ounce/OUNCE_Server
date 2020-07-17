@@ -153,13 +153,13 @@ const search = {
         }
 
         if (await checkKeyword.checkWord(searchKeyword)) {
-            const result = await searchKey.sortRating(searchKeyword, searchKeyword, pageStart, pageEnd);
+            const result = await searchKey.sortRating(searchKeyword, searchKeyword, pageStart - 1, pageEnd);
             res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH_RATING, result));
             return;
         }
 
         const korKeyword = await checkKeyword.changeKeyword(searchKeyword);
-        const result = await searchKey.sortRating(korKeyword, korKeyword, pageStart, pageEnd);
+        const result = await searchKey.sortRating(korKeyword, korKeyword, pageStart - 1, pageEnd);
 
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH_RATING, result)); 
     },
@@ -184,14 +184,14 @@ const search = {
         }
 
         if (await checkKeyword.checkWord(searchKeyword)) {
-            const result = await searchKey.sortPrefer(searchKeyword, searchKeyword,  pageStart, pageEnd);
+            const result = await searchKey.sortPrefer(searchKeyword, searchKeyword,  pageStart - 1, pageEnd);
             res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH_PREFER, result));
             return;
         }
 
         const korKeyword = await checkKeyword.changeKeyword(searchKeyword);
 
-        const result = await searchKey.sortPrefer(korKeyword, korKeyword, pageStart, pageEnd);          
+        const result = await searchKey.sortPrefer(korKeyword, korKeyword, pageStart - 1, pageEnd);          
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_SEARCH_PREFER, result));
     },
     
