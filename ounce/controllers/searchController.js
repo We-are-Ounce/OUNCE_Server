@@ -102,7 +102,7 @@ const search = {
             return;
         } 
         
-        const result = await searchKey.userSearch(userId, pageStart, pageEnd);
+        const result = await searchKey.userSearch(userId, pageStart - 1, pageEnd);
 
         if (result.length === 0) {
             res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.NO_USER_PROFILE, result));

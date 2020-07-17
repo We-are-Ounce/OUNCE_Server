@@ -52,6 +52,7 @@ const search = {
         const query = `SELECT u.userIdx, u.id, p.profileIdx, p.profileImg, p.profileName, p.profileInfo FROM user u JOIN profile p ON u.userIdx = p.userIdx WHERE u.id Like "%${userId}%" LIMIT ${pageStart}, ${pageEnd}`;
         try {
             const result = await pool.queryParam(query);
+            console.log(result);
             return result;
         } catch(err) {
             console.log('ERROR USER SEARCH');
