@@ -1,11 +1,13 @@
 # :heart_eyes_cat: Welcome to Ounce Server :heart_eyes_cat:
 
-<img src="https://user-images.githubusercontent.com/45676906/87784220-d8f44180-c870-11ea-9821-9ea4a09e8b26.jpg" width="200" height="200">
-<p align="center"><img src="https://user-images.githubusercontent.com/45676906/87784325-02ad6880-c871-11ea-9008-5e7f6cc57a04.jpg" width="200" height="100"></p>
-<img src="https://user-images.githubusercontent.com/55784772/87793259-f977c800-c87f-11ea-816e-bc99f55c040d.png"="200" height="200">
+<div>
+ <img src="https://user-images.githubusercontent.com/45676906/87784220-d8f44180-c870-11ea-9821-9ea4a09e8b26.jpg" width="200" height="200">
+ <img src="https://user-images.githubusercontent.com/55784772/87793259-f977c800-c87f-11ea-816e-bc99f55c040d.png" width="200" height="200">
+ <img src="https://user-images.githubusercontent.com/45676906/87784325-02ad6880-c871-11ea-9008-5e7f6cc57a04.jpg" width="200" height="200">
+ 
+</div>
 
-
-
+<br>
 
 
 고양이들은 입맛이 까다로워, 집사들은 성공확률이 높은 시도를 위해 먹여본 캣푸드를 따로 기록하고 있습니다. 
@@ -22,6 +24,7 @@
 
 :smiley_cat: <b>[API Specification](https://github.com/We-are-Ounce/OUNCE_Server/wiki)</b>
 
+<br>
 
 ### :rainbow: :unicorn: Peaceful Server Team :unicorn: :rainbow:
 ![단체사진](./ounce/img/단체사진.jpg)
