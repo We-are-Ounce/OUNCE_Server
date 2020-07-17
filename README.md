@@ -38,6 +38,10 @@
 
 :smiley_cat: jsonwebtoken
 
+:smiley_cat: moment
+
+:smiley_cat: moment-timezone
+
 :smiley_cat: multer
 
 :smiley_cat: multer-s3
@@ -57,26 +61,26 @@
 :smiley_cat: aws-sdk
 
 ```
-"dependencies": {
-    "cookie-parser": "~1.4.4",
+ "dependencies": {
+    "aws-sdk": "^2.713.0",
+    "cookie-parser": "^1.4.5",
     "debug": "~2.6.9",
     "express": "~4.16.1",
-    "http-errors": "~1.6.3",
-    "jade": "~1.11.0",
-    "jsonwebtoken": "^8.5.1",
-    "morgan": "~1.9.1",
-    "multer": "^1.4.2",
-    "nodemon": "^2.0.4",
-    "pbkdf2": "^3.0.17",
-    "promise-mysql": "^4.1.3",
-    "rand-token": "^1.0.1",
     "hangul-chosung-search-js": "^1.1.3",
     "hangul-js": "^0.2.6",
     "http-errors": "~1.6.3",
     "inko": "^1.1.1",
+    "jade": "~1.11.0",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.27.0",
+    "moment-timezone": "^0.5.31",
+    "morgan": "~1.9.1",
+    "multer": "^1.4.2",
     "multer-s3": "^2.9.0",
-    "aws-sdk": "^2.696.0",
-
+    "nodemon": "^2.0.4",
+    "pbkdf2": "^3.1.1",
+    "promise-mysql": "^4.1.3",
+    "rand-token": "^1.0.1"
   }
 ```
 
