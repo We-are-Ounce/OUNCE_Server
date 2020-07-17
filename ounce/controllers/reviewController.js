@@ -201,9 +201,6 @@ module.exports = {
 
         const {reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, foodIdx, profileIdx} = req.body;
         
-        console.log(userIdx);
-        console.log(profileIdx);
-
         const checkMyReview = await Review.checkMyReview(userIdx, reviewIdx, profileIdx);
 
         if(!checkMyReview){
