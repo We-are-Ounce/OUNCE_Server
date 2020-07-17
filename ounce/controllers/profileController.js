@@ -77,7 +77,7 @@ module.exports = {
         const pIdx = await Profile.addProfile(userIdx);
 
         res.status(statusCode.OK)
-            .send(util.success(statusCode.OK, resMessage.ADD_PROFILE_SUCCESS,{
+            .send(util.success(statusCode.OK, resMessage.NOT_ADD_PROFILE_SUCCESS,{
                 possibleAddProfile : pIdx
             }
         ))
