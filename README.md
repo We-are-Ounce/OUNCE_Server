@@ -1,7 +1,7 @@
 # :heart_eyes_cat: Welcome to Ounce Server :heart_eyes_cat:
 
 <img src="https://user-images.githubusercontent.com/45676906/87784220-d8f44180-c870-11ea-9821-9ea4a09e8b26.jpg" width="200" height="200">
-<img src="https://user-images.githubusercontent.com/45676906/87784325-02ad6880-c871-11ea-9008-5e7f6cc57a04.jpg" width="200" height="200">
+<p align="center"><img src="https://user-images.githubusercontent.com/45676906/87784325-02ad6880-c871-11ea-9008-5e7f6cc57a04.jpg" width="200" height="200"></p>
 <img src="https://user-images.githubusercontent.com/55784772/87793259-f977c800-c87f-11ea-816e-bc99f55c040d.png"="200" height="200">
 
 
@@ -11,6 +11,8 @@
 고양이들은 입맛이 까다로워, 집사들은 성공확률이 높은 시도를 위해 먹여본 캣푸드를 따로 기록하고 있습니다. 
 
 저희는 이러한 집사들의 고민을 해결하기 위해 직관적인 기록, 서로의 목록 공유, 입맛이 비슷한 고양이 추천 기능을 제공하고 있습니다.
+
+<br>
 
 ### 기록부터 선택까지, 온스가 함께합니다.
 
