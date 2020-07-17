@@ -189,11 +189,6 @@ module.exports = {
         const reviewIdx = req.params.reviewIdx;
         const userIdx = req.userIdx;
 
-        if (!reviewIdx) {
-            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
-            return;
-        }
-
         if (!userIdx) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.EMPTY_TOKEN));
             return;
@@ -201,7 +196,7 @@ module.exports = {
 
         const {reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, foodIdx, profileIdx} = req.body;
         
-        if (!reviewRating || !reviewPrefer || !reviewInfo || !reviewMemo || !reviewStatus || !reviewSmell || !reviewEye || !reviewEar || !reviewHair || !reviewVomit || !foodIdx || !profileIdx) {
+        if (!reviewIdx || !reviewRating || !reviewPrefer || !reviewInfo || !reviewMemo || !reviewStatus || !reviewSmell || !reviewEye || !reviewEar || !reviewHair || !reviewVomit || !foodIdx || !profileIdx) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
             return;
         }
