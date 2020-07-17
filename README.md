@@ -27,7 +27,8 @@
 
 ### :open_file_folder: 기능 명세서 및 역할 분담
 
-![기능 명세](https://user-images.githubusercontent.com/55784772/87781603-eeb33800-c86b-11ea-9570-c3549c04fe34.PNG)
+![기능명세_최종](https://user-images.githubusercontent.com/55784772/87792292-a5201880-c87e-11ea-9cf9-60b6e485210b.PNG)
+
 
 
 
