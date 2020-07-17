@@ -50,8 +50,7 @@ const profile = {
         const query = `SELECT count(userIdx) as count FROM ${table} WHERE userIdx = ${userIdx}`
         try {
             const result = await pool.queryParamArr(query);
-            console.log("result[0]: " + result);
-            console.log("result[0].count(userIdx): " + result[0].count);
+            
             if(result[0].count >= 4){
                 return false;
             }
@@ -124,8 +123,8 @@ const profile = {
         }
     },
 
-    conversionProfile: async(profileIdx) => {
-        const query = `SELECT profileIdx, profileImg, profileName, profileInfo FROM profile WHERE profileIdx = ${profileIdx}`;
+    conversionProfile: async(userIdx, profileIdx) => {
+        const query = `SELECT profileIdx, profileImg, profileName, profileInfo FROM profile WHERE userIdx = ${userIdx} and profileIdx not in (${profileIdx})`;
         try {
             const result = await pool.queryParam(query);
             return result;
@@ -172,12 +171,30 @@ const profile = {
             throw err;
         }
     },
-    //5-3 팔로우 취소
-    deleteFollow: async(myprofileIdx) => {
-        const query = `DELETE FROM follow WHERE follow.myprofileIdx = "${myprofileIdx}"`
+
+    requestFollowCheck : async(myprofileIdx, followingIdx) => {
+        const query = `SELECT * FROM follow WHERE myprofileIdx = ${myprofileIdx} and followingIdx = ${followingIdx}`;
         try {
             const result = await pool.queryParam(query);
-            return result;
+            if (result.length === 0) {
+                return true;   
+            }
+            return false;
+            
+        } catch(err) {
+            console.log('error follow');
+            throw err;
+        }
+    },
+    //5-3 팔로우 취소
+    deleteFollow: async(myprofileIdx, profileIdx) => {
+        const query = `DELETE FROM follow WHERE follow.myprofileIdx = '${myprofileIdx}' and follow.followingIdx = '${profileIdx}'`
+        try {
+            const result = await pool.queryParam(query);
+            if (result.affectedRows > 0) {
+                return true;
+            }
+            return false;
         } catch (err) {
             console.log("delete follow ERROR : ", err.errno, err.code);
             throw err;

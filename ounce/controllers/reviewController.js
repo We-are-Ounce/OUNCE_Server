@@ -10,9 +10,13 @@ require('moment-timezone');
 module.exports = {
     reviewAdd: async(req, res) => {
         const userIdx = req.userIdx;
+        console.log(userIdx);
 
         // 리뷰 (평점, 선호도, 한줄소개, 변상태, 변냄새, 트리블(눈, 귀, 털, 구토), 메모
         const {reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, foodIdx, profileIdx} = req.body;
+
+        console.log(profileIdx);
+        console.log(foodIdx);
 
         if (!userIdx) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST), resMessage.EMPTY_TOKEN);
@@ -43,7 +47,7 @@ module.exports = {
     limitReview: async(req, res) => {
         const {profileIdx, foodIdx} = req.body;
 
-        if (!profileIdx, !foodIdx) {
+        if (!profileIdx || !foodIdx) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
             return;
         }
@@ -116,7 +120,6 @@ module.exports = {
         const profileIdx = req.params.profileIdx;
         const {pageStart} = req.query;
         const {pageEnd} = req.query;
-
 
         if (!profileIdx || !pageStart || !pageEnd) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));

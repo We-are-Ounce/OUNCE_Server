@@ -2,6 +2,7 @@ const util = require('../modules/util');
 const statusCode = require('../modules/statusCode');
 const resMessage = require('../modules/responseMessage');
 const Profile = require('../models/profile');
+const profile = require('../models/profile');
 
 module.exports = {
     //다른 고양이 계정 프로필 조회
@@ -67,6 +68,12 @@ module.exports = {
     //2. 프로필 개수 제한
     limitProfile: async(req, res)=>{
         const userIdx = req.userIdx;
+
+        if (!userIdx) {
+            res.status(statusCode.BAD_REQUEST).send(util.util(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+            return;
+        }
+
         const pIdx = await Profile.addProfile(userIdx);
 
         res.status(statusCode.OK)
@@ -78,6 +85,11 @@ module.exports = {
     //3. 프로필 수정
     updateProfile : async(req, res) => {
         const userIdx = req.userIdx;
+
+        if (!userIdx) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.EMPTY_TOKEN));
+            return;
+        }
         const profileIdx = req.params.profileIdx;
         const profileImg = req.file.location;
 
@@ -90,6 +102,11 @@ module.exports = {
             profileInfo   
         } = req.body;
 
+        if (!profileIdx || profileImg === undefined || !profileName || !profileWeight || !profileGender || !profileNeutral || !profileAge || !profileInfo){
+            res.status(statusCode.BAD_REQUEST)
+                .send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+            return;
+        }
 
         
         const isMyProfileIdx = await Profile.isMyProfileIdx(profileIdx, userIdx);
@@ -137,6 +154,10 @@ module.exports = {
         const profileIdx = req.params.profileIdx;
         const {pageStart} = req.query;
         const {pageEnd} = req.query;
+
+        if (profile <= 0) {
+
+        }
         
         if (!profileIdx || !pageStart || !pageEnd) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
@@ -169,7 +190,14 @@ module.exports = {
         const {myprofileIdx, followingIdx} = req.body;
 
         if(!myprofileIdx || !followingIdx){
-            res.status(statusCoe.BAD_REQUEST, resMessage.NULL_VALUE, {});
+            res.status(statusCode.BAD_REQUEST, resMessage.NULL_VALUE, {});
+        }
+
+        const result = await Profile.requestFollowCheck(myprofileIdx, followingIdx);
+
+        if (!result) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.FAIL_REQUEST_FOLLOW));
+            return;
         }
 
         const idx = await Profile.requestFollow(myprofileIdx, followingIdx);
@@ -179,24 +207,32 @@ module.exports = {
     },
     //5-4 팔로우 취소
     deleteFollow: async(req, res) => {
-        const {myprofileIdx, followingIdx } = req.body;
+        const {myprofileIdx, followingIdx} = req.body;
 
-        if(!myprofileIdx || !followingIdx ) {
-            res.status(statusCode.BAD_REQUEST, resMessage.NULL_VALUE, {})
+        if(!myprofileIdx || !followingIdx) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+            return;
         }
         const idx = await Profile.deleteFollow(myprofileIdx, followingIdx);
+
+        if (!idx) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.FAIL_FOLLOW));
+            return;
+        }
+
         res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.DELETE_FOLLOW_SUCCESS));
     },
 
-    conversionProfile : async(req, res)  => {
+    conversionProfile : async(req, res) => {
+        const userIdx = req.userIdx;
         const profileIdx = req.params.profileIdx;
         
-        if (!profileIdx) {
+        if (!userIdx) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
             return;
         }
         
-        const result = await Profile.conversionProfile(profileIdx);
+        const result = await Profile.conversionProfile(userIdx, profileIdx);
 
         if (result.length === 0) {
             res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.NO_PROFILE, result));

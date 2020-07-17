@@ -27,7 +27,7 @@ const search = {
     },
 
     sortRating: async(foodName, foodManu, pageStart, pageEnd) => { 
-        const query = `SELECT f.foodIdx, f.foodMeat, f.foodDry, f.foodImg, f.foodManu, f.foodName, f.foodLink,  count(r.reviewIdx) as reviewCount, r.reviewIdx, r.reviewInfo, round(avg(r.reviewRating), 1) as avgRating, round(avg(r.reviewPrefer), 1) as avgPrefer FROM food f LEFT JOIN review r ON f.foodIdx = r.foodIdx WHERE f.foodName Like "%${foodName}%" or f.foodManu Like "%${foodManu}%" GROUP BY f.foodIdx ORDER BY avgRating DESC LIMIT ${pageStart}, ${pageEnd}`;
+        const query = `SELECT f.foodIdx, f.foodMeat1, f.foodMeat2, f.foodDry, f.foodImg, f.foodManu, f.foodName, f.foodLink,  count(r.reviewIdx) as reviewCount, r.reviewIdx, r.reviewInfo, round(avg(r.reviewRating), 1) as avgRating, round(avg(r.reviewPrefer), 1) as avgPrefer FROM food f LEFT JOIN review r ON f.foodIdx = r.foodIdx WHERE f.foodName Like "%${foodName}%" or f.foodManu Like "%${foodManu}%" GROUP BY f.foodIdx ORDER BY avgRating DESC LIMIT ${pageStart}, ${pageEnd}`;
         try {
             const result = await pool.queryParam(query);
             return result;
@@ -38,7 +38,7 @@ const search = {
     },
 
     sortPrefer: async(foodName, foodManu, pageStart, pageEnd) => {    
-        const query = `SELECT f.foodIdx, f.foodMeat, f.foodDry, f.foodImg, f.foodManu, f.foodName, f.foodLink,  count(r.reviewIdx) as reviewCount, r.reviewIdx, r.reviewInfo, round(avg(r.reviewRating), 1) as avgRating, round(avg(r.reviewPrefer), 1) as avgPrefer FROM food f LEFT JOIN review r ON f.foodIdx = r.foodIdx WHERE f.foodName Like "%${foodName}%" or f.foodManu Like "%${foodManu}%" GROUP BY f.foodIdx ORDER BY avgPrefer DESC LIMIT ${pageStart}, ${pageEnd}`;
+        const query = `SELECT f.foodIdx,  f.foodMeat1, f.foodMeat2, f.foodDry, f.foodImg, f.foodManu, f.foodName, f.foodLink,  count(r.reviewIdx) as reviewCount, r.reviewIdx, r.reviewInfo, round(avg(r.reviewRating), 1) as avgRating, round(avg(r.reviewPrefer), 1) as avgPrefer FROM food f LEFT JOIN review r ON f.foodIdx = r.foodIdx WHERE f.foodName Like "%${foodName}%" or f.foodManu Like "%${foodManu}%" GROUP BY f.foodIdx ORDER BY avgPrefer DESC LIMIT ${pageStart}, ${pageEnd}`;
         try {
             const result = await pool.queryParam(query);
             return result;
@@ -71,7 +71,7 @@ const search = {
     },
 
     reviewALL: async(foodIdx) => {
-        const query = `SELECT p.profileIdx, p.profileImg, p.profileName, p.profileInfo, p.profileAge, r.reviewIdx, r.reviewRating, r.reviewPrefer, f.foodIdx FROM profile p JOIN review r ON p.profileIdx = r.profileIdx JOIN food f ON f.foodIdx = r.foodIdx WHERE f.foodIdx = ${foodIdx}`;
+        const query = `SELECT p.profileIdx, p.profileImg, p.profileName, p.profileAge, r.reviewIdx, r.reviewInfo, r.reviewRating, r.reviewPrefer, f.foodIdx FROM profile p JOIN review r ON p.profileIdx = r.profileIdx JOIN food f ON f.foodIdx = r.foodIdx WHERE f.foodIdx = ${foodIdx}`;
         try {
             const result = await pool.queryParam(query);
             return result;

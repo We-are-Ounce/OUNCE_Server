@@ -1,6 +1,8 @@
 # :heart_eyes_cat: Welcome to Ounce Server :heart_eyes_cat:
 
-<img src="https://user-images.githubusercontent.com/45676906/86876305-602e1080-c11f-11ea-96b3-5732ecea5017.jpg" width="300" height="300">
+![KakaoTalk_20200717_200246592](https://user-images.githubusercontent.com/55784772/87780370-8e22fb80-c869-11ea-8017-08ac66426991.jpg)
+![KakaoTalk_20200717_200246592_01](https://user-images.githubusercontent.com/55784772/87780388-9c711780-c869-11ea-9150-ba8d86a6ca8f.jpg)
+
 
 고양이들은 입맛이 까다로워, 집사들은 성공확률이 높은 시도를 위해 먹여본 캣푸드를 따로 기록하고 있습니다. 
 
@@ -24,11 +26,9 @@
 
 ### :open_file_folder: 기능 명세서 및 역할 분담
 
-![기능1](./ounce/img/기능1.jpg)
+![기능 명세](https://user-images.githubusercontent.com/55784772/87781603-eeb33800-c86b-11ea-9570-c3549c04fe34.PNG)
 
-![기능2](./ounce/img/기능2.jpg)
 
-![기능3](./ounce/img/기능3.jpg)
 
 
 <br>
@@ -40,6 +40,10 @@
 ### :computer: package.json
 
 :smiley_cat: jsonwebtoken
+
+:smiley_cat: moment
+
+:smiley_cat: moment-timezone
 
 :smiley_cat: multer
 
@@ -60,26 +64,26 @@
 :smiley_cat: aws-sdk
 
 ```
-"dependencies": {
-    "cookie-parser": "~1.4.4",
+ "dependencies": {
+    "aws-sdk": "^2.713.0",
+    "cookie-parser": "^1.4.5",
     "debug": "~2.6.9",
     "express": "~4.16.1",
-    "http-errors": "~1.6.3",
-    "jade": "~1.11.0",
-    "jsonwebtoken": "^8.5.1",
-    "morgan": "~1.9.1",
-    "multer": "^1.4.2",
-    "nodemon": "^2.0.4",
-    "pbkdf2": "^3.0.17",
-    "promise-mysql": "^4.1.3",
-    "rand-token": "^1.0.1",
     "hangul-chosung-search-js": "^1.1.3",
     "hangul-js": "^0.2.6",
     "http-errors": "~1.6.3",
     "inko": "^1.1.1",
+    "jade": "~1.11.0",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.27.0",
+    "moment-timezone": "^0.5.31",
+    "morgan": "~1.9.1",
+    "multer": "^1.4.2",
     "multer-s3": "^2.9.0",
-    "aws-sdk": "^2.696.0",
-
+    "nodemon": "^2.0.4",
+    "pbkdf2": "^3.1.1",
+    "promise-mysql": "^4.1.3",
+    "rand-token": "^1.0.1"
   }
 ```
 
@@ -112,12 +116,31 @@
 
 
 ####  - 입맛이 비슷한 고양이 추천  :cat:  
-: 내 고양이가 남긴 리뷰들의 평점을 기반으로
+: 내 고양이가 남긴 리뷰들의 기호도을 기반으로
 입맛이 비슷한 고양이를 찾아 유사도와 함께 보여줍니다.
 
 
 <br>
 
+### :space_invader: PM2
+#### 유저
+<img width="400" alt="0" src="https://user-images.githubusercontent.com/55784772/87780318-6cc20f80-c869-11ea-9fcd-26ff777e3564.png">
+
+
+#### 프로필
+<img width="400" alt="1" src="https://user-images.githubusercontent.com/55784772/87779477-cb868980-c867-11ea-8b1d-421bd7bb6219.png">
+
+
+#### 팔로우 요청, 검색, 리뷰 추가
+<img width="400" alt="2" src="https://user-images.githubusercontent.com/55784772/87779769-510a3980-c868-11ea-9f58-abbc9ca1c2ab.png">
+
+#### 리뷰 수정, 정렬
+<img width="400" alt="3" src="https://user-images.githubusercontent.com/55784772/87779785-5c5d6500-c868-11ea-904a-18743ba843fb.png">
+
+#### 필터, 추천
+<img width="400" alt="4" src="https://user-images.githubusercontent.com/55784772/87779840-70a16200-c868-11ea-8be3-ad4dee22afdd.png">
+
+<
 
 ### :eyes: 팀별 역할분담
 
