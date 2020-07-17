@@ -20,6 +20,7 @@ module.exports = {
     EMPTY_TOKEN : "토큰이 존재하지 않습니다",
     SUCCESS_PROFILE_READ : "프로필 조회성공입니다",
     PERMISSION_DENIED_UPDATE_PROFILE : "프로필 수정 권한이 없습니다",
+    NOT_ADD_PROFILE_SUCCESS : "프로필을 등록할 수 있습니다",
     SUCCESS_PROFILE_REVIEW : "프로필 리뷰 전체 조회",
     PERMISSION_DENIED_UPDATE_REVIEW : "리뷰 등록 권한이 없습니다",
     SUCCESS_UPDATE_PROFILE : "프로필 수정 성공입니다",
@@ -36,6 +37,7 @@ module.exports = {
     READ_RECOMMEND_SUCCESS:"추천 리스트 조회 성공",
     EXCEEDED_PROFILE_NUMBER: "프로필 등록 횟수 초과",
     ADD_REVIEW_SUCCESS: '리뷰 추가 성공',
+    DELETE_POST : "리뷰를 삭제했습니다",
     NO_ADD_REVIEW : "리뷰를 등록할 수 없습니다",
     SUCCESS_REVIEW : "리뷰를 등록할 수 있습니다",
 };
