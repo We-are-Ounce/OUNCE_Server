@@ -224,14 +224,15 @@ module.exports = {
             return;
         }
 
+        const profileIdx = req.params.profileIdx;
         const reviewIdx = req.params.reviewIdx;
 
-        if(!reviewIdx){
+        if(!reviewIdx || !profileIdx){
             return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
         }
 
         // 내가쓴 글이 아니라면 삭제 불가
-        const checkMyReview = await Review.checkMyReview(userIdx,reviewIdx);
+        const checkMyReview = await Review.checkMyReview(userIdx,reviewIdx, profileIdx);
         
         if (!checkMyReview){
             return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.PERMISSION_DENIED_DELETE_POST));

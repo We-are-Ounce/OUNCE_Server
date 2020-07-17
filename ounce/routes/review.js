@@ -31,7 +31,7 @@ router.get('/:profileIdx/date', reviewControllers.sortByDate);
 router.put('/update/:reviewIdx',  middleware.userJwt, reviewControllers.updateReview);
 
 //내가 쓴 리뷰 삭제
-router.delete('/delete/:reviewIdx',  middleware.userJwt, reviewControllers.deleteReview);
+router.delete('/delete/:profileIdx/:reviewIdx',  middleware.userJwt, reviewControllers.deleteReview);
 router.post('/limit', reviewControllers.limitReview);
 
 module.exports = router;
