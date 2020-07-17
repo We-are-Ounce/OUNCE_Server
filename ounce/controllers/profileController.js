@@ -43,6 +43,12 @@ module.exports = {
 
     profileRegister: async(req, res) => {
         const userIdx = req.userIdx;
+
+        if (!userIdx) {
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.EMPTY_TOKEN));
+            return;
+        }
+
         const profileImg = req.file.location;
         const {
             profileName,
@@ -71,7 +77,7 @@ module.exports = {
         const userIdx = req.userIdx;
 
         if (!userIdx) {
-            res.status(statusCode.BAD_REQUEST).send(util.util(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+            res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
             return;
         }
 
@@ -231,7 +237,7 @@ module.exports = {
         const userIdx = req.userIdx;
         const profileIdx = req.params.profileIdx;
         
-        if (!userIdx) {
+        if (!userIdx || !profileIdx) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
             return;
         }
