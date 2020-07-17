@@ -1,6 +1,8 @@
 # :heart_eyes_cat: Welcome to Ounce Server :heart_eyes_cat:
 
-<img src="https://user-images.githubusercontent.com/45676906/86876305-602e1080-c11f-11ea-96b3-5732ecea5017.jpg" width="300" height="300">
+![KakaoTalk_20200717_200246592](https://user-images.githubusercontent.com/55784772/87780370-8e22fb80-c869-11ea-8017-08ac66426991.jpg)
+![KakaoTalk_20200717_200246592_01](https://user-images.githubusercontent.com/55784772/87780388-9c711780-c869-11ea-9150-ba8d86a6ca8f.jpg)
+
 
 고양이들은 입맛이 까다로워, 집사들은 성공확률이 높은 시도를 위해 먹여본 캣푸드를 따로 기록하고 있습니다. 
 
@@ -113,11 +115,30 @@
 
 
 ####  - 입맛이 비슷한 고양이 추천  :cat:  
-: 내 고양이가 남긴 리뷰들의 평점을 기반으로
+: 내 고양이가 남긴 리뷰들의 기호도을 기반으로
 입맛이 비슷한 고양이를 찾아 유사도와 함께 보여줍니다.
 
 
 <br>
+
+### PM2
+#### 유저
+<img width="212" alt="0" src="https://user-images.githubusercontent.com/55784772/87780318-6cc20f80-c869-11ea-9fcd-26ff777e3564.png">
+
+
+#### 프로필
+<img width="308" alt="1" src="https://user-images.githubusercontent.com/55784772/87779477-cb868980-c867-11ea-8b1d-421bd7bb6219.png">
+
+
+#### 팔로우 요청, 검색, 리뷰 추가
+<img width="340" alt="2" src="https://user-images.githubusercontent.com/55784772/87779769-510a3980-c868-11ea-9f58-abbc9ca1c2ab.png">
+
+#### 리뷰 수정, 정렬
+<img width="339" alt="3" src="https://user-images.githubusercontent.com/55784772/87779785-5c5d6500-c868-11ea-904a-18743ba843fb.png">
+
+#### 필터, 추천, 
+<img width="339" alt="4" src="https://user-images.githubusercontent.com/55784772/87779840-70a16200-c868-11ea-8be3-ad4dee22afdd.png">
+
 
 
 ### :eyes: 팀별 역할분담
