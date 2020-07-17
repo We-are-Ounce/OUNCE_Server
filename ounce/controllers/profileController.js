@@ -93,9 +93,6 @@ module.exports = {
         const profileIdx = req.params.profileIdx;
         const profileImg = req.file.location;
 
-        console.log(userIdx);
-        console.log(profileIdx);
-
         const {
             profileName,
             profileWeight,
