@@ -203,7 +203,8 @@ module.exports = {
         const {myprofileIdx, followingIdx } = req.body;
 
         if(!myprofileIdx || !followingIdx ) {
-            res.status(statusCode.BAD_REQUEST, resMessage.NULL_VALUE, {})
+            res.status(statusCode.BAD_REQUEST).send(statusCode.BAD_REQUEST, resMessage.NULL_VALUE);
+            return;
         }
         const idx = await Profile.deleteFollow(myprofileIdx, followingIdx);
 
