@@ -188,6 +188,7 @@ module.exports = {
     updateReview: async(req, res) => {
         const reviewIdx = req.params.reviewIdx;
         const userIdx = req.userIdx;
+        const profileIdx = req.body;
 
         if (!reviewIdx) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
@@ -201,7 +202,7 @@ module.exports = {
 
         const {reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, foodIdx, profileIdx} = req.body;
         
-        const checkMyReview = await Review.checkMyReview(userIdx, reviewIdx);
+        const checkMyReview = await Review.checkMyReview(userIdx, reviewIdx, profileIdx);
 
         if(!checkMyReview){
             return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.PERMISSION_DENIED_UPDATE_POST));
