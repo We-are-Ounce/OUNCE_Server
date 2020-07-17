@@ -1,20 +1,13 @@
 # :heart_eyes_cat: Welcome to Ounce Server :heart_eyes_cat:
 
-<div>
- <img src="https://user-images.githubusercontent.com/45676906/87784220-d8f44180-c870-11ea-9821-9ea4a09e8b26.jpg" width="200" height="200">
- <img src="https://user-images.githubusercontent.com/55784772/87793259-f977c800-c87f-11ea-816e-bc99f55c040d.png" width="200" height="200">
- <img src="https://user-images.githubusercontent.com/45676906/87784325-02ad6880-c871-11ea-9008-5e7f6cc57a04.jpg" width="200" height="200">
- 
-</div>
+<img src="https://user-images.githubusercontent.com/45676906/87784220-d8f44180-c870-11ea-9821-9ea4a09e8b26.jpg" width="200" height="200">
+<img src="https://user-images.githubusercontent.com/45676906/87784325-02ad6880-c871-11ea-9008-5e7f6cc57a04.jpg" width="200" height="200">
 
-<br>
 
 
 고양이들은 입맛이 까다로워, 집사들은 성공확률이 높은 시도를 위해 먹여본 캣푸드를 따로 기록하고 있습니다. 
 
 저희는 이러한 집사들의 고민을 해결하기 위해 직관적인 기록, 서로의 목록 공유, 입맛이 비슷한 고양이 추천 기능을 제공하고 있습니다.
-
-<br>
 
 ### 기록부터 선택까지, 온스가 함께합니다.
 
@@ -24,7 +17,6 @@
 
 :smiley_cat: <b>[API Specification](https://github.com/We-are-Ounce/OUNCE_Server/wiki)</b>
 
-<br>
 
 ### :rainbow: :unicorn: Peaceful Server Team :unicorn: :rainbow:
 ![단체사진](./ounce/img/단체사진.jpg)
@@ -35,8 +27,7 @@
 
 ### :open_file_folder: 기능 명세서 및 역할 분담
 
-![기능명세_최종](https://user-images.githubusercontent.com/55784772/87792292-a5201880-c87e-11ea-9cf9-60b6e485210b.PNG)
-
+![기능 명세](https://user-images.githubusercontent.com/55784772/87781603-eeb33800-c86b-11ea-9570-c3549c04fe34.PNG)
 
 
 
@@ -126,7 +117,7 @@
 
 
 ####  - 입맛이 비슷한 고양이 추천  :cat:  
-: 내 고양이가 남긴 리뷰들의 기호도을 기반으로
+: 내 고양이가 남긴 리뷰들의 기호도를 기반으로
 입맛이 비슷한 고양이를 찾아 유사도와 함께 보여줍니다.
 
 
@@ -150,7 +141,7 @@
 #### 필터, 추천
 <img width="400" alt="4" src="https://user-images.githubusercontent.com/55784772/87779840-70a16200-c868-11ea-8be3-ad4dee22afdd.png">
 
-<
+
 
 ### :eyes: 팀별 역할분담
 
