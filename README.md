@@ -1,7 +1,8 @@
 # :heart_eyes_cat: Welcome to Ounce Server :heart_eyes_cat:
 
-![KakaoTalk_20200717_200246592](https://user-images.githubusercontent.com/55784772/87780370-8e22fb80-c869-11ea-8017-08ac66426991.jpg)
-![KakaoTalk_20200717_200246592_01](https://user-images.githubusercontent.com/55784772/87780388-9c711780-c869-11ea-9150-ba8d86a6ca8f.jpg)
+<img src="https://user-images.githubusercontent.com/45676906/87784220-d8f44180-c870-11ea-9821-9ea4a09e8b26.jpg" width="200" height="200">
+<img src="https://user-images.githubusercontent.com/45676906/87784325-02ad6880-c871-11ea-9008-5e7f6cc57a04.jpg" width="200" height="200">
+
 
 
 고양이들은 입맛이 까다로워, 집사들은 성공확률이 높은 시도를 위해 먹여본 캣푸드를 따로 기록하고 있습니다. 
