@@ -20,6 +20,7 @@ module.exports = {
     EMPTY_TOKEN : "토큰이 존재하지 않습니다",
     SUCCESS_PROFILE_READ : "프로필 조회성공입니다",
     PERMISSION_DENIED_UPDATE_PROFILE : "프로필 수정 권한이 없습니다",
+    NOT_ADD_PROFILE_SUCCESS : "프로필을 등록할 수 있습니다",
     SUCCESS_PROFILE_REVIEW : "프로필 리뷰 전체 조회",
     PERMISSION_DENIED_UPDATE_REVIEW : "리뷰 등록 권한이 없습니다",
     SUCCESS_UPDATE_PROFILE : "프로필 수정 성공입니다",
