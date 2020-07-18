@@ -206,6 +206,7 @@ module.exports = {
             return;
         }
 
+        console.log("test " + userIdx);
         
         const checkMyReview = await Review.checkMyReview(userIdx, reviewIdx, profileIdx);
 
@@ -214,7 +215,7 @@ module.exports = {
         }
 
         const result = await Review.updateReview(reviewIdx, reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, foodIdx, profileIdx, userIdx);
-        
+        console.log(result);
         return res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_REVIEW_UPDATE));
     },
 
