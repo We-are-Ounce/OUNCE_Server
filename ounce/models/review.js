@@ -131,7 +131,8 @@ const review = {
         const query = `SELECT * FROM ${table} WHERE userIdx ="${userIdx}" and reviewIdx = "${reviewIdx}" and profileIdx = ${profileIdx}`;
         try {
             const result = await pool.queryParam(query);
-            console.log(result);
+            console.log(result.length);
+            console.log(result[0].length);
             if (result.length === 0) {
                 return false;
             }

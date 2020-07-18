@@ -196,6 +196,7 @@ module.exports = {
 
         const {reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, foodIdx, profileIdx} = req.body;
 
+        console.log(review)
         console.log(userIdx);
         console.log(profileIdx);
         console.log(reviewIdx);
