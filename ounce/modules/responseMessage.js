@@ -38,6 +38,7 @@ module.exports = {
     EXCEEDED_PROFILE_NUMBER: "프로필 등록 횟수 초과",
     ADD_REVIEW_SUCCESS: '리뷰 추가 성공',
     DELETE_POST : "리뷰를 삭제했습니다",
+    SUCCESS_REVIEW_UPDATE : "리뷰수정 완료입니다",
     NO_ADD_REVIEW : "리뷰를 등록할 수 없습니다",
     SUCCESS_REVIEW : "리뷰를 등록할 수 있습니다",
 };

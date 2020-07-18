@@ -195,25 +195,26 @@ module.exports = {
         }
 
         const {reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, foodIdx, profileIdx} = req.body;
+
         console.log(userIdx);
         console.log(profileIdx);
         console.log(reviewIdx);
         console.log(foodIdx);        
-        if (!reviewIdx || !reviewRating || !reviewPrefer || !reviewInfo || !reviewMemo || !reviewStatus || !reviewSmell || !reviewEye || !reviewEar || !reviewHair || !reviewVomit || !foodIdx || !profileIdx) {
+        if (!reviewIdx || !reviewRating || !reviewPrefer || !reviewInfo || !reviewMemo || !reviewStatus || !reviewSmell || !foodIdx || !profileIdx) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
             return;
         }
 
         
         const checkMyReview = await Review.checkMyReview(userIdx, reviewIdx, profileIdx);
-        console.log("check: "+checkMyReview)
+
         if(!checkMyReview){
             return await res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.PERMISSION_DENIED_UPDATE_POST));
         }
 
         const result = await Review.updateReview(reviewIdx, reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, foodIdx, profileIdx, userIdx);
         
-        return res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.POSTING_UPDATE_SUCCESS));
+        return res.status(statusCode.OK).send(util.success(statusCode.OK, resMessage.SUCCESS_REVIEW_UPDATE));
     },
 
     deleteReview: async (req,res) => {
