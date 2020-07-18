@@ -202,6 +202,7 @@ module.exports = {
         }
         console.log(userIdx);
         console.log(profileIdx);
+        console.log(foodIdx);
         
         const checkMyReview = await Review.checkMyReview(userIdx, reviewIdx, profileIdx);
 
