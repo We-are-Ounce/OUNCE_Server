@@ -125,9 +125,13 @@ const review = {
         }
     },
     checkMyReview: async (userIdx, reviewIdx, profileIdx) =>{
+        console.log(userIdx)
+        console.log(reviewIdx);
+        console.log(profileIdx);
         const query = `SELECT * FROM ${table} WHERE userIdx ="${userIdx}" and reviewIdx = "${reviewIdx}" and profileIdx = ${profileIdx}`;
         try {
             const result = await pool.queryParam(query);
+            console.log(result);
             if (result.length === 0) {
                 return false;
             }
