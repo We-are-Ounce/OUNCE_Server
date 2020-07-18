@@ -195,14 +195,14 @@ module.exports = {
         }
 
         const {reviewRating, reviewPrefer, reviewInfo, reviewMemo, reviewStatus, reviewSmell, reviewEye, reviewEar, reviewHair, reviewVomit, foodIdx, profileIdx} = req.body;
-        
+        console.log(userIdx);
+        console.log(profileIdx);
+        console.log(foodIdx);        
         if (!reviewIdx || !reviewRating || !reviewPrefer || !reviewInfo || !reviewMemo || !reviewStatus || !reviewSmell || !reviewEye || !reviewEar || !reviewHair || !reviewVomit || !foodIdx || !profileIdx) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
             return;
         }
-        console.log(userIdx);
-        console.log(profileIdx);
-        console.log(foodIdx);
+
         
         const checkMyReview = await Review.checkMyReview(userIdx, reviewIdx, profileIdx);
 
