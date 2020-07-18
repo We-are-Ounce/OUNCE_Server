@@ -200,7 +200,13 @@ module.exports = {
         console.log(userIdx);
         console.log(profileIdx);
         console.log(reviewIdx);
-        console.log(foodIdx);        
+        console.log(foodIdx);
+        console.log(reviewRating);
+        console.log(reviewPrefer);
+        console.log(reviewInfo);
+        console.log(reviewMemo);
+        console.log(reviewStatus);
+        console.log(reviewSmell);        
         if (!reviewIdx || !reviewRating || !reviewPrefer || !reviewInfo || !reviewMemo || !reviewStatus || !reviewSmell || !foodIdx || !profileIdx) {
             res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
             return;
